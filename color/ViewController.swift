@@ -15,10 +15,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
+<<<<<<< HEAD
         imagePicker.delegate = self
         createColorListButton()
         createAlbumButton()
         createCameraButton()
+=======
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        createColorListButton()
+>>>>>>> 7cb539778ae7074a2201d4ccf19e50f77816e2ef
     }
 
     func createColorListButton() {
@@ -37,6 +43,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.navigationController?.pushViewController(newViewController, animated: true)
     }
 
+<<<<<<< HEAD
     func createAlbumButton() {
         let albumButton = UIButton()
         albumButton.frame = CGRect(x: self.view.bounds.size.width/4, y: self.view.bounds.size.height/2, width: self.view.bounds.size.width/2, height: 50)
