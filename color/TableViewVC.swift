@@ -1,95 +1,122 @@
 //
-//  TableViewVC.swift
-//  color
-//
-//  Created by Loc Tran on 4/27/17.
-//  Copyright © 2017 LocTran. All rights reserved.
-//
+//  MainScreen.swift
+//  TechmasterSwiftApp
+
 
 import UIKit
 
-class TableViewVC: UITableViewController {
+struct Menu {
+    var title : ColorBar
+    var viewClass: String
+}
 
+struct MenuSection {
+    var section: String
+    var menus: [Menu]
+}
+
+class TableViewVC: UITableViewController {
+    var about: String!
+    
+    var menu: [MenuSection]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        let barButoonItem = UIBarButtonItem(title: "About", style: UIBarButtonItemStyle.plain, target: self, action: #selector(TableViewVC.onAbout))
+        self.navigationItem.rightBarButtonItem = barButoonItem
+        
+        self.tableView.contentInset = UIEdgeInsetsMake(20,0,0,0)
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func onAbout(){
+        let alert = UIAlertController.init(title: "Info",
+                                           message: about,
+                                           preferredStyle: .alert)
+        
+        let defaultAction = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.default, handler: nil)
+        
+        alert.addAction(defaultAction)
+        self.present(alert, animated: true, completion: nil)
     }
-
+    
+    
+    
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return menu.count
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        
+        let menuSection: MenuSection  = self.menu[section]
+        let menuArray: [Menu] = menuSection.menus
+        
+        return menuArray.count
     }
-
-    /*
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 15.0
+    }
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let menuSection: MenuSection = self.menu[section]
+        return menuSection.section
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return view.bounds.size.width/5
+    }
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "id")
+        let menuSection: MenuSection = self.menu[indexPath.section]
+        let menuItems = menuSection.menus
+        let item: Menu = menuItems[indexPath.row]
+        cell.backgroundView = item.title
+        cell.accessoryType = .none
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let menuSection: MenuSection = self.menu[indexPath.section]
+        let menuItems = menuSection.menus
+        let item: Menu = menuItems[indexPath.row]
+        let xibClass = item.viewClass
+        let detailScreen: UIViewController!
+        let appName =  Bundle.main.infoDictionary!["CFBundleName"] as! String
+        // check if class exits
+        if let aClass = NSClassFromString("\(appName).\(xibClass)") as? UIViewController.Type {
+            
+            if (Bundle.main.path(forResource: xibClass, ofType: "nib") == nil){
+                //if the xib file does not exits
+                detailScreen = aClass.init() as UIViewController
+            }else{
+                detailScreen = aClass.init(nibName:xibClass,bundle:nil) as UIViewController
+                
+            }
+            //            detailScreen.title = item.title
+            (detailScreen as! DetailColorVC).delegateMain = self
+            (detailScreen as! DetailColorVC).indexSection = indexPath.section
+            
+            self.navigationController!.pushViewController(detailScreen, animated: true)
+            
+        }else{
+            let alert = UIAlertController.init(title: "Warning",
+                                               message: "Please implement screen \(xibClass)",
+                preferredStyle: .alert)
+            
+            let defaultAction = UIAlertAction.init(title: "Ok", style: UIAlertActionStyle.default, handler: nil)
+            
+            alert.addAction(defaultAction)
+            self.present(alert, animated: true, completion: nil)
+        }
+        
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }
