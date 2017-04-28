@@ -9,19 +9,29 @@
 import UIKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
-
+    
     let imagePicker = UIImagePickerController()
     var baseImage = UIImage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.white
         imagePicker.delegate = self
         createColorListButton()
         createAlbumButton()
         createCameraButton()
-
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        super.viewWillDisappear(animated)
+    }
+    
     func createColorListButton() {
         let colorlistButton = UIButton()
         colorlistButton.frame = CGRect(x: self.view.bounds.size.width/4, y: self.view.bounds.size.height/3, width: self.view.bounds.size.width/2, height: 50)
@@ -37,7 +47,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let newViewController = ColorListTVC()
         self.navigationController?.pushViewController(newViewController, animated: true)
     }
-
+    
     func createAlbumButton() {
         let albumButton = UIButton()
         albumButton.frame = CGRect(x: self.view.bounds.size.width/4, y: self.view.bounds.size.height/2, width: self.view.bounds.size.width/2, height: 50)
@@ -48,7 +58,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         albumButton.isUserInteractionEnabled = true
         self.view.addSubview(albumButton)
     }
- 
+    
     func pushToAlbumView() {
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
@@ -88,4 +98,5 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
 }
+
 

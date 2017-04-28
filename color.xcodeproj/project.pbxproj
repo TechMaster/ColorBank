@@ -18,6 +18,7 @@
 		19E808CA1EB1937E00EFEE50 /* DetailColorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808C91EB1937E00EFEE50 /* DetailColorVC.swift */; };
 		19E808D01EB1A9AF00EFEE50 /* colorData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 19E808CF1EB1A9AF00EFEE50 /* colorData.plist */; };
 		19E808D21EB1AC1600EFEE50 /* ColorListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808D11EB1AC1600EFEE50 /* ColorListTVC.swift */; };
+		CFB6A0581EB1DB10000D921B /* ColorListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB6A0571EB1DB10000D921B /* ColorListCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		19E808C91EB1937E00EFEE50 /* DetailColorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailColorVC.swift; sourceTree = "<group>"; };
 		19E808CF1EB1A9AF00EFEE50 /* colorData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = colorData.plist; sourceTree = "<group>"; };
 		19E808D11EB1AC1600EFEE50 /* ColorListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorListTVC.swift; sourceTree = "<group>"; };
+		CFB6A0571EB1DB10000D921B /* ColorListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorListCell.swift; path = ../ColorListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,15 +68,19 @@
 		19E808AD1EB18EE700EFEE50 /* color */ = {
 			isa = PBXGroup;
 			children = (
-				19E808CF1EB1A9AF00EFEE50 /* colorData.plist */,
 				19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */,
 				19E808B01EB18EE700EFEE50 /* ViewController.swift */,
-
 				19E808D11EB1AC1600EFEE50 /* ColorListTVC.swift */,
+				CFB6A0571EB1DB10000D921B /* ColorListCell.swift */,
 				19E808C51EB192DE00EFEE50 /* ColorBar.swift */,
-
-				19E808C51EB192DE00EFEE50 /* ColorBar.swift */,
-
+				19E808B21EB18EE700EFEE50 /* Main.storyboard */,
+				19E808B81EB18EE700EFEE50 /* Assets.xcassets */,
+				19E808BA1EB18EE700EFEE50 /* LaunchScreen.storyboard */,
+				19E808C71EB1934800EFEE50 /* PieChart.swift */,
+				19E808C91EB1937E00EFEE50 /* DetailColorVC.swift */,
+				19E808B51EB18EE700EFEE50 /* color.xcdatamodeld */,
+				19E808CF1EB1A9AF00EFEE50 /* colorData.plist */,
+				19E808BD1EB18EE700EFEE50 /* Info.plist */,
 			);
 			path = color;
 			sourceTree = "<group>";
@@ -153,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19E808B11EB18EE700EFEE50 /* ViewController.swift in Sources */,
+				CFB6A0581EB1DB10000D921B /* ColorListCell.swift in Sources */,
 				19E808B71EB18EE700EFEE50 /* color.xcdatamodeld in Sources */,
 				19E808C81EB1934800EFEE50 /* PieChart.swift in Sources */,
 				19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */,
