@@ -15,7 +15,6 @@ struct ColorItem {
 
 class ColorListTVC: UITableViewController {
     
-    
     var colorItemArray = [ColorItem]()
     var sectionCount: Int = 0
     var arrData = NSArray()
@@ -25,6 +24,7 @@ class ColorListTVC: UITableViewController {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         loadData()
+        
     }
     func loadData(){
         
@@ -95,6 +95,16 @@ class ColorListTVC: UITableViewController {
         cell.addSubview(cell.cell)
         cell.backgroundColor = UIColor.blue
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let detailColorVC = DetailColorVC()
+        
+        detailColorVC.colorArr = colorItemArray
+        detailColorVC.indexSection = indexPath.section
+        tableView.reloadData()
+        self.navigationController?.pushViewController(detailColorVC, animated: true)
     }
     
     

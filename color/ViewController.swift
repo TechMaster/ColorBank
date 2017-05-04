@@ -29,6 +29,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewWillDisappear(animated)
     }
     
+    //MARK: Color List
     func createColorListButton() {
         let colorlistButton = UIButton()
         colorlistButton.frame = CGRect(x: self.view.bounds.size.width/4, y: self.view.bounds.size.height/3, width: self.view.bounds.size.width/2, height: 50)
@@ -45,6 +46,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.navigationController?.pushViewController(newViewController, animated: true)
     }
     
+    //MARK: Album
     func createAlbumButton() {
         let albumButton = UIButton()
         albumButton.frame = CGRect(x: self.view.bounds.size.width/4, y: self.view.bounds.size.height/2, width: self.view.bounds.size.width/2, height: 50)
@@ -67,7 +69,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
-    
+    //MARK: Camera
     func createCameraButton() {
         let cameraButton = UIButton()
         cameraButton.frame = CGRect(x: self.view.bounds.size.width/4, y: self.view.bounds.size.height*2/3, width: self.view.bounds.size.width/2, height: 50)
@@ -90,6 +92,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
+    //MARK: Delegate image picker
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             baseImage = pickedImage

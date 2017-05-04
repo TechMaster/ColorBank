@@ -10,13 +10,10 @@ import UIKit
 
 class ColorBar: UIView {
     
-    var arrColor: [String]!
-    
     init(frame: CGRect, color_0: String, color_1: String, color_2: String, color_3: String, color_4: String ) {
         
         super.init(frame: frame)
-        arrColor = [String]()
-        arrColor = [color_0,color_1,color_2,color_3,color_4]
+        
         
         let label_0 = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width/5, height: frame.width/5))
         let label_1 = UILabel(frame: CGRect(x: frame.width/5, y: 0, width: frame.width/5, height: frame.width/5))
@@ -40,10 +37,6 @@ class ColorBar: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func getArrColor()->[String]{
-        return arrColor
     }
     
 }

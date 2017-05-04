@@ -9,15 +9,15 @@
 import UIKit
 
 class DetailColorVC: UIViewController {
-    var delegateMain: ColorListTVC!
+    
+    var colorArr: [ColorItem]!
     var indexSection: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let color_Bar = (delegateMain.menu[indexSection].menus.first?.title)!
-        let arr:[String] = color_Bar.getArrColor()
         
+        let arr:[String] = colorArr[indexSection].colorArray
         
         let frame = CGRect(x: 0, y: self.view.frame.height/2, width: self.view.frame.width, height: self.view.frame.width)
         
@@ -26,15 +26,6 @@ class DetailColorVC: UIViewController {
         self.view.addSubview(drawInfo(arr: arr))
         
     }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch : UITouch = (event?.allTouches?.first)!
-        let location = touch.location(in: self.view)
-        let pickedColor = self.view.getPixelColorAtPoint(point: location, sourceView: self.view)
-        
-        print(pickedColor)
-    }
-    
     
     func getUIColor(arr: [String])->[UIColor]{
         var cl : [UIColor] = []
