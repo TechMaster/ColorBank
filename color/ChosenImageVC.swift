@@ -6,96 +6,132 @@
 //  Copyright © 2017 LocTran. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
-class ChosenImageVC: UIViewController {
+class ChosenImageVC: UIViewController, UIScrollViewDelegate {
     
-    var magView = YPMagnifyingView()
     let imageView = UIImageView()
     var image = UIImage()
-    var pickedColor = String()
     
+    var scrollView = UIScrollView()
+    var isZoomIn = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        scrollView.delegate = self
         createImageView()
         
     }
     
-    //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    //
-    //        for v in view.subviews{
-    //            if v is UILabel{
-    //                v.removeFromSuperview()
-    //            }
-    //        }
-    //
-    //        let touch: UITouch = (event?.allTouches?.first)!
-    //        let location = touch.location(in: self.magView)
-    //        if location.y <= (self.navigationController?.navigationBar.bounds.size.height)!{
-    //            self.navigationController?.setNavigationBarHidden(false, animated: true)
-    //
-    //        }else {
-    //
-    //            self.navigationController?.setNavigationBarHidden(true, animated: true)
-    //            pickedColor = self.magView.getPixelColorAtPoint(point: location, sourceView: self.magView)
-    //
-    //            if (location.x < self.view.bounds.size.width/4){
-    //                createColorLabel(x: location.x, y: location.y - self.view.bounds.size.width/4)
-    //            }else{
-    //                createColorLabel(x: location.x - self.view.bounds.size.width/4, y: location.y - self.view.bounds.size.width/4)
-    //            }
-    //
-    //        }
-    //    }
-    
-//    func createColorLabel(x: CGFloat, y: CGFloat, color: String) {
-//        
-//        let colorLabel = UILabel()
-//        colorLabel.frame = CGRect(x: x,
-//                                  y: y,
-//                                  width: self.view.bounds.size.width/4,
-//                                  height: self.view.bounds.size.width/4)
-//        
-//        colorLabel.text = color
-//        colorLabel.backgroundColor = UIColor(hexString: color)
-//        colorLabel.textAlignment = .center
-//        colorLabel.layer.borderWidth = 2
-//        colorLabel.layer.masksToBounds = true
-//        
-//        if colorLabel.backgroundColor?.isLight() == true {
-//            colorLabel.textColor = UIColor.black
-//            colorLabel.layer.borderColor = UIColor.black.cgColor
-//        }else{
-//            colorLabel.textColor = UIColor.white
-//            colorLabel.layer.borderColor = UIColor.white.cgColor
-//        }
-//        
-//        self.magView.addSubview(colorLabel)
-//    }
+    func createColorLabel(x: CGFloat, y: CGFloat, color: String) {
+        
+        let colorLabel = UILabel()
+        colorLabel.frame = CGRect(x: x,
+                                  y: y,
+                                  width: self.view.bounds.size.width/4,
+                                  height: self.view.bounds.size.width/4)
+        
+        colorLabel.text = color
+        colorLabel.backgroundColor = UIColor(hexString: color)
+        colorLabel.textAlignment = .center
+        colorLabel.layer.borderWidth = 2
+        colorLabel.layer.masksToBounds = true
+        
+        if colorLabel.backgroundColor?.isLight() == true {
+            colorLabel.textColor = UIColor.black
+            colorLabel.layer.borderColor = UIColor.black.cgColor
+        }else{
+            colorLabel.textColor = UIColor.white
+            colorLabel.layer.borderColor = UIColor.white.cgColor
+        }
+        
+        self.view.addSubview(colorLabel)
+    }
     
     func createImageView() {
         
-        magView = YPMagnifyingView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
-        
-        
-        self.view.addSubview(magView)
-        
-        let mag = YPMagnifyingGlass(frame:CGRect(x: magView.frame.origin.x,
-                                                 y: magView.frame.origin.y,
-                                                 width: 100,
-                                                 height: 100))
-        mag.scale = 2
-        magView.magnifyingGlass = mag
-        
-        
         imageView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
-        imageView.image = image
         imageView.contentMode = .scaleAspectFit
-        magView.addSubview(imageView)
+        imageView.image = image
+        imageView.isUserInteractionEnabled = true
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapImg(_:)))
+        tap.numberOfTapsRequired = 1
+        
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(doubleTapImg(_:)))
+        doubleTap.numberOfTapsRequired = 2
+        tap.require(toFail: doubleTap)
+        
+        self.imageView.addGestureRecognizer(tap)
+        self.imageView.addGestureRecognizer(doubleTap)
+        
+        scrollView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
+        scrollView.contentSize = CGSize(width: imageView.bounds.width, height: imageView.bounds.height)
+        scrollView.maximumZoomScale = 2
+        scrollView.minimumZoomScale = 1
+        
+        self.view.addSubview(scrollView)
+        self.scrollView.addSubview(imageView)
+        
     }
     
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
+    
+    func tapImg(_ gesture: UITapGestureRecognizer){
+        
+        for v in view.subviews{
+            if v is UILabel{
+                v.removeFromSuperview()
+            }
+        }
+        
+        let position = gesture.location(in: self.view)
+        
+        let pickedColor = self.view.getPixelColorAtPoint(point: position, sourceView: self.view)
+        
+        // Nếu chạm vào rìa bên trái, label xuất hiện bên phải
+        if (position.x < self.view.bounds.size.width/4){
+            createColorLabel(x: position.x, y: position.y - self.view.bounds.size.width/4, color: pickedColor)
+            
+        }else{ // BÌnh thường label sẽ xuất hiện bên trái
+            createColorLabel(x: position.x - self.view.bounds.size.width/4, y: position.y - self.view.bounds.size.width/4, color: pickedColor)
+            
+        }
+        
+    }
+    
+    func doubleTapImg(_ gesture: UITapGestureRecognizer){
+        
+        for v in view.subviews{
+            if v is UILabel{
+                v.removeFromSuperview()
+            }
+        }
+        
+        let position = gesture.location(in: self.imageView)
+        
+        if isZoomIn == false {
+            zoomRectForScale(scale: scrollView.zoomScale * 1.5, center: position)
+            isZoomIn = true
+        }else{
+            zoomRectForScale(scale: scrollView.zoomScale * 0.5, center: position)
+            isZoomIn = false
+        }
+    }
+    
+    func zoomRectForScale(scale: CGFloat, center: CGPoint){
+        var zoomRect = CGRect()
+        let scrollViewSize = scrollView.bounds.size
+        zoomRect.size.height = scrollViewSize.height/scale
+        zoomRect.size.width = scrollViewSize.width/scale
+        zoomRect.origin.x = center.x - (zoomRect.size.width / 2.0)
+        zoomRect.origin.y = center.y - (zoomRect.size.height / 2.0)
+        scrollView.zoom(to: zoomRect, animated: true)
+    }
 }
 
 extension UIColor {

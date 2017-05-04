@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 struct ColorItem {
     var colorName: String
     var colorArray: [String]
