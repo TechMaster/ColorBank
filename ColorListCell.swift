@@ -21,7 +21,6 @@ class ColorListCell: UITableViewCell{
         super.awakeFromNib()
         //#2 Khai báo để truyền dữ liệu vào ColorBar
         
-                    
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

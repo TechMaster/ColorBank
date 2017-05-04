@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		193BC5591EB9BDA30025A4C4 /* YPMagnifyingGlass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BC5571EB9BDA30025A4C4 /* YPMagnifyingGlass.swift */; };
+		193BC55A1EB9BDA30025A4C4 /* YPMagnifyingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193BC5581EB9BDA30025A4C4 /* YPMagnifyingView.swift */; };
 		19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */; };
 		19E808B11EB18EE700EFEE50 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808B01EB18EE700EFEE50 /* ViewController.swift */; };
 		19E808B41EB18EE700EFEE50 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19E808B21EB18EE700EFEE50 /* Main.storyboard */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		193BC5571EB9BDA30025A4C4 /* YPMagnifyingGlass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPMagnifyingGlass.swift; sourceTree = "<group>"; };
+		193BC5581EB9BDA30025A4C4 /* YPMagnifyingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPMagnifyingView.swift; sourceTree = "<group>"; };
 		19E808AB1EB18EE700EFEE50 /* color.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = color.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		19E808B01EB18EE700EFEE50 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +75,8 @@
 			isa = PBXGroup;
 			children = (
 				19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */,
+				193BC5571EB9BDA30025A4C4 /* YPMagnifyingGlass.swift */,
+				193BC5581EB9BDA30025A4C4 /* YPMagnifyingView.swift */,
 				19E808B01EB18EE700EFEE50 /* ViewController.swift */,
 				CFC2BEA11EB2F74B00F22496 /* DetectColorView */,
 				CFC2BE9F1EB2F45F00F22496 /* ColorListView */,
@@ -144,6 +150,7 @@
 				TargetAttributes = {
 					19E808AA1EB18EE700EFEE50 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = D6F4345AL3;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -185,6 +192,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				193BC55A1EB9BDA30025A4C4 /* YPMagnifyingView.swift in Sources */,
 				19E808B11EB18EE700EFEE50 /* ViewController.swift in Sources */,
 				CFB6A0581EB1DB10000D921B /* ColorListCell.swift in Sources */,
 				CFC2BEA31EB2F7BA00F22496 /* ChosenImageVC.swift in Sources */,
@@ -193,6 +201,7 @@
 				19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */,
 				19E808C61EB192DE00EFEE50 /* ColorBar.swift in Sources */,
 				19E808D21EB1AC1600EFEE50 /* ColorListTVC.swift in Sources */,
+				193BC5591EB9BDA30025A4C4 /* YPMagnifyingGlass.swift in Sources */,
 				19E808CA1EB1937E00EFEE50 /* DetailColorVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -318,7 +327,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = D6F4345AL3;
 				INFOPLIST_FILE = color/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -332,7 +341,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = D6F4345AL3;
 				INFOPLIST_FILE = color/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

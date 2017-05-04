@@ -13,9 +13,13 @@ struct ColorItem {
 }
 
 class ColorListTVC: UITableViewController {
+    
+    
     var colorItemArray = [ColorItem]()
     var sectionCount: Int = 0
     var arrData = NSArray()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")

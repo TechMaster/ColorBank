@@ -61,8 +61,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             let imagePicker = UIImagePickerController()
             
             imagePicker.delegate = self
-            imagePicker.sourceType = .photoLibrary;
-            imagePicker.allowsEditing = true
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.allowsEditing = false
             self.present(imagePicker, animated: true, completion: nil)
         }
     }
@@ -83,7 +83,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
-            imagePicker.sourceType = .camera;
+            imagePicker.sourceType = .camera
             imagePicker.allowsEditing = false
             self.present(imagePicker, animated: true, completion: nil)
             
