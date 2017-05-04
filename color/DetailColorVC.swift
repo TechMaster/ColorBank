@@ -41,13 +41,19 @@ class DetailColorVC: UIViewController {
         for i in 0..<arr.count{
             let label = UILabel(frame: CGRect(x: 0, y:64+CGFloat(i)*_height, width: infoView.frame.width, height:_height))
             label.text = arr[i]
+            
             label.textAlignment = .center
             label.backgroundColor = UIColor(hexString: arr[i])
+            
+            if label.backgroundColor?.isLight() == true {
+                label.textColor = UIColor.black
+            }else{
+                label.textColor = UIColor.white
+            }
             
             infoView.addSubview(label)
         }
         return infoView
-        
         
     }
 }
