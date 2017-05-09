@@ -29,6 +29,9 @@ class ColorListTVC: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         loadData()
         
+        filterColor(code: "#ED303C") // item0 cua giant goldfish: #69D2E7
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -46,6 +49,18 @@ class ColorListTVC: UITableViewController {
         // Don't forget to reset when view is being removed
         AppUtility.lockOrientation(.all)
     }
+    
+    func filterColor(code: String){
+        
+        for i in 0..<itemArray.count{
+            for j in 0..<itemArray[i].colorArray.count{
+                if code == itemArray[i].colorArray[j]{
+                    print(itemArray[i].colorName)
+                }
+            }
+        }
+    }
+   
     
     func loadData(){
         
@@ -140,3 +155,14 @@ class ColorListTVC: UITableViewController {
     
     
 }
+
+
+
+
+
+
+
+
+
+
+
