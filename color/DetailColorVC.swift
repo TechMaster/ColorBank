@@ -89,25 +89,23 @@ class DetailColorVC: UIViewController {
                 view.removeFromSuperview()
             }
         }
-        
         let infoViewWidth = infoView.frame.width
         let infoViewHeight = infoView.frame.height
-        
         rotateCount += 1
-        if rotateCount == 2 {
+        
+        switch rotateCount {
+        case 2:
             self.view.addSubview(drawInfo(arr: arr, width: infoViewWidth/5, height: infoViewHeight))
-        }
-        if rotateCount == 3 {
+        case 3:
             self.view.addSubview(drawInfo(arr: arr, width: infoViewWidth, height: infoViewHeight/5))
-        }
-        if rotateCount == 4 {
+        case 4:
             self.view.addSubview(drawInfo(arr: arr, width: infoViewWidth/5, height: infoViewHeight))
-        }
-        if rotateCount == 5 {
+        case 5:
             self.view.addSubview(drawInfo1(arr: arr))
             rotateCount = 1
+        default:
+            break
         }
-        
     }
     
     func drawInfo1(arr: [String])->UIView{
