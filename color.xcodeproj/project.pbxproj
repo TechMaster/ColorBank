@@ -86,10 +86,10 @@
 			isa = PBXGroup;
 			children = (
 				19E808D11EB1AC1600EFEE50 /* ColorListTVC.swift */,
-				19E808C91EB1937E00EFEE50 /* DetailColorVC.swift */,
+				CFB043E91EC17ADE009245EB /* ColorListCell.swift */,
 				CFB043E51EC17AD2009245EB /* ColorBar.swift */,
 				CFB043E71EC17AD6009245EB /* PieChart.swift */,
-				CFB043E91EC17ADE009245EB /* ColorListCell.swift */,
+				19E808C91EB1937E00EFEE50 /* DetailColorVC.swift */,
 			);
 			name = ColorListView;
 			sourceTree = "<group>";

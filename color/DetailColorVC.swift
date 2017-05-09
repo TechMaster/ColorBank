@@ -16,8 +16,10 @@ class DetailColorVC: UIViewController {
     var rotateCount: Int = 1
     var arr = [String]()
     var shareImg = UIImage()
+    var navAndStatusHeight: CGFloat!
+    var infoView : UIView! = nil
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,8 +27,11 @@ class DetailColorVC: UIViewController {
         self.view.backgroundColor = UIColor.white
         self.navigationItem.title = colorArr[indexSection].colorName
         
-        creatRotateButton()
-        createShareButton()
+        createButton(title: "Share", posX: 5).addTarget(self, action: #selector(share(sender:)), for: .touchUpInside)
+        createButton(title: "Rotate", posX: 1).addTarget(self, action: #selector(showView1), for: .touchUpInside)
+        
+        navAndStatusHeight = (self.navigationController?.navigationBar.bounds.size.height)! + UIApplication.shared.statusBarFrame.size.height
+        infoView = UIView(frame:  CGRect(x: 0, y: navAndStatusHeight, width: self.view.frame.width, height: self.view.frame.height*(4/5) - navAndStatusHeight))
         
         self.view.addSubview(drawInfo1(arr: arr))
         
@@ -56,16 +61,17 @@ class DetailColorVC: UIViewController {
         return cl
     }
     
-    func createShareButton(){
-        let btnShare = UIButton()
-        btnShare.tag = 200
-        btnShare.frame = CGRect(x: self.view.bounds.size.width*5/8, y: self.view.frame.height*(17/20), width: self.view.frame.width/4, height: self.view.frame.height/10)
-        
-        btnShare.backgroundColor = UIColor.cyan
-        btnShare.setTitle("Share", for: .normal)
-        btnShare.layer.cornerRadius = 10
-        btnShare.addTarget(self, action: #selector(share(sender:)), for: .touchUpInside )
-        self.view.addSubview(btnShare)
+    // Rút gọn 2 func createShareButton và createRotateButton
+    
+    func createButton(title: String, posX: CGFloat ) -> UIButton {
+        let Button = UIButton()
+        Button.tag = 200
+        Button.frame = CGRect(x: self.view.bounds.size.width*(posX)/8, y: self.view.bounds.size.height*17/20, width: self.view.bounds.size.width/4, height: self.view.bounds.size.height/10)
+        Button.backgroundColor = UIColor.cyan
+        Button.setTitle(title, for: .normal)
+        Button.layer.cornerRadius = 10
+        self.view.addSubview(Button)
+        return Button
     }
     
     func share(sender: UIButton){
@@ -75,20 +81,6 @@ class DetailColorVC: UIViewController {
         self.present(activityVC, animated: true, completion: nil)
     }
     
-    func creatRotateButton() {
-        let rotateButton =  UIButton()
-        rotateButton.tag = 200
-        rotateButton.frame = CGRect(x: self.view.bounds.size.width/8, y: self.view.frame.height*(17/20), width: self.view.frame.width/4, height: self.view.frame.height/10)
-        
-        rotateButton.backgroundColor = UIColor.cyan
-        rotateButton.setTitle("Rotate", for: .normal)
-        rotateButton.layer.cornerRadius = 10
-        rotateButton.addTarget(self, action: #selector(showView1), for: .touchUpInside)
-        rotateButton.isUserInteractionEnabled = true
-        
-        self.view.addSubview(rotateButton)
-        
-    }
     
     func showView1(){
         
@@ -98,15 +90,18 @@ class DetailColorVC: UIViewController {
             }
         }
         
+        let infoViewWidth = infoView.frame.width
+        let infoViewHeight = infoView.frame.height
+        
         rotateCount += 1
         if rotateCount == 2 {
-            self.view.addSubview(drawInfo2(arr: arr))
+            self.view.addSubview(drawInfo(arr: arr, width: infoViewWidth/5, height: infoViewHeight))
         }
         if rotateCount == 3 {
-            self.view.addSubview(drawInfo3(arr: arr))
+            self.view.addSubview(drawInfo(arr: arr, width: infoViewWidth, height: infoViewHeight/5))
         }
         if rotateCount == 4 {
-            self.view.addSubview(drawInfo4(arr: arr))
+            self.view.addSubview(drawInfo(arr: arr, width: infoViewWidth/5, height: infoViewHeight))
         }
         if rotateCount == 5 {
             self.view.addSubview(drawInfo1(arr: arr))
@@ -117,16 +112,12 @@ class DetailColorVC: UIViewController {
     
     func drawInfo1(arr: [String])->UIView{
         
-        let _navAndStatus = (self.navigationController?.navigationBar.bounds.size.height)! + UIApplication.shared.statusBarFrame.size.height
-        
-        let infoView = UIView(frame: CGRect(x: 0, y: _navAndStatus, width: self.view.frame.width, height: self.view.frame.height*(4/5) - _navAndStatus))
-        
-        let _height = infoView.frame.height/5
-        let _width = infoView.frame.width
+        let infoViewHeight = infoView.frame.height/5
+        let infoViewWidth = infoView.frame.width
         
         for i in 0..<arr.count{
             
-            let label = UILabel(frame: CGRect(x: 0, y: CGFloat(i)*_height, width: _width, height:_height))
+            let label = UILabel(frame: CGRect(x: 0, y: CGFloat(i)*infoViewHeight, width: infoViewWidth, height:infoViewHeight))
             
             label.text = arr[i]
             label.adjustsFontSizeToFitWidth = true
@@ -148,74 +139,21 @@ class DetailColorVC: UIViewController {
         
     }
     
-    func drawInfo2(arr: [String])->UIView{
-        
-        let _navAndStatus = (self.navigationController?.navigationBar.bounds.size.height)! + UIApplication.shared.statusBarFrame.size.height
-        
-        let infoView = UIView(frame:  CGRect(x: 0, y: _navAndStatus, width: self.view.frame.width, height: self.view.frame.height*(4/5) - _navAndStatus))
-        
-        let _height = infoView.frame.height
-        let _width = infoView.frame.width/5
-        for i in (0..<arr.count).reversed(){
-            
-            let label = UILabel(frame: CGRect(x: self.view.bounds.size.width - CGFloat(i+1)*_width, y: 0, width: _width, height:_height))
-            label.text = arr[i]
-            label.adjustsFontSizeToFitWidth = true
-            label.textAlignment = .center
-            label.backgroundColor = UIColor(hexString: arr[i])
-            if label.backgroundColor?.isLight() == true {
-                label.textColor = UIColor.black
-            }else{
-                label.textColor = UIColor.white
-            }
-            
-            infoView.addSubview(label)
-        }
-        return infoView
-        
-    }
+    // Rút gọn 3 func drawInfo1 drawInfo2 drawInfo3
     
-    func drawInfo3(arr: [String])->UIView{
-        
-        let _navAndStatus = (self.navigationController?.navigationBar.bounds.size.height)! + UIApplication.shared.statusBarFrame.size.height
-        
-        let infoView = UIView(frame:  CGRect(x: 0, y: _navAndStatus, width: self.view.frame.width, height: self.view.frame.height*(4/5) - _navAndStatus))
-        
-        let _height = infoView.frame.height/5
-        let _width = infoView.frame.width
-        
+    func drawInfo(arr: [String], width: CGFloat, height: CGFloat) -> UIView {
         for i in (0..<arr.count).reversed(){
-            
-            let label = UILabel(frame: CGRect(x: 0, y: infoView.frame.height - CGFloat(i+1)*_height, width: _width, height:_height))
-            
-            label.text = arr[i]
-            label.adjustsFontSizeToFitWidth = true
-            label.textAlignment = .center
-            label.backgroundColor = UIColor(hexString: arr[i])
-            
-            if label.backgroundColor?.isLight() == true {
-                label.textColor = UIColor.black
-            }else{
-                label.textColor = UIColor.white
+            let label = UILabel()
+            switch rotateCount {
+            case 2:
+                label.frame = CGRect(x: self.view.bounds.size.width - CGFloat(i+1)*width, y: 0, width: width, height: height)
+            case 3:
+                label.frame = CGRect(x: 0, y: infoView.frame.height - CGFloat(i+1)*height, width: width, height:height)
+            case 4:
+                label.frame = CGRect(x:CGFloat(i)*width, y: 0, width: width, height:height)
+            default:
+                break
             }
-            infoView.addSubview(label)
-        }
-        return infoView
-        
-    }
-    
-    func drawInfo4(arr: [String])->UIView{
-        
-        let _navAndStatus = (self.navigationController?.navigationBar.bounds.size.height)! + UIApplication.shared.statusBarFrame.size.height
-        
-        let infoView = UIView(frame:  CGRect(x: 0, y: _navAndStatus, width: self.view.frame.width, height: self.view.frame.height*(4/5) - _navAndStatus))
-        
-        let _height = infoView.frame.height
-        let _width = infoView.frame.width/5
-        
-        for i in (0..<arr.count).reversed(){
-            
-            let label = UILabel(frame: CGRect(x:CGFloat(i)*_width, y: 0, width: _width, height:_height))
             
             label.text = arr[i]
             label.adjustsFontSizeToFitWidth = true
@@ -231,8 +169,6 @@ class DetailColorVC: UIViewController {
         }
         return infoView
     }
-    
-    
 }
 
 extension UIImage {
