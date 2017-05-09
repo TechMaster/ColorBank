@@ -144,9 +144,9 @@ class DetailColorVC: UIViewController {
             let label = UILabel()
             switch rotateCount {
             case 2:
-                label.frame = CGRect(x: self.view.bounds.size.width - CGFloat(i+1)*width, y: 0, width: width, height: height)
+                label.frame = CGRect(x: infoView.bounds.size.width - CGFloat(i+1)*width, y: 0, width: width, height: height)
             case 3:
-                label.frame = CGRect(x: 0, y: infoView.frame.height - CGFloat(i+1)*height, width: width, height:height)
+                label.frame = CGRect(x: 0, y: infoView.bounds.size.height - CGFloat(i+1)*height, width: width, height:height)
             case 4:
                 label.frame = CGRect(x:CGFloat(i)*width, y: 0, width: width, height:height)
             default:

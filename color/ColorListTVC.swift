@@ -16,7 +16,7 @@ struct ColorItem {
 
 class ColorListTVC: UITableViewController {
     
-    var colorItemArray = [ColorItem]()
+    var itemArray = [ColorItem]()
     var sectionCount: Int = 0
     var arrData = NSArray()
     
@@ -63,7 +63,7 @@ class ColorListTVC: UITableViewController {
             let item = itemDict["data"] as! NSArray
             let name = itemDict["name"] as! String
             
-            colorItemArray.append(ColorItem(colorName: name, colorArray: item as! [String]))
+            itemArray.append(ColorItem(colorName: name, colorArray: item as! [String]))
             
         }
         
@@ -74,12 +74,22 @@ class ColorListTVC: UITableViewController {
         return self.view.bounds.size.width/5
     }
     
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return self.view.bounds.size.width/15
+    }
+    
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1.0
     }
     
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        header.textLabel?.textColor = UIColor.black
+        header.textLabel?.textAlignment = .center
+    }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return colorItemArray[section].colorName
+        return itemArray[section].colorName
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -114,7 +124,7 @@ class ColorListTVC: UITableViewController {
                         color_3: cell.color3,
                         color_4: cell.color4)
         cell.addSubview(cell.cell)
-        cell.backgroundColor = UIColor.blue
+        cell.backgroundColor = UIColor.clear
         return cell
     }
     
@@ -122,7 +132,7 @@ class ColorListTVC: UITableViewController {
         
         let detailColorVC = DetailColorVC()
         
-        detailColorVC.colorArr = colorItemArray
+        detailColorVC.colorArr = itemArray
         detailColorVC.indexSection = indexPath.section
         tableView.reloadData()
         self.navigationController?.pushViewController(detailColorVC, animated: true)
