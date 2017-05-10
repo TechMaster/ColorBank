@@ -38,44 +38,7 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        AppUtility.lockOrientation(.portrait)
-        // Or to rotate and lock
-        // AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
-        
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // Don't forget to reset when view is being removed
-        AppUtility.lockOrientation(.all)
-    }
-    
-    func filterColor(code: String){
-        filterColorName.removeAll()
-        filterItemArray.removeAll()
-        for i in 0..<itemArray.count{
-            for j in 0..<itemArray[i].colorArray.count{
-                if itemArray[i].colorArray[j].lowercased().contains(code.lowercased()) == true{
-                    if filterColorName.contains(itemArray[i].colorName) == false
-                    {
-                        filterColorName.append(itemArray[i].colorName)
-                        filterItemArray.append(itemArray[i])
-                        print(filterItemArray.count)
-                    }
-                    else
-                    {
-                        break
-                    }
-                }
-            }
-        }
-        tableView.reloadData()
-    }
-    
+    //MARK: Lấy dữ liệu từ file plist truyền vào mảng itemArray
     func loadData(){
         
         var dictData = NSDictionary()
@@ -95,9 +58,97 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
             itemArray.append(ColorItem(colorName: name, colorArray: item as! [String]))
             
         }
-        
-        
     }
+    
+    //MARK: Lọc mã màu
+    func filterColor(code: String){ // code là mã màu được viết ở searchBar
+        
+        filterColorName.removeAll()
+        filterItemArray.removeAll()
+        
+        //Vào trong mảng itemArray
+        for i in 0..<itemArray.count{
+            
+            //Vào trong mảng colorArray
+            for j in 0..<itemArray[i].colorArray.count{
+                
+                //Kiểm tra nếu mảng colorArray chứa code
+                if itemArray[i].colorArray[j].lowercased().contains(code.lowercased()) == true{
+                    
+                    //Nếu mảng filterColorName chưa chứa tên màu đó thì append tên màu đó vào
+                    if filterColorName.contains(itemArray[i].colorName) == false
+                    {
+                        filterColorName.append(itemArray[i].colorName)
+                        filterItemArray.append(itemArray[i])
+                    }
+                    else
+                    {
+                        break
+                    }
+                }
+            }
+        }
+        tableView.reloadData()
+    }
+    
+    //MARK: Tạo cell chứa palettes liên quan đến mã màu ở searchBar
+    func createCellFilter(section: Int) -> UITableViewCell {
+        let cell = ColorListCell()
+        for index in 0..<arrData.count{
+            
+            let itemDict = arrData[index] as! NSDictionary
+            
+            let item = itemDict["data"] as! NSArray
+            let name = itemDict["name"] as! String
+            
+            if filterColorName[section] == name {
+                cell.color0 = item[0] as! String
+                cell.color1 = item[1] as! String
+                cell.color2 = item[2] as! String
+                cell.color3 = item[3] as! String
+                cell.color4 = item[4] as! String
+                
+                cell.cell = ColorBar(frame: CGRect(x: 0, y: 0,
+                                                   width: self.view.bounds.size.width,
+                                                   height: self.view.bounds.size.width/5),
+                                     color_0: cell.color0,
+                                     color_1: cell.color1,
+                                     color_2: cell.color2,
+                                     color_3: cell.color3,
+                                     color_4: cell.color4)
+                cell.addSubview(cell.cell)
+                cell.backgroundColor = UIColor.clear
+            }
+        }
+        return cell
+    }
+    
+    //MARK: Tạo cell
+    func createCell(section: Int) -> UITableViewCell {
+        let cell = ColorListCell()
+        let itemDict = arrData[section] as! NSDictionary
+        
+        let item = itemDict["data"] as! NSArray
+        
+        cell.color0 = item[0] as! String
+        cell.color1 = item[1] as! String
+        cell.color2 = item[2] as! String
+        cell.color3 = item[3] as! String
+        cell.color4 = item[4] as! String
+        
+        cell.cell = ColorBar(frame: CGRect(x: 0, y: 0,
+                                           width: self.view.bounds.size.width,
+                                           height: self.view.bounds.size.width/5),
+                             color_0: cell.color0,
+                             color_1: cell.color1,
+                             color_2: cell.color2,
+                             color_3: cell.color3,
+                             color_4: cell.color4)
+        cell.addSubview(cell.cell)
+        cell.backgroundColor = UIColor.clear
+        return cell
+    }
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.view.bounds.size.width/5
@@ -135,81 +186,31 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
         return 1
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = ColorListCell()
         if searchController.isActive == true && searchController.searchBar.text != "" {
-            for index in 0..<arrData.count{
-                
-                let itemDict = arrData[index] as! NSDictionary
-                
-                let item = itemDict["data"] as! NSArray
-                let name = itemDict["name"] as! String
-                
-                if filterColorName[indexPath.section] == name {
-                    cell.color0 = item[0] as! String
-                    cell.color1 = item[1] as! String
-                    cell.color2 = item[2] as! String
-                    cell.color3 = item[3] as! String
-                    cell.color4 = item[4] as! String
-                    
-                    cell.cell = ColorBar(frame: CGRect(x: 0, y: 0,
-                                                       width: self.view.bounds.size.width,
-                                                       height: self.view.bounds.size.width/5),
-                                         color_0: cell.color0,
-                                         color_1: cell.color1,
-                                         color_2: cell.color2,
-                                         color_3: cell.color3,
-                                         color_4: cell.color4)
-                    cell.addSubview(cell.cell)
-                    cell.backgroundColor = UIColor.clear
-                }
-            }
+           return createCellFilter(section: indexPath.section)
         }
         else
         {
-            let itemDict = arrData[indexPath.section] as! NSDictionary
-            
-            let item = itemDict["data"] as! NSArray
-            
-            //#1 Lấy dữ liệu truyền vào ColorListCell
-            
-            cell.color0 = item[0] as! String
-            cell.color1 = item[1] as! String
-            cell.color2 = item[2] as! String
-            cell.color3 = item[3] as! String
-            cell.color4 = item[4] as! String
-            
-            cell.cell = ColorBar(frame: CGRect(x: 0, y: 0,
-                                               width: self.view.bounds.size.width,
-                                               height: self.view.bounds.size.width/5),
-                                 color_0: cell.color0,
-                                 color_1: cell.color1,
-                                 color_2: cell.color2,
-                                 color_3: cell.color3,
-                                 color_4: cell.color4)
-            cell.addSubview(cell.cell)
-            cell.backgroundColor = UIColor.clear
+            return createCell(section: indexPath.section)
         }
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        tableView.reloadData()
         let detailColorVC = DetailColorVC()
         if searchController.isActive == true && searchController.searchBar.text != "" {
             detailColorVC.colorArr = filterItemArray
             detailColorVC.indexSection = indexPath.section
-            print(filterItemArray)
         }else
         {
             detailColorVC.colorArr = itemArray
             detailColorVC.indexSection = indexPath.section
             
         }
-        tableView.reloadData()
         self.navigationController?.pushViewController(detailColorVC, animated: true)}
     
 }
-
+//MARK: Update SearchBar
 extension ColorListTVC: UISearchResultsUpdating{
     func updateSearchResults(for searchController: UISearchController) {
         filterColor(code: searchController.searchBar.text!)

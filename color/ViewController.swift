@@ -14,7 +14,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.backgroundColor = UIColor.white
         createColorListButton()
         createAlbumButton()
@@ -29,19 +28,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillDisappear(animated)
-        AppUtility.lockOrientation(.all)
-
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        AppUtility.lockOrientation(.portrait)
-        // Or to rotate and lock
-        // AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
-        
-    }
-
     
     //MARK: Color List
     func createColorListButton() {
