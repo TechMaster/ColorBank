@@ -16,6 +16,7 @@ class ColorListCell: UITableViewCell{
     var color2 = String()
     var color3 = String()
     var color4 = String()
+    var name = String()
     
     override func awakeFromNib() {
         super.awakeFromNib()
