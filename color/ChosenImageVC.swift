@@ -25,7 +25,20 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
         
     }
     
+    func rgbColor(color: String)->String{
+        let red = Int((UIColor(hexString: color).cgColor.components?[0])! * 255)
+        let green = Int((UIColor(hexString: color).cgColor.components?[1])! * 255)
+        let blue = Int((UIColor(hexString: color).cgColor.components?[2])! * 255)
+        
+        let rgbColor = "\(red).\(green).\(blue)"
+        
+        return rgbColor
+    }
+    
     func createColorLabel(x: CGFloat, y: CGFloat, color: String) {
+        
+        
+        
         
         let colorLabel = SRCopyableLabel()
         colorLabel.frame = CGRect(x: x,
@@ -33,7 +46,8 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
                                   width: self.view.bounds.size.width/4,
                                   height: self.view.bounds.size.width/4)
         
-        colorLabel.text = color
+        colorLabel.numberOfLines = 3
+        colorLabel.text = "\(color) \n \n\(rgbColor(color: color))"
         colorLabel.backgroundColor = UIColor(hexString: color)
         colorLabel.textAlignment = .center
         colorLabel.layer.borderWidth = 2
@@ -95,7 +109,7 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
         
         let margin = self.view.bounds.size.width/4
         
-        // Nếu chạm vào rìa bên trái, label xuất hiện bên phải
+    
         if (position.x < margin && position.y < margin){
             createColorLabel(x: position.x, y: position.y, color: pickedColor)
         
@@ -105,7 +119,7 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
         }else if (position.x > margin && position.y < margin){
             createColorLabel(x: position.x, y: position.y, color: pickedColor)
         
-        }else{ // BÌnh thường label sẽ xuất hiện bên trái
+        }else{ 
             createColorLabel(x: position.x - margin, y: position.y - margin, color: pickedColor)
             
         }
