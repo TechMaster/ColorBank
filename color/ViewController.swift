@@ -14,10 +14,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
-        createColorListButton()
-        createAlbumButton()
-        createCameraButton()
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
+        let viewHeight = self.view.bounds.size.height
+        createButton(title: "Palettes", posY: viewHeight/3 , color: UIColor(hexString: "3546C2")).addTarget(self, action: #selector(pushToColorListView), for: .touchUpInside)
+        createButton(title: "Album", posY: viewHeight/2 , color: UIColor(hexString: "7340FF")).addTarget(self, action: #selector(pushToAlbumView), for: .touchUpInside)
+        createButton(title: "Camera", posY: viewHeight*2/3 , color: UIColor(hexString: "5D22C5")).addTarget(self, action: #selector(pushToCameraView), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,35 +31,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewWillDisappear(animated)
     }
     
-    //MARK: Color List
-    func createColorListButton() {
-        let colorlistButton = UIButton()
-        colorlistButton.frame = CGRect(x: self.view.bounds.size.width/4, y: self.view.bounds.size.height/3, width: self.view.bounds.size.width/2, height: 50)
-        colorlistButton.setTitle("Color List", for: .normal)
-        colorlistButton.setTitleColor(UIColor.white, for: .normal)
-        colorlistButton.backgroundColor = UIColor.blue
-        colorlistButton.addTarget(self, action: #selector(pushToColorListView), for: .touchUpInside)
-        colorlistButton.isUserInteractionEnabled = true
-        self.view.addSubview(colorlistButton)
+    //MARK: Tạo nút
+    func createButton(title: String, posY: CGFloat, color: UIColor) -> UIButton {
+        let Button = UIButton()
+        Button.frame = CGRect(x: self.view.bounds.size.width/4, y: posY, width: self.view.bounds.size.width/2, height: 50)
+        Button.setTitle(title, for: .normal)
+        Button.setTitleColor(UIColor.white, for: .normal)
+        Button.backgroundColor = color
+        Button.layer.cornerRadius = 8
+        self.view.addSubview(Button)
+        return Button
     }
     
+    //MARK: Color List
     func pushToColorListView() {
         let newViewController = ColorListTVC()
         self.navigationController?.pushViewController(newViewController, animated: true)
     }
     
     //MARK: Album
-    func createAlbumButton() {
-        let albumButton = UIButton()
-        albumButton.frame = CGRect(x: self.view.bounds.size.width/4, y: self.view.bounds.size.height/2, width: self.view.bounds.size.width/2, height: 50)
-        albumButton.setTitle("Go to Album", for: .normal)
-        albumButton.setTitleColor(UIColor.white, for: .normal)
-        albumButton.backgroundColor = UIColor.cyan
-        albumButton.addTarget(self, action: #selector(pushToAlbumView), for: .touchUpInside)
-        albumButton.isUserInteractionEnabled = true
-        self.view.addSubview(albumButton)
-    }
-    
     func pushToAlbumView() {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
             let imagePicker = UIImagePickerController()
@@ -71,17 +62,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     //MARK: Camera
-    func createCameraButton() {
-        let cameraButton = UIButton()
-        cameraButton.frame = CGRect(x: self.view.bounds.size.width/4, y: self.view.bounds.size.height*2/3, width: self.view.bounds.size.width/2, height: 50)
-        cameraButton.setTitle("Go to Camera", for: .normal)
-        cameraButton.setTitleColor(UIColor.white, for: .normal)
-        cameraButton.backgroundColor = UIColor.purple
-        cameraButton.addTarget(self, action: #selector(pushToCameraView), for: .touchUpInside)
-        cameraButton.isUserInteractionEnabled = true
-        self.view.addSubview(cameraButton)
-    }
-    
     func pushToCameraView() {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
             let imagePicker = UIImagePickerController()
@@ -93,7 +73,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
-    //MARK: Delegate image picker
+    //MARK:  image picker delegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             baseImage = pickedImage
