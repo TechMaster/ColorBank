@@ -15,7 +15,7 @@ struct ColorItem {
 }
 
 class ColorListTVC: UITableViewController, UISearchBarDelegate {
-    
+    var filterItemArray = [ColorItem]()
     var itemArray = [ColorItem]()
     var sectionCount: Int = 0
     var arrData = NSArray()
@@ -56,12 +56,15 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
     
     func filterColor(code: String){
         filterColorName.removeAll()
+        filterItemArray.removeAll()
         for i in 0..<itemArray.count{
             for j in 0..<itemArray[i].colorArray.count{
                 if itemArray[i].colorArray[j].lowercased().contains(code.lowercased()) == true{
                     if filterColorName.contains(itemArray[i].colorName) == false
                     {
                         filterColorName.append(itemArray[i].colorName)
+                        filterItemArray.append(itemArray[i])
+                        print(filterItemArray.count)
                     }
                     else
                     {
@@ -134,7 +137,32 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ColorListCell()
         if searchController.isActive == true && searchController.searchBar.text != "" {
-            
+            for index in 0..<arrData.count{
+                
+                let itemDict = arrData[index] as! NSDictionary
+                
+                let item = itemDict["data"] as! NSArray
+                let name = itemDict["name"] as! String
+                
+                if filterColorName[indexPath.section] == name {
+                    cell.color0 = item[0] as! String
+                    cell.color1 = item[1] as! String
+                    cell.color2 = item[2] as! String
+                    cell.color3 = item[3] as! String
+                    cell.color4 = item[4] as! String
+                    
+                    cell.cell = ColorBar(frame: CGRect(x: 0, y: 0,
+                                                       width: self.view.bounds.size.width,
+                                                       height: self.view.bounds.size.width/5),
+                                         color_0: cell.color0,
+                                         color_1: cell.color1,
+                                         color_2: cell.color2,
+                                         color_3: cell.color3,
+                                         color_4: cell.color4)
+                    cell.addSubview(cell.cell)
+                    cell.backgroundColor = UIColor.clear
+                }
+            }
         }
         else
         {
@@ -167,13 +195,18 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let detailColorVC = DetailColorVC()
-        
-        detailColorVC.colorArr = itemArray
-        detailColorVC.indexSection = indexPath.section
+        if searchController.isActive == true && searchController.searchBar.text != "" {
+            detailColorVC.colorArr = filterItemArray
+            detailColorVC.indexSection = indexPath.section
+            print(filterItemArray)
+        }else
+        {
+            detailColorVC.colorArr = itemArray
+            detailColorVC.indexSection = indexPath.section
+            
+        }
         tableView.reloadData()
-        self.navigationController?.pushViewController(detailColorVC, animated: true)
-    }
-    
+        self.navigationController?.pushViewController(detailColorVC, animated: true)}
     
 }
 
