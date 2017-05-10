@@ -30,6 +30,9 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
         
+        searchController.searchBar.placeholder = "eg. #ffffff"
+
+        
         self.navigationItem.title = "Palettes"
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")

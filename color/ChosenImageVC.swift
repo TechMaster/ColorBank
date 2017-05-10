@@ -25,25 +25,9 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        AppUtility.lockOrientation(.portrait)
-        // Or to rotate and lock
-        // AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
-        
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // Don't forget to reset when view is being removed
-        AppUtility.lockOrientation(.all)
-    }
-    
     func createColorLabel(x: CGFloat, y: CGFloat, color: String) {
         
-        let colorLabel = UILabel()
+        let colorLabel = SRCopyableLabel()
         colorLabel.frame = CGRect(x: x,
                                   y: y,
                                   width: self.view.bounds.size.width/4,
@@ -54,7 +38,7 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
         colorLabel.textAlignment = .center
         colorLabel.layer.borderWidth = 2
         colorLabel.layer.masksToBounds = true
-        
+                
         if colorLabel.backgroundColor?.isLight() == true {
             colorLabel.textColor = UIColor.black
             colorLabel.layer.borderColor = UIColor.black.cgColor
