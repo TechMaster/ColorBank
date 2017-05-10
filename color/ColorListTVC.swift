@@ -30,6 +30,8 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
         
+        searchController.searchBar.barTintColor = UIColor.lightGray
+        
         searchController.searchBar.placeholder = "eg. #ffffff"
 
         

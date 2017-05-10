@@ -38,7 +38,7 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
         colorLabel.textAlignment = .center
         colorLabel.layer.borderWidth = 2
         colorLabel.layer.masksToBounds = true
-                
+        
         if colorLabel.backgroundColor?.isLight() == true {
             colorLabel.textColor = UIColor.black
             colorLabel.layer.borderColor = UIColor.black.cgColor
@@ -93,12 +93,20 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
         
         let pickedColor = self.view.getPixelColorAtPoint(point: position, sourceView: self.view)
         
+        let margin = self.view.bounds.size.width/4
+        
         // Nếu chạm vào rìa bên trái, label xuất hiện bên phải
-        if (position.x < self.view.bounds.size.width/4){
-            createColorLabel(x: position.x, y: position.y - self.view.bounds.size.width/4, color: pickedColor)
-            
+        if (position.x < margin && position.y < margin){
+            createColorLabel(x: position.x, y: position.y, color: pickedColor)
+        
+        }else if (position.x < margin && position.y > margin){
+            createColorLabel(x: position.x, y: position.y - margin, color: pickedColor)
+        
+        }else if (position.x > margin && position.y < margin){
+            createColorLabel(x: position.x, y: position.y, color: pickedColor)
+        
         }else{ // BÌnh thường label sẽ xuất hiện bên trái
-            createColorLabel(x: position.x - self.view.bounds.size.width/4, y: position.y - self.view.bounds.size.width/4, color: pickedColor)
+            createColorLabel(x: position.x - margin, y: position.y - margin, color: pickedColor)
             
         }
         
