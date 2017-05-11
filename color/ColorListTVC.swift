@@ -24,21 +24,18 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationController?.navigationBar.barTintColor = UIColor(hexString: "3546C2")
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
-        searchController.searchBar.barTintColor = UIColor(hexString: "3546C2")
+        
+        searchController.searchBar.barTintColor = UIColor.lightGray
+        
         searchController.searchBar.placeholder = "eg. #ffffff"
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = false
+
         
         self.navigationItem.title = "Palettes"
-        navigationController?.navigationBar.titleTextAttributes = 
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         loadData()
