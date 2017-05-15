@@ -16,12 +16,12 @@ class DetectLabel: SRCopyableLabel {
         self.pos = pos
         let screenWidth = UIScreen.main.bounds.size.width
         drawLineThroughPoint(start: pos,
-                             throughPoint: [CGPoint(x: pos.x + screenWidth/12, y: pos.y - screenWidth/12),
-                                            CGPoint(x: pos.x + screenWidth*7/24, y: pos.y - screenWidth/12),
+                             throughPoint: [CGPoint(x: pos.x + screenWidth/24, y: pos.y - screenWidth/24),
+                                            CGPoint(x: pos.x + screenWidth*7/24, y: pos.y - screenWidth/24),
                                             CGPoint(x: pos.x + screenWidth*7/24, y: pos.y - screenWidth/4),
                                             CGPoint(x: pos.x - screenWidth/12, y: pos.y - screenWidth/4),
-                                            CGPoint(x: pos.x - screenWidth/12, y: pos.y - screenWidth/12),
-                                            CGPoint(x: pos.x, y: pos.y - screenWidth/12)],
+                                            CGPoint(x: pos.x - screenWidth/12, y: pos.y - screenWidth/24),
+                                            CGPoint(x: pos.x, y: pos.y - screenWidth/24)],
                              endPoint: pos,
                              line: lineColor,
                              color: bgColor,
