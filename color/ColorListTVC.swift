@@ -33,14 +33,58 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
         searchController.searchBar.barTintColor = UIColor.lightGray
         
         searchController.searchBar.placeholder = "eg. #ffffff"
-
+        
         
         self.navigationItem.title = "Palettes"
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         loadData()
         
+        getData()
+    }
+    
+    //MARK: Lấy dữ liệu từ server truyền vào mảng itemArray
+    func getData(){
+        __dispatch_async(DispatchQueue.global(), {
+            let url = NSURL(string: "http://192.168.1.107:3000/detailios/H1z6V5t8g-".addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!)
+            var stringData = ""
+            
+            do
+            {
+                stringData = try String(contentsOf: url! as URL)
+            }
+            catch let error as NSError
+            {
+                print(error)
+            }
+            let json = self.converStringToDictionary(string: stringData)
+            if (json != nil)
+            {
+                self.addDataToItemArray(json: json!)
+            }})
         
+    }
+    
+    func converStringToDictionary(string: String) -> [String: AnyObject]?
+    {
+        if let data = string.data(using: String.Encoding.utf8)
+        {
+            do
+            {
+                let json =  try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: AnyObject]
+                return json!
+            } catch
+            {
+                print("something went wrong")
+            }
+        }
+        return nil
+    }
+    
+    func addDataToItemArray(json: [String: AnyObject])
+    {
+        let name = json["name"] as! String
+        print(name)
     }
     
     //MARK: Lấy dữ liệu từ file plist truyền vào mảng itemArray
@@ -192,7 +236,7 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if searchController.isActive == true && searchController.searchBar.text != "" {
-           return createCellFilter(section: indexPath.section)
+            return createCellFilter(section: indexPath.section)
         }
         else
         {
