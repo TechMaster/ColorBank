@@ -27,15 +27,13 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
     
     func createColorLabel(x: CGFloat, y: CGFloat, color: String) {
         
-        let shift = self.view.bounds.size.width/4
+        let WIDTH = self.view.bounds.size.width/4
         
-        let colorLabel = DetectLabel(frame: CGRect(x: x - shift/5, y: y - shift,
-                                                   width: shift,
-                                                   height: shift),
+        let colorLabel = DetectLabel(frame: CGRect(x: x - WIDTH/5, y: y - WIDTH,
+                                                   width: WIDTH,
+                                                   height: WIDTH*4/5),
                                      color: UIColor(hexString: color),
                                      text: color)
-        
-        colorLabel.flipY()
         
         self.view.addSubview(colorLabel)
     }
@@ -83,24 +81,28 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
         
         let pickedColor = self.view.getPixelColorAtPoint(point: position, sourceView: self.view)
         
-        let margin = self.view.bounds.size.width/4
+        let width = self.view.bounds.size.width
+        let height = self.view.bounds.size.height
+        let marginLeft = width/20
+        let marginTop = width/4
+        let marginRight = width*17/20
         
-        
-        createColorLabel(x: position.x, y: position.y, color: pickedColor)
+        switch (position.x, position.y) {
+        case (0...marginLeft,marginTop...height):
+            print("le trai")
+        case (marginLeft...marginRight,0...marginTop):
+            print("le tren")
+        case (marginRight...width,marginTop...height):
+            print("le phai")
+        case (0...marginLeft,0...marginTop):
+            print("goc trai tren")
+        case (marginRight...width,0...marginTop):
+            print("goc phai tren")
+        default:
+            createColorLabel(x: position.x, y: position.y, color: pickedColor)
+        }
     
-//        if (position.x < margin && position.y < margin){
-//            createColorLabel(x: position.x, y: position.y, color: pickedColor)
-//        
-//        }else if (position.x < margin && position.y > margin){
-//            createColorLabel(x: position.x, y: position.y - margin, color: pickedColor)
-//        
-//        }else if (position.x > margin && position.y < margin){
-//            createColorLabel(x: position.x, y: position.y, color: pickedColor)
-//        
-//        }else{ 
-//            createColorLabel(x: position.x - margin, y: position.y - margin, color: pickedColor)
-//            
-//        }
+        
         
     }
     

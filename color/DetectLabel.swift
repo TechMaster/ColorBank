@@ -30,11 +30,11 @@ class DetectLabel: SRCopyableLabel {
         let start = CGPoint(x: 0, y: 0)
         
         let firstPoint = CGPoint(x: width, y: 0)
-        let secondPoint = CGPoint(x: width, y: height*4/5)
-        let thirdPoint = CGPoint(x: width*2/5, y: height*4/5)
-        let fourthPoint = CGPoint(x: width/5, y: height)
-        let fifthPoint = CGPoint(x: width/5, y: height*4/5)
-        let sixthPoint = CGPoint(x: 0, y: height*4/5)
+        let secondPoint = CGPoint(x: width, y: height)
+        let thirdPoint = CGPoint(x: width*2/5, y: height)
+        let fourthPoint = CGPoint(x: width/5, y: height*6/5)
+        let fifthPoint = CGPoint(x: width/5, y: height)
+        let sixthPoint = CGPoint(x: 0, y: height)
         
         let throughPoints = [firstPoint, secondPoint, thirdPoint, fourthPoint, fifthPoint, sixthPoint]
         
@@ -66,7 +66,7 @@ class DetectLabel: SRCopyableLabel {
         self.layer.addSublayer(shapeLayer)
         
         let textLabel = SRCopyableLabel()
-        textLabel.frame = CGRect(x: 0, y: 0, width: width, height: height*4/5)
+        textLabel.frame = CGRect(x: 0, y: 0, width: width, height: height)
         textLabel.text = text
         textLabel.adjustsFontSizeToFitWidth = true
         textLabel.textAlignment = .center
