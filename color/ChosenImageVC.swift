@@ -25,41 +25,21 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
         
     }
     
-    func rgbColor(color: String)->String{
-        let red = Int((UIColor(hexString: color).cgColor.components?[0])! * 255)
-        let green = Int((UIColor(hexString: color).cgColor.components?[1])! * 255)
-        let blue = Int((UIColor(hexString: color).cgColor.components?[2])! * 255)
-        
-        let rgbColor = "\(red).\(green).\(blue)"
-        
-        return rgbColor
-    }
+ 
     
     func createColorLabel(x: CGFloat, y: CGFloat, color: String) {
+        var lineColor = UIColor()
+        var textColor = UIColor()
+        let bgColor = UIColor(hexString: color)
         
-        
-        
-        
-        let colorLabel = SRCopyableLabel()
-        colorLabel.frame = CGRect(x: x,
-                                  y: y,
-                                  width: self.view.bounds.size.width/4,
-                                  height: self.view.bounds.size.width/4)
-        
-        colorLabel.numberOfLines = 3
-        colorLabel.text = "\(color) \n \n\(rgbColor(color: color))"
-        colorLabel.backgroundColor = UIColor(hexString: color)
-        colorLabel.textAlignment = .center
-        colorLabel.layer.borderWidth = 2
-        colorLabel.layer.masksToBounds = true
-        
-        if colorLabel.backgroundColor?.isLight() == true {
-            colorLabel.textColor = UIColor.black
-            colorLabel.layer.borderColor = UIColor.black.cgColor
+        if bgColor.isLight() == true {
+            textColor = UIColor.black
+            lineColor = UIColor.black
         }else{
-            colorLabel.textColor = UIColor.white
-            colorLabel.layer.borderColor = UIColor.white.cgColor
+            textColor = UIColor.white
+            lineColor = UIColor.white
         }
+        let colorLabel = DetectLabel(frame: CGRect.zero, pos: CGPoint(x:x, y:y), lineColor: lineColor, bgColor: bgColor, text: color, textColor: textColor)
         
         self.view.addSubview(colorLabel)
     }
