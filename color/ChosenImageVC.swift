@@ -25,21 +25,17 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
         
     }
     
- 
-    
     func createColorLabel(x: CGFloat, y: CGFloat, color: String) {
-        var lineColor = UIColor()
-        var textColor = UIColor()
-        let bgColor = UIColor(hexString: color)
         
-        if bgColor.isLight() == true {
-            textColor = UIColor.black
-            lineColor = UIColor.black
-        }else{
-            textColor = UIColor.white
-            lineColor = UIColor.white
-        }
-        let colorLabel = DetectLabel(frame: CGRect.zero, pos: CGPoint(x:x, y:y), lineColor: lineColor, bgColor: bgColor, text: color, textColor: textColor)
+        let shift = self.view.bounds.size.width/4
+        
+        let colorLabel = DetectLabel(frame: CGRect(x: x - shift/5, y: y - shift,
+                                                   width: shift,
+                                                   height: shift),
+                                     color: UIColor(hexString: color),
+                                     text: color)
+        
+        colorLabel.flipY()
         
         self.view.addSubview(colorLabel)
     }
@@ -89,20 +85,22 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
         
         let margin = self.view.bounds.size.width/4
         
+        
+        createColorLabel(x: position.x, y: position.y, color: pickedColor)
     
-        if (position.x < margin && position.y < margin){
-            createColorLabel(x: position.x, y: position.y, color: pickedColor)
-        
-        }else if (position.x < margin && position.y > margin){
-            createColorLabel(x: position.x, y: position.y - margin, color: pickedColor)
-        
-        }else if (position.x > margin && position.y < margin){
-            createColorLabel(x: position.x, y: position.y, color: pickedColor)
-        
-        }else{ 
-            createColorLabel(x: position.x - margin, y: position.y - margin, color: pickedColor)
-            
-        }
+//        if (position.x < margin && position.y < margin){
+//            createColorLabel(x: position.x, y: position.y, color: pickedColor)
+//        
+//        }else if (position.x < margin && position.y > margin){
+//            createColorLabel(x: position.x, y: position.y - margin, color: pickedColor)
+//        
+//        }else if (position.x > margin && position.y < margin){
+//            createColorLabel(x: position.x, y: position.y, color: pickedColor)
+//        
+//        }else{ 
+//            createColorLabel(x: position.x - margin, y: position.y - margin, color: pickedColor)
+//            
+//        }
         
     }
     
@@ -142,7 +140,7 @@ extension UIColor {
         let components = self.cgColor.components
         let brightness = ((((components?[0])! * 299.0) as CGFloat) + (((components?[1])! * 587.0) as CGFloat) + (((components?[2])! * 114.0)) as CGFloat) / (1000.0 as CGFloat)
         
-        if brightness < 0.5{
+        if brightness < 0.7{
             return false
             
         }else{
@@ -185,4 +183,18 @@ extension UIView {
         return hex
         
     }
+}
+
+extension UILabel {
+    
+    /// Flip view horizontally.
+    func flipX() {
+        transform = CGAffineTransform(scaleX: -transform.a, y: transform.d)
+    }
+    
+    /// Flip view vertically.
+    func flipY() {
+        transform = CGAffineTransform(scaleX: transform.a, y: -transform.d)
+    }
+    
 }
