@@ -87,7 +87,7 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
         let widthLabel = self.view.bounds.size.width/4
         
         let marginLeft = width/20
-        let marginTop = width/4
+        let marginTop = width/4 + (self.navigationController?.navigationBar.bounds.size.height)!
         let marginRight = width*19/20
         let marginBottom = height - width/4
         let mid = width/2
