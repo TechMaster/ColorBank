@@ -21,7 +21,8 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
     var arrData = NSArray()
     var filterColorName = [String]()
     var searchController = UISearchController()
-    
+    var id: [String] = []
+    var name: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         searchController = UISearchController(searchResultsController: nil)
@@ -44,53 +45,29 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
     }
     
     //MARK: Lấy dữ liệu từ server truyền vào mảng itemArray
-    func getData(){
+    
+    func getData() {
         __dispatch_async(DispatchQueue.global(), {
-            let url = NSURL(string: "http://192.168.1.107:3001/detailios/H1z6V5t8g-".addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!)
-            var stringData = ""
-            
-            do
-            {
-                stringData = try String(contentsOf: url! as URL)
-//                print(stringData)
+            let url = URL(string: "http://192.168.1.107:3001/all")
+            do {
+                let allData = try Data(contentsOf: url!)
+                let allColor = try JSONSerialization.jsonObject(with: allData, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject]
+                if let arrJSON = allColor["data"] {
+                    for index in 0..<arrJSON.count
+                    {
+                        let aObject = arrJSON[index] as! [String: AnyObject]
+                        
+                        self.name.append(aObject["name"] as! String)
+                        self.id.append(aObject["id"] as! String)
+                    }
+                }
             }
-            catch let error as NSError
+            catch
             {
-                print(error)
             }
-            let json = self.converStringToDictionary(string: stringData)
-            print(json!)
-            if (json != nil)
-            {
-                self.addDataToItemArray(json: json!)
-        }
         })
-        
     }
     
-    func converStringToDictionary(string: String) -> [String: AnyObject]?
-    {
-        if let data = string.data(using: String.Encoding.utf8)
-        {
-            do
-            {
-                let json =  try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: AnyObject]
-                return json
-            } catch
-            {
-                print("something went wrong")
-            }
-        }
-        return nil
-    }
-    
-    func addDataToItemArray(json: [String: AnyObject])
-    {
-        let name = json["name"] as! String
-        let id = json["id"] as! String
-        print(id)
-        print(name)
-    }
     
     //MARK: Lấy dữ liệu từ file plist truyền vào mảng itemArray
     func loadData(){
