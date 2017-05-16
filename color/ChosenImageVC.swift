@@ -25,15 +25,16 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
         
     }
     
-    func createColorLabel(x: CGFloat, y: CGFloat, color: String) {
+    func createDetectLabel(x: CGFloat, y: CGFloat, color: String, caseNo: Int) {
         
-        let WIDTH = self.view.bounds.size.width/4
+        let widthLabel = self.view.bounds.size.width/4
         
-        let colorLabel = DetectLabel(frame: CGRect(x: x - WIDTH/5, y: y - WIDTH,
-                                                   width: WIDTH,
-                                                   height: WIDTH*4/5),
+        let colorLabel = DetectLabel(frame: CGRect(x: x, y: y,
+                                                   width: widthLabel,
+                                                   height: widthLabel*4/5),
                                      color: UIColor(hexString: color),
-                                     text: color)
+                                     text: color,
+                                     caseNo: caseNo)
         
         self.view.addSubview(colorLabel)
     }
@@ -83,25 +84,59 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
         
         let width = self.view.bounds.size.width
         let height = self.view.bounds.size.height
+        let widthLabel = self.view.bounds.size.width/4
+        
         let marginLeft = width/20
         let marginTop = width/4
-        let marginRight = width*17/20
+        let marginRight = width*19/20
+        let marginBottom = height - width/4
+        let mid = width/2
         
         switch (position.x, position.y) {
-        case (0...marginLeft,marginTop...height):
-            print("le trai")
-        case (marginLeft...marginRight,0...marginTop):
-            print("le tren")
-        case (marginRight...width,marginTop...height):
-            print("le phai")
-        case (0...marginLeft,0...marginTop):
-            print("goc trai tren")
-        case (marginRight...width,0...marginTop):
-            print("goc phai tren")
+        case (0..<marginLeft,0..<marginTop): //case 1: goc tren trai
+            print("1: goc tren trai")
+            createDetectLabel(x: position.x + widthLabel/5, y: position.y, color: pickedColor, caseNo: 1)
+            
+        case (marginRight...width,0..<marginTop): //case 2: goc tren phai
+            print("2: goc tren phai")
+            createDetectLabel(x: position.x - widthLabel*6/5, y: position.y, color: pickedColor, caseNo: 2)
+            
+        case (0..<marginLeft,marginBottom...height): //case 3: goc duoi trai
+            print("3: goc duoi trai")
+            createDetectLabel(x: position.x + widthLabel/5, y: position.y - widthLabel, color: pickedColor, caseNo: 3)
+            
+        case (marginRight...width,marginBottom...height): //case 4: goc duoi phai
+            print("4: goc duoi phai")
+            createDetectLabel(x: position.x - widthLabel*6/5, y: position.y - widthLabel, color: pickedColor, caseNo: 4)
+            
+        case (0..<marginLeft,marginTop..<marginBottom): //case 5: le trai
+            print("5: le trai")
+            createDetectLabel(x: position.x + widthLabel/5, y: position.y - widthLabel/5, color: pickedColor, caseNo: 5)
+            
+        case (marginRight...width,marginTop..<marginBottom): //case 6: le phai
+            print("6: le phai")
+            createDetectLabel(x: position.x - widthLabel*6/5, y: position.y - widthLabel/5, color: pickedColor, caseNo: 6)
+            
+        case (marginLeft..<mid,0..<marginTop): //case 7: le tren trai
+            print("7: le tren trai")
+            createDetectLabel(x: position.x - widthLabel/5, y: position.y + widthLabel/5, color: pickedColor, caseNo: 7)
+            
+        case (mid...marginRight,0..<marginTop): //case 8: le tren phai
+            print("8: le tren phai")
+            createDetectLabel(x: position.x - widthLabel*4/5, y: position.y + widthLabel/5, color: pickedColor, caseNo: 8)
+            
+        case (mid...marginRight,marginTop...height): //case 9: ben phai
+            print("9: ben phai")
+            createDetectLabel(x: position.x - widthLabel*4/5, y: position.y - widthLabel, color: pickedColor, caseNo: 9)
+            
+        case (marginLeft..<mid,marginTop...height): //case 10: ben trai
+            print("10: ben trai")
+            createDetectLabel(x: position.x - widthLabel/5, y: position.y - widthLabel, color: pickedColor, caseNo: 10)
+            
         default:
-            createColorLabel(x: position.x, y: position.y, color: pickedColor)
+            print("Should not be here")
         }
-    
+        
         
         
     }
@@ -185,18 +220,4 @@ extension UIView {
         return hex
         
     }
-}
-
-extension UILabel {
-    
-    /// Flip view horizontally.
-    func flipX() {
-        transform = CGAffineTransform(scaleX: -transform.a, y: transform.d)
-    }
-    
-    /// Flip view vertically.
-    func flipY() {
-        transform = CGAffineTransform(scaleX: transform.a, y: -transform.d)
-    }
-    
 }

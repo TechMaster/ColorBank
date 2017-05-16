@@ -11,10 +11,10 @@ import UIKit
 
 class DetectLabel: SRCopyableLabel {
     
-    init(frame: CGRect, color: UIColor, text: String) {
+    init(frame: CGRect, color: UIColor, text: String, caseNo: Int) {
         super.init(frame: frame)
         
-        drawLabel(frame: frame, color: color, text: text)
+        drawLabel(frame: frame, color: color, text: text, caseNo: caseNo)
         
     }
     
@@ -22,21 +22,118 @@ class DetectLabel: SRCopyableLabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func drawLabel(frame: CGRect, color: UIColor, text: String){
+    func drawLabel(frame: CGRect, color: UIColor, text: String, caseNo: Int){
         
         let width = frame.size.width
         let height = frame.size.height
         
-        let start = CGPoint(x: 0, y: 0)
+        var start = CGPoint(x: 0, y: 0)
         
-        let firstPoint = CGPoint(x: width, y: 0)
-        let secondPoint = CGPoint(x: width, y: height)
-        let thirdPoint = CGPoint(x: width*2/5, y: height)
-        let fourthPoint = CGPoint(x: width/5, y: height*6/5)
-        let fifthPoint = CGPoint(x: width/5, y: height)
-        let sixthPoint = CGPoint(x: 0, y: height)
+        var firstPoint = CGPoint()
+        var secondPoint = CGPoint()
+        var thirdPoint = CGPoint()
+        var fourthPoint = CGPoint()
+        var fifthPoint = CGPoint()
+        var sixthPoint = CGPoint()
+        
+        switch caseNo {
+        case 1: //goc tren trai
+            start = CGPoint(x: 0, y: 0)
+            firstPoint = CGPoint(x: width, y: 0)
+            secondPoint = CGPoint(x: width, y: height)
+            thirdPoint = CGPoint(x: 0, y: height)
+            fourthPoint = CGPoint(x: 0, y: height/5)
+            fifthPoint = CGPoint(x: 0-width/5, y: 0)
+            sixthPoint = CGPoint(x: 0, y: 0)
+            
+        case 2: //goc tren phai
+            start = CGPoint(x: 0, y: 0)
+            firstPoint = CGPoint(x: width*6/5, y: 0)
+            secondPoint = CGPoint(x: width, y: height/5)
+            thirdPoint = CGPoint(x: width, y: height)
+            fourthPoint = CGPoint(x: 0, y: height)
+            fifthPoint = CGPoint(x: 0, y: 0)
+            sixthPoint = CGPoint(x: 0, y: 0)
+            
+        case 3: //goc duoi trai
+            start = CGPoint(x: 0, y: 0)
+            firstPoint = CGPoint(x: width, y: 0)
+            secondPoint = CGPoint(x: width, y: height)
+            thirdPoint = CGPoint(x: 0-width/5, y: height)
+            fourthPoint = CGPoint(x: 0, y: height*4/5)
+            fifthPoint = CGPoint(x: 0, y: 0)
+            sixthPoint = CGPoint(x: 0, y: 0)
+            
+        case 4: //goc duoi phai
+            start = CGPoint(x: 0, y: 0)
+            firstPoint = CGPoint(x: width, y: 0)
+            secondPoint = CGPoint(x: width, y: height*4/5)
+            thirdPoint = CGPoint(x: width*6/5, y: height)
+            fourthPoint = CGPoint(x: 0, y: height)
+            fifthPoint = CGPoint(x: 0, y: 0)
+            sixthPoint = CGPoint(x: 0, y: 0)
+            
+        case 5: //le trai
+            start = CGPoint(x: 0, y: 0)
+            firstPoint = CGPoint(x: width, y: 0)
+            secondPoint = CGPoint(x: width, y: height)
+            thirdPoint = CGPoint(x: 0, y: height)
+            fourthPoint = CGPoint(x: 0, y: height*2/5)
+            fifthPoint = CGPoint(x: 0-width/5, y: height/5)
+            sixthPoint = CGPoint(x: 0, y: height/5)
+            
+        case 6: //le phai
+            start = CGPoint(x: 0, y: 0)
+            firstPoint = CGPoint(x: width, y: 0)
+            secondPoint = CGPoint(x: width, y: height/5)
+            thirdPoint = CGPoint(x: width*6/5, y: height/5)
+            fourthPoint = CGPoint(x: width, y: height*2/5)
+            fifthPoint = CGPoint(x: width, y: height)
+            sixthPoint = CGPoint(x: 0, y: height)
+            
+        case 7: //le tren trai
+            start = CGPoint(x: 0, y: 0)
+            firstPoint = CGPoint(x: width/5, y: 0)
+            secondPoint = CGPoint(x: width/5, y: 0-height/5)
+            thirdPoint = CGPoint(x: width*2/5, y: 0)
+            fourthPoint = CGPoint(x: width, y: 0)
+            fifthPoint = CGPoint(x: width, y: height)
+            sixthPoint = CGPoint(x: 0, y: height)
+            
+        case 8: //le tren phai
+            start = CGPoint(x: 0, y: 0)
+            firstPoint = CGPoint(x: width*3/5, y: 0)
+            secondPoint = CGPoint(x: width*4/5, y: 0-height/5)
+            thirdPoint = CGPoint(x: width*4/5, y: 0)
+            fourthPoint = CGPoint(x: width, y: 0)
+            fifthPoint = CGPoint(x: width, y: height)
+            sixthPoint = CGPoint(x: 0, y: height)
+            
+        case 9: //ben phai
+            start = CGPoint(x: 0, y: 0)
+            firstPoint = CGPoint(x: width, y: 0)
+            secondPoint = CGPoint(x: width, y: height)
+            thirdPoint = CGPoint(x: width*4/5, y: height)
+            fourthPoint = CGPoint(x: width*4/5, y: height*6/5)
+            fifthPoint = CGPoint(x: width*3/5, y: height)
+            sixthPoint = CGPoint(x: 0, y: height)
+            
+        case 10: //ben trai
+            start = CGPoint(x: 0, y: 0)
+            firstPoint = CGPoint(x: width, y: 0)
+            secondPoint = CGPoint(x: width, y: height)
+            thirdPoint = CGPoint(x: width*2/5, y: height)
+            fourthPoint = CGPoint(x: width/5, y: height*6/5)
+            fifthPoint = CGPoint(x: width/5, y: height)
+            sixthPoint = CGPoint(x: 0, y: height)
+            
+        default:
+            print("Should not be here")
+        }
         
         let throughPoints = [firstPoint, secondPoint, thirdPoint, fourthPoint, fifthPoint, sixthPoint]
+        
+        
         
         //design the path
         
