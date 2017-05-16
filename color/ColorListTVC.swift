@@ -22,7 +22,7 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
     var filterColorName = [String]()
     var searchController = UISearchController()
     var id: [String] = []
-    var name: [String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchController = UISearchController(searchResultsController: nil)
@@ -57,9 +57,13 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
                     {
                         let aObject = arrJSON[index] as! [String: AnyObject]
                         
-                        self.name.append(aObject["name"] as! String)
                         self.id.append(aObject["id"] as! String)
                     }
+                }
+                for i in 0..<self.id.count
+                {
+                    let url = URL(string: "http://192.168.1.107:3001/detailios/\(self.id[i])")
+                    
                 }
             }
             catch
