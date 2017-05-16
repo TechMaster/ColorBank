@@ -46,22 +46,25 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
     //MARK: Lấy dữ liệu từ server truyền vào mảng itemArray
     func getData(){
         __dispatch_async(DispatchQueue.global(), {
-            let url = NSURL(string: "http://192.168.1.107:3000/detailios/H1z6V5t8g-".addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!)
+            let url = NSURL(string: "http://192.168.1.107:3001/detailios/H1z6V5t8g-".addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!)
             var stringData = ""
             
             do
             {
                 stringData = try String(contentsOf: url! as URL)
+//                print(stringData)
             }
             catch let error as NSError
             {
                 print(error)
             }
             let json = self.converStringToDictionary(string: stringData)
+            print(json!)
             if (json != nil)
             {
                 self.addDataToItemArray(json: json!)
-            }})
+        }
+        })
         
     }
     
@@ -72,7 +75,7 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
             do
             {
                 let json =  try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: AnyObject]
-                return json!
+                return json
             } catch
             {
                 print("something went wrong")
@@ -84,6 +87,8 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
     func addDataToItemArray(json: [String: AnyObject])
     {
         let name = json["name"] as! String
+        let id = json["id"] as! String
+        print(id)
         print(name)
     }
     
