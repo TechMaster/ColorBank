@@ -11,14 +11,31 @@ import Foundation
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     var baseImage = UIImage()
-    
+    var menuButton = UIButton()
+    var paletteButton = UIButton()
+    var albumButton = UIButton()
+    var cameraButton = UIButton()
+    var expanding: Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
-        let viewHeight = self.view.bounds.size.height
-        createButton(title: "Palettes", posY: viewHeight/3 , color: UIColor(hexString: "3546C2")).addTarget(self, action: #selector(pushToColorListView), for: .touchUpInside)
-        createButton(title: "Album", posY: viewHeight/2 , color: UIColor(hexString: "7340FF")).addTarget(self, action: #selector(pushToAlbumView), for: .touchUpInside)
-        createButton(title: "Camera", posY: viewHeight*2/3 , color: UIColor(hexString: "5D22C5")).addTarget(self, action: #selector(pushToCameraView), for: .touchUpInside)
+        self.view.backgroundColor = UIColor.white
+        
+        let X = self.view.bounds.size.width/2
+        let Y = self.view.bounds.size.height/2
+        
+        paletteButton = createButton(image: #imageLiteral(resourceName: "Palette"), posX: X - 40, posY: Y - 40)
+        albumButton = createButton(image: #imageLiteral(resourceName: "Album"), posX: X - 40, posY: Y - 40)
+        cameraButton = createButton(image: #imageLiteral(resourceName: "Camera"), posX: X - 40, posY: Y - 40)
+        menuButton = createButton(image: #imageLiteral(resourceName: "Menu"), posX: X - 40, posY: Y - 40)
+        
+        paletteButton.alpha = 0
+        albumButton.alpha = 0
+        cameraButton.alpha = 0
+        
+        menuButton.addTarget(self, action: #selector(animateButtons), for: .touchUpInside)
+        paletteButton.addTarget(self, action: #selector(pushToColorListView), for: .touchUpInside)
+        albumButton.addTarget(self, action: #selector(pushToAlbumView), for: .touchUpInside)
+        cameraButton.addTarget(self, action: #selector(pushToCameraView), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,14 +48,46 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewWillDisappear(animated)
     }
     
+    //MARK:
+    func animateButtons() {
+        let center = menuButton.center
+        if expanding == false
+        {
+            UIView.animate(withDuration: 0.5, animations: {
+                
+                self.paletteButton.center = CGPoint(x: center.x, y: center.y/2)
+                self.paletteButton.alpha = 1
+                
+                self.albumButton.center = CGPoint(x: center.x/2, y: center.y)
+                self.albumButton.alpha = 1
+                
+                self.cameraButton.center = CGPoint(x: center.x*3/2, y: center.y)
+                self.cameraButton.alpha = 1
+            })
+            expanding = true
+        }
+        else
+        {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.paletteButton.center = self.menuButton.center
+                self.paletteButton.alpha = 0
+                
+                self.albumButton.center = self.menuButton.center
+                self.albumButton.alpha = 0
+                
+                self.cameraButton.center = self.menuButton.center
+                self.cameraButton.alpha = 0
+            })
+            expanding = false
+        }
+    }
+    
     //MARK: Tạo nút
-    func createButton(title: String, posY: CGFloat, color: UIColor) -> UIButton {
+    func createButton(image: UIImage,posX: CGFloat, posY: CGFloat) -> UIButton {
         let Button = UIButton()
-        Button.frame = CGRect(x: self.view.bounds.size.width/4, y: posY, width: self.view.bounds.size.width/2, height: 50)
-        Button.setTitle(title, for: .normal)
-        Button.setTitleColor(UIColor.white, for: .normal)
-        Button.backgroundColor = color
-        Button.layer.cornerRadius = 8
+        Button.frame = CGRect(x: posX, y: posY, width: 80, height: 80)
+        Button.setBackgroundImage(image, for: .normal)
+        Button.layer.cornerRadius = Button.frame.width/2
         self.view.addSubview(Button)
         return Button
     }
@@ -92,4 +141,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
 }
 
-
+extension UIView{
+    func addConstraintsWithFormat(format: String, views: UIView...){
+        var viewsDictionary = [String: UIView]()
+        for (index, view) in views.enumerated(){
+            let key = "v\(index)"
+            view.translatesAutoresizingMaskIntoConstraints = false
+            viewsDictionary[key] = view
+        }
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDictionary))
+    }
+}

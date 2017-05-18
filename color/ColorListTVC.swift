@@ -63,7 +63,17 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
                 for i in 0..<self.id.count
                 {
                     let url = URL(string: "http://192.168.1.107:3001/detailios/\(self.id[i])")
-                    
+                    do {
+                        let colorData = try Data(contentsOf: url!)
+                        let allColor = try JSONSerialization.jsonObject(with: colorData, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject]
+                        if let arrJSON = allColor["data"] {
+                            for index in 0..<arrJSON.count{
+                                let aObject = arrJSON[index] as! [String: AnyObject]
+                                
+                            
+                            }
+                        }
+                    }
                 }
             }
             catch
