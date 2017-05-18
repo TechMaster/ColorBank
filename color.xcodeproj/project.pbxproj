@@ -23,6 +23,8 @@
 		CFB043F11EC17B14009245EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFB043F01EC17B14009245EB /* Main.storyboard */; };
 		CFC2BEA31EB2F7BA00F22496 /* ChosenImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC2BEA21EB2F7BA00F22496 /* ChosenImageVC.swift */; };
 		CFC754741EC958B8004D8551 /* DetectLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC754731EC958B8004D8551 /* DetectLabel.swift */; };
+		CFC888D61ECD49C8007972A7 /* YPMagnifyingGlass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC888D41ECD49C8007972A7 /* YPMagnifyingGlass.swift */; };
+		CFC888D71ECD49C8007972A7 /* YPMagnifyingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC888D51ECD49C8007972A7 /* YPMagnifyingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		CFB043F01EC17B14009245EB /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		CFC2BEA21EB2F7BA00F22496 /* ChosenImageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChosenImageVC.swift; sourceTree = "<group>"; };
 		CFC754731EC958B8004D8551 /* DetectLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectLabel.swift; sourceTree = "<group>"; };
+		CFC888D41ECD49C8007972A7 /* YPMagnifyingGlass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPMagnifyingGlass.swift; sourceTree = "<group>"; };
+		CFC888D51ECD49C8007972A7 /* YPMagnifyingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPMagnifyingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +111,8 @@
 				CFC2BEA21EB2F7BA00F22496 /* ChosenImageVC.swift */,
 				19F9E8651EC30A9400FEA3D5 /* SRCopyableLabel.swift */,
 				CFC754731EC958B8004D8551 /* DetectLabel.swift */,
+				CFC888D41ECD49C8007972A7 /* YPMagnifyingGlass.swift */,
+				CFC888D51ECD49C8007972A7 /* YPMagnifyingView.swift */,
 			);
 			name = DetectColorView;
 			sourceTree = "<group>";
@@ -201,12 +207,14 @@
 				19E808B11EB18EE700EFEE50 /* ViewController.swift in Sources */,
 				CFC754741EC958B8004D8551 /* DetectLabel.swift in Sources */,
 				CFB043ED1EC17AF6009245EB /* color.xcdatamodeld in Sources */,
+				CFC888D71ECD49C8007972A7 /* YPMagnifyingView.swift in Sources */,
 				CFB043EA1EC17ADE009245EB /* ColorListCell.swift in Sources */,
 				CFB043E81EC17AD6009245EB /* PieChart.swift in Sources */,
 				CFC2BEA31EB2F7BA00F22496 /* ChosenImageVC.swift in Sources */,
 				19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */,
 				19E808D21EB1AC1600EFEE50 /* ColorListTVC.swift in Sources */,
 				19E808CA1EB1937E00EFEE50 /* DetailColorVC.swift in Sources */,
+				CFC888D61ECD49C8007972A7 /* YPMagnifyingGlass.swift in Sources */,
 				CFB043E61EC17AD2009245EB /* ColorBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -22,11 +22,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         let X = self.view.bounds.size.width/2
         let Y = self.view.bounds.size.height/2
+        let buttonWidth = self.view.bounds.size.width/7
         
-        paletteButton = createButton(image: #imageLiteral(resourceName: "Palette"), posX: X - 40, posY: Y - 40)
-        albumButton = createButton(image: #imageLiteral(resourceName: "Album"), posX: X - 40, posY: Y - 40)
-        cameraButton = createButton(image: #imageLiteral(resourceName: "Camera"), posX: X - 40, posY: Y - 40)
-        menuButton = createButton(image: #imageLiteral(resourceName: "Menu"), posX: X - 40, posY: Y - 40)
+        paletteButton = createButton(image: #imageLiteral(resourceName: "Palette"), posX: X - buttonWidth/2, posY: Y - buttonWidth/2)
+        albumButton = createButton(image: #imageLiteral(resourceName: "Album"), posX: X - buttonWidth/2, posY: Y - buttonWidth/2)
+        cameraButton = createButton(image: #imageLiteral(resourceName: "Camera"), posX: X - buttonWidth/2, posY: Y - buttonWidth/2)
+        menuButton = createButton(image: #imageLiteral(resourceName: "Menu"), posX: X - buttonWidth/2, posY: Y - buttonWidth/2)
         
         paletteButton.alpha = 0
         albumButton.alpha = 0
@@ -51,11 +52,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     //MARK:
     func animateButtons() {
         let center = menuButton.center
+        let spacing = self.view.bounds.size.width/4
+        
         if expanding == false
         {
             UIView.animate(withDuration: 0.5, animations: {
                 
-                self.paletteButton.center = CGPoint(x: center.x, y: center.y/2)
+                self.paletteButton.center = CGPoint(x: center.x, y: center.y - spacing)
                 self.paletteButton.alpha = 1
                 
                 self.albumButton.center = CGPoint(x: center.x/2, y: center.y)
@@ -85,7 +88,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     //MARK: Tạo nút
     func createButton(image: UIImage,posX: CGFloat, posY: CGFloat) -> UIButton {
         let Button = UIButton()
-        Button.frame = CGRect(x: posX, y: posY, width: 80, height: 80)
+        Button.frame = CGRect(x: posX, y: posY, width: self.view.bounds.size.width/6, height: self.view.bounds.size.width/6)
         Button.setBackgroundImage(image, for: .normal)
         Button.layer.cornerRadius = Button.frame.width/2
         self.view.addSubview(Button)

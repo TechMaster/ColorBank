@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ChosenImageVC: UIViewController, UIScrollViewDelegate {
+class ChosenImageVC: UIViewController{
     
     let imageView = UIImageView()
     var image = UIImage()
@@ -20,9 +20,7 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        scrollView.delegate = self
         createImageView()
-        
     }
     
     func createDetectLabel(x: CGFloat, y: CGFloat, color: String, caseNo: Int) {
@@ -35,7 +33,6 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
                                      color: UIColor(hexString: color),
                                      text: color,
                                      caseNo: caseNo)
-        
         self.view.addSubview(colorLabel)
     }
     
@@ -46,28 +43,26 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
         imageView.image = image
         imageView.isUserInteractionEnabled = true
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapImg(_:)))
-        tap.numberOfTapsRequired = 1
+        let magView = YPMagnifyingView()
+        magView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
         
-        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(doubleTapImg(_:)))
-        doubleTap.numberOfTapsRequired = 2
-        tap.require(toFail: doubleTap)
+        let magGlass = YPMagnifyingGlass(frame: CGRect(x: magView.frame.origin.x, y: magView.frame.origin.y, width: 55, height: 55))
+        magGlass.scale = 2
+        magView.magnifyingGlass = magGlass
         
-        self.imageView.addGestureRecognizer(tap)
-        self.imageView.addGestureRecognizer(doubleTap)
+        let focusPoint = YPMagnifyingGlass(frame: CGRect(x: magView.frame.origin.x, y: magView.frame.origin.y, width: 20, height: 20))
+        focusPoint.scale = 5
+        magView.focusPoint = focusPoint
         
-        scrollView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
-        scrollView.contentSize = CGSize(width: imageView.bounds.width, height: imageView.bounds.height)
-        scrollView.maximumZoomScale = 2
-        scrollView.minimumZoomScale = 1
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(tapImg(_:)))
+//        tap.numberOfTapsRequired = 1
+//        
+//        self.imageView.addGestureRecognizer(tap)
         
-        self.view.addSubview(scrollView)
-        self.scrollView.addSubview(imageView)
+        self.view.addSubview(magView)
+        magView.addSubview(imageView)
         
-    }
-    
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return imageView
+        
     }
     
     func tapImg(_ gesture: UITapGestureRecognizer){
@@ -139,35 +134,6 @@ class ChosenImageVC: UIViewController, UIScrollViewDelegate {
         
         
         
-    }
-    
-    func doubleTapImg(_ gesture: UITapGestureRecognizer){
-        
-        for v in view.subviews{
-            if v is UILabel{
-                v.removeFromSuperview()
-            }
-        }
-        
-        let position = gesture.location(in: self.imageView)
-        
-        if isZoomIn == false {
-            zoomRectForScale(scale: scrollView.zoomScale * 1.5, center: position)
-            isZoomIn = true
-        }else{
-            zoomRectForScale(scale: scrollView.zoomScale * 0.5, center: position)
-            isZoomIn = false
-        }
-    }
-    
-    func zoomRectForScale(scale: CGFloat, center: CGPoint){
-        var zoomRect = CGRect()
-        let scrollViewSize = scrollView.bounds.size
-        zoomRect.size.height = scrollViewSize.height/scale
-        zoomRect.size.width = scrollViewSize.width/scale
-        zoomRect.origin.x = center.x - (zoomRect.size.width / 2.0)
-        zoomRect.origin.y = center.y - (zoomRect.size.height / 2.0)
-        scrollView.zoom(to: zoomRect, animated: true)
     }
 }
 
