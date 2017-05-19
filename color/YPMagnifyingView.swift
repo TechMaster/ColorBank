@@ -31,12 +31,15 @@ public class YPMagnifyingView: UIView {
         if let touch: UITouch = touches.first {
             
             self.touchTimer = Timer.scheduledTimer(timeInterval: magnifyingGlassShowDelay, target: self, selector: #selector(YPMagnifyingView.addMagnifyingGlassTimer(timer:)), userInfo: NSValue(cgPoint: touch.location(in: self)), repeats: false)
+            
         }
     }
     
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch: UITouch = touches.first {
+            
             self.updateMagnifyingGlassAtPoint(point: touch.location(in: self))
+            
         }
     }
     

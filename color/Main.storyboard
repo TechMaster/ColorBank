@@ -20,29 +20,12 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="xuB-Is-Ipg">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                            </imageView>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="xuB-Is-Ipg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="5BW-mv-qJJ"/>
-                            <constraint firstAttribute="trailing" secondItem="xuB-Is-Ipg" secondAttribute="trailing" id="EWU-ZR-5Bt"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="xuB-Is-Ipg" secondAttribute="bottom" id="Mfx-8P-L0J"/>
-                            <constraint firstItem="xuB-Is-Ipg" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="VLt-tG-Rsz"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="background" destination="xuB-Is-Ipg" id="3dO-nG-LgO"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-552.17391304347825" y="52.173913043478265"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="background.jpg" width="480" height="800"/>
-    </resources>
 </document>
