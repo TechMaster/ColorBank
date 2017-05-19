@@ -23,15 +23,6 @@ class ChosenImageVC: UIViewController{
         createImageView()
     }
     
-    func createDetectLabel(x: CGFloat, y: CGFloat) {
-        
-        let widthLabel: CGFloat = 30
-        
-        let colorLabel = DetectLabel(frame: CGRect(x: x - widthLabel/2, y: y - widthLabel/2,
-                                                   width: widthLabel,
-                                                   height: widthLabel))
-        self.view.addSubview(colorLabel)
-    }
     
     func createImageView() {
         
@@ -74,7 +65,14 @@ class ChosenImageVC: UIViewController{
         
        // let pickedColor = self.view.getPixelColorAtPoint(point: position, sourceView: self.view)
         
-        createDetectLabel(x: position.x, y: position.y)
+        
+        let widthLabel: CGFloat = 30
+        
+        let colorLabel = DetectLabel(frame: CGRect(x: position.x - widthLabel/2,
+                                                   y: position.y - widthLabel/2,
+                                                   width: widthLabel,
+                                                   height: widthLabel))
+        self.view.addSubview(colorLabel)
         
     }
 }
