@@ -23,16 +23,13 @@ class ChosenImageVC: UIViewController{
         createImageView()
     }
     
-    func createDetectLabel(x: CGFloat, y: CGFloat, color: String, caseNo: Int) {
+    func createDetectLabel(x: CGFloat, y: CGFloat) {
         
-        let widthLabel = self.view.bounds.size.width/4
+        let widthLabel: CGFloat = 30
         
-        let colorLabel = DetectLabel(frame: CGRect(x: x, y: y,
+        let colorLabel = DetectLabel(frame: CGRect(x: x - widthLabel/2, y: y - widthLabel/2,
                                                    width: widthLabel,
-                                                   height: widthLabel*4/5),
-                                     color: UIColor(hexString: color),
-                                     text: color,
-                                     caseNo: caseNo)
+                                                   height: widthLabel))
         self.view.addSubview(colorLabel)
     }
     
@@ -54,10 +51,10 @@ class ChosenImageVC: UIViewController{
         focusPoint.scale = 5
         magView.focusPoint = focusPoint
         
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(tapImg(_:)))
-//        tap.numberOfTapsRequired = 1
-//        
-//        self.imageView.addGestureRecognizer(tap)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapImg(_:)))
+        tap.numberOfTapsRequired = 1
+        
+        self.imageView.addGestureRecognizer(tap)
         
         self.view.addSubview(magView)
         magView.addSubview(imageView)
@@ -75,64 +72,9 @@ class ChosenImageVC: UIViewController{
         
         let position = gesture.location(in: self.view)
         
-        let pickedColor = self.view.getPixelColorAtPoint(point: position, sourceView: self.view)
+       // let pickedColor = self.view.getPixelColorAtPoint(point: position, sourceView: self.view)
         
-        let width = self.view.bounds.size.width
-        let height = self.view.bounds.size.height
-        let widthLabel = self.view.bounds.size.width/4
-        
-        let marginLeft = width/20
-        let marginTop = width/4 + (self.navigationController?.navigationBar.bounds.size.height)!
-        let marginRight = width*19/20
-        let marginBottom = height - width/4
-        let mid = width/2
-        
-        switch (position.x, position.y) {
-        case (0..<marginLeft,0..<marginTop): //case 1: goc tren trai
-            print("1: goc tren trai")
-            createDetectLabel(x: position.x + widthLabel/5, y: position.y, color: pickedColor, caseNo: 1)
-            
-        case (marginRight...width,0..<marginTop): //case 2: goc tren phai
-            print("2: goc tren phai")
-            createDetectLabel(x: position.x - widthLabel*6/5, y: position.y, color: pickedColor, caseNo: 2)
-            
-        case (0..<marginLeft,marginBottom...height): //case 3: goc duoi trai
-            print("3: goc duoi trai")
-            createDetectLabel(x: position.x + widthLabel/5, y: position.y - widthLabel, color: pickedColor, caseNo: 3)
-            
-        case (marginRight...width,marginBottom...height): //case 4: goc duoi phai
-            print("4: goc duoi phai")
-            createDetectLabel(x: position.x - widthLabel*6/5, y: position.y - widthLabel, color: pickedColor, caseNo: 4)
-            
-        case (0..<marginLeft,marginTop..<marginBottom): //case 5: le trai
-            print("5: le trai")
-            createDetectLabel(x: position.x + widthLabel/5, y: position.y - widthLabel/5, color: pickedColor, caseNo: 5)
-            
-        case (marginRight...width,marginTop..<marginBottom): //case 6: le phai
-            print("6: le phai")
-            createDetectLabel(x: position.x - widthLabel*6/5, y: position.y - widthLabel/5, color: pickedColor, caseNo: 6)
-            
-        case (marginLeft..<mid,0..<marginTop): //case 7: le tren trai
-            print("7: le tren trai")
-            createDetectLabel(x: position.x - widthLabel/5, y: position.y + widthLabel/5, color: pickedColor, caseNo: 7)
-            
-        case (mid...marginRight,0..<marginTop): //case 8: le tren phai
-            print("8: le tren phai")
-            createDetectLabel(x: position.x - widthLabel*4/5, y: position.y + widthLabel/5, color: pickedColor, caseNo: 8)
-            
-        case (mid...marginRight,marginTop...height): //case 9: ben phai
-            print("9: ben phai")
-            createDetectLabel(x: position.x - widthLabel*4/5, y: position.y - widthLabel, color: pickedColor, caseNo: 9)
-            
-        case (marginLeft..<mid,marginTop...height): //case 10: ben trai
-            print("10: ben trai")
-            createDetectLabel(x: position.x - widthLabel/5, y: position.y - widthLabel, color: pickedColor, caseNo: 10)
-            
-        default:
-            print("Should not be here")
-        }
-        
-        
+        createDetectLabel(x: position.x, y: position.y)
         
     }
 }
