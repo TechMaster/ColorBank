@@ -42,7 +42,7 @@ class ChosenImageVC: UIViewController{
         focusPoint.scale = 5
         magView.focusPoint = focusPoint
         
-        let sniper = DetectLabel(frame: CGRect(x: magView.frame.origin.x, y: magView.frame.origin.y, width: 30, height: 30))
+        let sniper = Sniper(frame: CGRect(x: magView.frame.origin.x, y: magView.frame.origin.y, width: 30, height: 30))
         magView.sniper = sniper
         
 //        let tap = UITapGestureRecognizer(target: self, action: #selector(tapImg(_:)))

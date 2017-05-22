@@ -18,7 +18,7 @@ public class YPMagnifyingView: UIView {
     
     public var focusPoint: YPMagnifyingGlass = YPMagnifyingGlass()
     
-    public var sniper: DetectLabel = DetectLabel()
+    public var sniper: Sniper = Sniper()
     
     override public init(frame: CGRect) {
         super.init(frame: frame)

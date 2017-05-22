@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-public class DetectLabel: UIView {
+public class Sniper: UIView {
     
     let circleLineWidth: CGFloat = 3 // your desired value
     let singleLineWidth: CGFloat = 2
