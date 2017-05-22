@@ -131,7 +131,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             baseImage = pickedImage
         }
         
-        let newViewController = ChosenImageVC()
+        let newViewController = TestVC()
         newViewController.image = baseImage
         self.navigationController?.pushViewController(newViewController, animated: true)
         dismiss(animated: true, completion: nil)
