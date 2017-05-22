@@ -46,33 +46,33 @@ public class DetectLabel: UIView {
         let spacing = self.circleLineWidth/2 + self.singleLineWidth*2
         let halfSize: CGFloat = min(bounds.size.width/2, bounds.size.height/2)
         
-//        drawLine(from: CGPoint(x: halfSize-singleLineWidth/2,y: spacing),
-//                 to: CGPoint(x: halfSize-singleLineWidth/2,y: halfSize-singleLineWidth),
-//                 color: UIColor.white)
-//        drawLine(from: CGPoint(x: halfSize+singleLineWidth/2,y: spacing),
-//                 to: CGPoint(x: halfSize+singleLineWidth/2,y: halfSize-singleLineWidth),
-//                 color: UIColor.black)
-//        
-//        drawLine(from: CGPoint(x: halfSize-singleLineWidth/2,y: halfSize*2 - spacing),
-//                 to: CGPoint(x: halfSize-singleLineWidth/2,y: halfSize+singleLineWidth),
-//                 color: UIColor.black)
-//        drawLine(from: CGPoint(x: halfSize+singleLineWidth/2,y: halfSize*2 - spacing),
-//                 to: CGPoint(x: halfSize+singleLineWidth/2,y: halfSize+singleLineWidth),
-//                 color: UIColor.white)
-//        
-//        drawLine(from: CGPoint(x: spacing,y: halfSize-singleLineWidth/2),
-//                 to: CGPoint(x: halfSize-singleLineWidth,y: halfSize-singleLineWidth/2),
-//                 color: UIColor.black)
-//        drawLine(from: CGPoint(x: spacing,y: halfSize+singleLineWidth/2),
-//                 to: CGPoint(x: halfSize-singleLineWidth,y: halfSize+singleLineWidth/2),
-//                 color: UIColor.white)
-//        
-//        drawLine(from: CGPoint(x: halfSize*2-spacing,y: halfSize-singleLineWidth/2),
-//                 to: CGPoint(x: halfSize+singleLineWidth,y: halfSize-singleLineWidth/2),
-//                 color: UIColor.white)
-//        drawLine(from: CGPoint(x: halfSize*2-spacing,y: halfSize+singleLineWidth/2),
-//                 to: CGPoint(x: halfSize+singleLineWidth,y: halfSize+singleLineWidth/2),
-//                 color: UIColor.black)
+        drawLine(from: CGPoint(x: halfSize-singleLineWidth/2,y: spacing),
+                 to: CGPoint(x: halfSize-singleLineWidth/2,y: halfSize-singleLineWidth),
+                 color: UIColor.white)
+        drawLine(from: CGPoint(x: halfSize+singleLineWidth/2,y: spacing),
+                 to: CGPoint(x: halfSize+singleLineWidth/2,y: halfSize-singleLineWidth),
+                 color: UIColor.black)
+        
+        drawLine(from: CGPoint(x: halfSize-singleLineWidth/2,y: halfSize*2 - spacing),
+                 to: CGPoint(x: halfSize-singleLineWidth/2,y: halfSize+singleLineWidth),
+                 color: UIColor.black)
+        drawLine(from: CGPoint(x: halfSize+singleLineWidth/2,y: halfSize*2 - spacing),
+                 to: CGPoint(x: halfSize+singleLineWidth/2,y: halfSize+singleLineWidth),
+                 color: UIColor.white)
+        
+        drawLine(from: CGPoint(x: spacing,y: halfSize-singleLineWidth/2),
+                 to: CGPoint(x: halfSize-singleLineWidth,y: halfSize-singleLineWidth/2),
+                 color: UIColor.black)
+        drawLine(from: CGPoint(x: spacing,y: halfSize+singleLineWidth/2),
+                 to: CGPoint(x: halfSize-singleLineWidth,y: halfSize+singleLineWidth/2),
+                 color: UIColor.white)
+        
+        drawLine(from: CGPoint(x: halfSize*2-spacing,y: halfSize-singleLineWidth/2),
+                 to: CGPoint(x: halfSize+singleLineWidth,y: halfSize-singleLineWidth/2),
+                 color: UIColor.white)
+        drawLine(from: CGPoint(x: halfSize*2-spacing,y: halfSize+singleLineWidth/2),
+                 to: CGPoint(x: halfSize+singleLineWidth,y: halfSize+singleLineWidth/2),
+                 color: UIColor.black)
         
     }
     
@@ -96,8 +96,5 @@ public class DetectLabel: UIView {
         
         self.layer.addSublayer(shapeLayer)
     }
-    
-    
-    
     
 }

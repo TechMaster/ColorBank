@@ -40,6 +40,7 @@ public class YPMagnifyingView: UIView {
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch: UITouch = touches.first {
             
+            self.removeSniper()
             self.updateMagnifyingGlassAtPoint(point: touch.location(in: self))
             
         }
@@ -50,14 +51,26 @@ public class YPMagnifyingView: UIView {
         self.touchTimer = nil
         
         self.removeMagnifyingGlass()
+        
+        if let touch: UITouch = touches.first {
+            self.addSniperAtPoint(point: touch.location(in: self))
+        }
     }
     
     // MARK: - Private Functions
     
-    private func addMagnifyingGlassAtPoint(point: CGPoint) {
+    private func addSniperAtPoint(point: CGPoint){
         self.sniper.viewToMagnify = self as UIView
         self.sniper.touchPoint = point
+        
+        let selfView: UIView = self as UIView
+        
+        selfView.addSubview(self.sniper)
+        self.sniper.setNeedsDisplay()
 
+    }
+    
+    private func addMagnifyingGlassAtPoint(point: CGPoint) {
         
         self.magnifyingGlass.viewToMagnify = self as UIView
         self.magnifyingGlass.touchPoint = point
@@ -67,26 +80,24 @@ public class YPMagnifyingView: UIView {
         
         let selfView: UIView = self as UIView
         
-        selfView.addSubview(self.sniper)
         selfView.addSubview(self.magnifyingGlass)
         selfView.addSubview(self.focusPoint)
         
-        self.sniper.setNeedsDisplay()
         self.magnifyingGlass.setNeedsDisplay()
         self.focusPoint.setNeedsDisplay()
 
     }
     
     private func removeMagnifyingGlass() {
-        self.sniper.removeFromSuperview()
         self.magnifyingGlass.removeFromSuperview()
         self.focusPoint.removeFromSuperview()
-
+    }
+    
+    private func removeSniper() {
+        self.sniper.removeFromSuperview()
     }
     
     private func updateMagnifyingGlassAtPoint(point: CGPoint) {
-        self.sniper.touchPoint = point
-        self.sniper.setNeedsDisplay()
         
         self.magnifyingGlass.touchPoint = point
         self.magnifyingGlass.setNeedsDisplay()
