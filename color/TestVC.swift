@@ -19,8 +19,6 @@ class TestVC: UIViewController {
     var stillImageOutput: AVCaptureStillImageOutput?
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     
-    var image = UIImage()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         createPreviewView()
@@ -64,6 +62,25 @@ class TestVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         videoPreviewLayer!.frame = previewView.bounds
+        if let videoConnection = stillImageOutput!.connection(withMediaType: AVMediaTypeVideo) {
+            // ...
+            // Code for photo capture goes here...
+            stillImageOutput?.captureStillImageAsynchronously(from: videoConnection, completionHandler: { (sampleBuffer, error) -> Void in
+                // ...
+                // Process the image data (sampleBuffer) here to get an image file we can put in our captureImageView
+                if sampleBuffer != nil {
+                    let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
+                    let dataProvider = CGDataProvider(data: imageData as! CFData)
+                    let cgImageRef = CGImage(jpegDataProviderSource: dataProvider!, decode: nil, shouldInterpolate: true, intent: CGColorRenderingIntent.defaultIntent)
+                    let image = UIImage(cgImage: cgImageRef!, scale: 1.0, orientation: UIImageOrientation.right)
+                    // ...
+                    // Add the image to captureImageView here...
+                    self.capturedImage.image = image
+                    
+                }
+            })
+        }
+        
     }
     
     func createPreviewView() {
