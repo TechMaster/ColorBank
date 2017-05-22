@@ -1,9 +1,9 @@
 //
-//  ScreenA.swift
-//  BootStrapDemo
+//  DetailColorVC.swift
+//  color
 //
-//  Created by Techmaster on 9/6/16.
-//  Copyright © 2016 Techmaster Vietnam. All rights reserved.
+//  Created by Loc Tran on 4/27/17.
+//  Copyright © 2017 LocTran. All rights reserved.
 //
 
 import UIKit
@@ -23,6 +23,7 @@ class DetailColorVC: UIViewController {
     var label5 = UILabel()
     var label4 = UILabel()
     var label3 = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,12 +32,10 @@ class DetailColorVC: UIViewController {
         self.navigationItem.title = colorArr[indexSection].colorName
         
         createButton(title: "Share", posX: 5).addTarget(self, action: #selector(share(sender:)), for: .touchUpInside)
-        //        createButton(title: "Rotate", posX: 1).addTarget(self, action: #selector(drawInfo1(arr:)), for: .touchUpInside)
         
         navAndStatusHeight = (self.navigationController?.navigationBar.bounds.size.height)! + UIApplication.shared.statusBarFrame.size.height
         infoView = UIView(frame:  CGRect(x: 0, y: navAndStatusHeight, width: self.view.frame.width, height: self.view.frame.height*(1/2) - navAndStatusHeight))
         infoView2 = UIView(frame:  CGRect(x: 0, y: self.view.frame.height*(1/2), width: self.view.frame.width, height: self.view.frame.height*(1/2)))
-        //        infoView2.backgroundColor = UIColor.red
         
         self.view.addSubview(infoView)
         
@@ -46,11 +45,7 @@ class DetailColorVC: UIViewController {
         creatBtn(index: 3).addTarget(self, action: #selector(Colorbtn), for: .touchUpInside)
         creatBtn(index: 4).addTarget(self, action: #selector(Colorbtn), for: .touchUpInside)
         
-        
-        
         self.view.addSubview(drawinfo2())
-        
-        //        self.view.addSubview(drawInfo1(arr: arr))
         
     }
     

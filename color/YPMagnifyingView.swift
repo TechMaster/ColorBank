@@ -18,6 +18,8 @@ public class YPMagnifyingView: UIView {
     
     public var focusPoint: YPMagnifyingGlass = YPMagnifyingGlass()
     
+    public var sniper: DetectLabel = DetectLabel()
+    
     override public init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -53,6 +55,10 @@ public class YPMagnifyingView: UIView {
     // MARK: - Private Functions
     
     private func addMagnifyingGlassAtPoint(point: CGPoint) {
+        self.sniper.viewToMagnify = self as UIView
+        self.sniper.touchPoint = point
+
+        
         self.magnifyingGlass.viewToMagnify = self as UIView
         self.magnifyingGlass.touchPoint = point
         
@@ -61,25 +67,33 @@ public class YPMagnifyingView: UIView {
         
         let selfView: UIView = self as UIView
         
+        selfView.addSubview(self.sniper)
         selfView.addSubview(self.magnifyingGlass)
         selfView.addSubview(self.focusPoint)
         
+        self.sniper.setNeedsDisplay()
         self.magnifyingGlass.setNeedsDisplay()
         self.focusPoint.setNeedsDisplay()
+
     }
     
     private func removeMagnifyingGlass() {
+        self.sniper.removeFromSuperview()
         self.magnifyingGlass.removeFromSuperview()
-        
         self.focusPoint.removeFromSuperview()
+
     }
     
     private func updateMagnifyingGlassAtPoint(point: CGPoint) {
+        self.sniper.touchPoint = point
+        self.sniper.setNeedsDisplay()
+        
         self.magnifyingGlass.touchPoint = point
         self.magnifyingGlass.setNeedsDisplay()
         
         self.focusPoint.touchPoint = point
         self.focusPoint.setNeedsDisplay()
+
     }
     
     public func addMagnifyingGlassTimer(timer: Timer) {

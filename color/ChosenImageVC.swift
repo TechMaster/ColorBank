@@ -42,13 +42,20 @@ class ChosenImageVC: UIViewController{
         focusPoint.scale = 5
         magView.focusPoint = focusPoint
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapImg(_:)))
-        tap.numberOfTapsRequired = 1
+        let sniper = DetectLabel(frame: CGRect(x: magView.frame.origin.x, y: magView.frame.origin.y, width: 30, height: 30))
+        magView.sniper = sniper
         
-        self.imageView.addGestureRecognizer(tap)
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(tapImg(_:)))
+//        tap.numberOfTapsRequired = 1
+//        
+//        self.imageView.addGestureRecognizer(tap)
         
         self.view.addSubview(magView)
         magView.addSubview(imageView)
+        
+        
+        
+        
         
         
     }
@@ -63,16 +70,17 @@ class ChosenImageVC: UIViewController{
         
         let position = gesture.location(in: self.view)
         
-       // let pickedColor = self.view.getPixelColorAtPoint(point: position, sourceView: self.view)
+        let pickedColor = self.view.getPixelColorAtPoint(point: position, sourceView: self.view)
         
+        print(pickedColor)
         
-        let widthLabel: CGFloat = 30
-        
-        let colorLabel = DetectLabel(frame: CGRect(x: position.x - widthLabel/2,
-                                                   y: position.y - widthLabel/2,
-                                                   width: widthLabel,
-                                                   height: widthLabel))
-        self.view.addSubview(colorLabel)
+//        let widthLabel: CGFloat = 30
+//        
+//        let colorLabel = DetectLabel(frame: CGRect(x: position.x - widthLabel/2,
+//                                                   y: position.y - widthLabel/2,
+//                                                   width: widthLabel,
+//                                                   height: widthLabel))
+//        self.view.addSubview(colorLabel)
         
     }
 }
