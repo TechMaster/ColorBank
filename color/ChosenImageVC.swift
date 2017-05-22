@@ -9,18 +9,17 @@
 import Foundation
 import UIKit
 
-class ChosenImageVC: UIViewController{
+class ChosenImageVC: UIViewController {
     
     let imageView = UIImageView()
     var image = UIImage()
     
-    var scrollView = UIScrollView()
-    var isZoomIn = false
+    let magView = YPMagnifyingView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        createImageView()
+        createMagGlassAndSniper()
     }
     
     
@@ -31,58 +30,32 @@ class ChosenImageVC: UIViewController{
         imageView.image = image
         imageView.isUserInteractionEnabled = true
         
-        let magView = YPMagnifyingView()
+    }
+    
+    func createMagGlassAndSniper(){
+        
+        createImageView()
+        
         magView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
         
         let magGlass = YPMagnifyingGlass(frame: CGRect(x: magView.frame.origin.x, y: magView.frame.origin.y, width: 55, height: 55))
-        magGlass.scale = 2
+        magGlass.layer.cornerRadius = 8
+        magGlass.scale = 4
         magView.magnifyingGlass = magGlass
         
         let focusPoint = YPMagnifyingGlass(frame: CGRect(x: magView.frame.origin.x, y: magView.frame.origin.y, width: 20, height: 20))
-        focusPoint.scale = 5
+        focusPoint.layer.cornerRadius = focusPoint.frame.width/2
+        focusPoint.scale = 8
         magView.focusPoint = focusPoint
         
         let sniper = Sniper(frame: CGRect(x: magView.frame.origin.x, y: magView.frame.origin.y, width: 30, height: 30))
         magView.sniper = sniper
         
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(tapImg(_:)))
-//        tap.numberOfTapsRequired = 1
-//        
-//        self.imageView.addGestureRecognizer(tap)
-        
         self.view.addSubview(magView)
         magView.addSubview(imageView)
         
-        
-        
-        
-        
-        
     }
     
-    func tapImg(_ gesture: UITapGestureRecognizer){
-        
-        for v in view.subviews{
-            if v is UILabel{
-                v.removeFromSuperview()
-            }
-        }
-        
-        let position = gesture.location(in: self.view)
-        
-        let pickedColor = self.view.getPixelColorAtPoint(point: position, sourceView: self.view)
-        
-        print(pickedColor)
-        
-//        let widthLabel: CGFloat = 30
-//        
-//        let colorLabel = DetectLabel(frame: CGRect(x: position.x - widthLabel/2,
-//                                                   y: position.y - widthLabel/2,
-//                                                   width: widthLabel,
-//                                                   height: widthLabel))
-//        self.view.addSubview(colorLabel)
-        
-    }
 }
 
 extension UIColor {

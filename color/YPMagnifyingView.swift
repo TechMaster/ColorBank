@@ -20,6 +20,8 @@ public class YPMagnifyingView: UIView {
     
     public var sniper: Sniper = Sniper()
     
+    public var pickedColor: String = String()
+    
     override public init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -34,6 +36,9 @@ public class YPMagnifyingView: UIView {
             
             self.touchTimer = Timer.scheduledTimer(timeInterval: magnifyingGlassShowDelay, target: self, selector: #selector(YPMagnifyingView.addMagnifyingGlassTimer(timer:)), userInfo: NSValue(cgPoint: touch.location(in: self)), repeats: false)
             
+            pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
+            
+            print(pickedColor)
         }
     }
     
@@ -43,6 +48,9 @@ public class YPMagnifyingView: UIView {
             self.removeSniper()
             self.updateMagnifyingGlassAtPoint(point: touch.location(in: self))
             
+            pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
+            print(pickedColor)
+
         }
     }
     
@@ -54,6 +62,9 @@ public class YPMagnifyingView: UIView {
         
         if let touch: UITouch = touches.first {
             self.addSniperAtPoint(point: touch.location(in: self))
+            pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
+            print(pickedColor)
+
         }
     }
     
@@ -111,6 +122,7 @@ public class YPMagnifyingView: UIView {
         let value: AnyObject? = timer.userInfo as AnyObject?
         if let point = value?.cgPointValue {
             self.addMagnifyingGlassAtPoint(point: point)
+            self.removeSniper()
         }
     }
 }
