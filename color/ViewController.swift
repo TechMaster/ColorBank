@@ -115,14 +115,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     //MARK: Camera
     func pushToCameraView() {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = .camera
-            imagePicker.allowsEditing = false
-            self.present(imagePicker, animated: true, completion: nil)
-            
-        }
+        
+        let newViewController = CameraVC()
+        self.navigationController?.pushViewController(newViewController, animated: true)
+        dismiss(animated: true, completion: nil)
+        
+//        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+//            let imagePicker = UIImagePickerController()
+//            imagePicker.delegate = self
+//            imagePicker.sourceType = .camera
+//            imagePicker.allowsEditing = false
+//            self.present(imagePicker, animated: true, completion: nil)
+//            
+//        }
     }
     
     //MARK:  image picker delegate
@@ -131,7 +136,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             baseImage = pickedImage
         }
         
-        let newViewController = TestVC()
+        let newViewController = ChosenImageVC()
         newViewController.image = baseImage
         self.navigationController?.pushViewController(newViewController, animated: true)
         dismiss(animated: true, completion: nil)

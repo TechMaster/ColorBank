@@ -12,7 +12,7 @@
 		19E808CA1EB1937E00EFEE50 /* DetailColorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808C91EB1937E00EFEE50 /* DetailColorVC.swift */; };
 		19E808D21EB1AC1600EFEE50 /* ColorListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808D11EB1AC1600EFEE50 /* ColorListTVC.swift */; };
 		19F9E8661EC30A9400FEA3D5 /* SRCopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F9E8651EC30A9400FEA3D5 /* SRCopyableLabel.swift */; };
-		CF8C0C0F1ED2DB09008CF436 /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8C0C0E1ED2DB09008CF436 /* TestVC.swift */; };
+		CF8C0C0F1ED2DB09008CF436 /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8C0C0E1ED2DB09008CF436 /* CameraVC.swift */; };
 		CFB043E21EC17AB3009245EB /* colorData.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFB043E11EC17AB3009245EB /* colorData.plist */; };
 		CFB043E41EC17AC6009245EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFB043E31EC17AC6009245EB /* Assets.xcassets */; };
 		CFB043E61EC17AD2009245EB /* ColorBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB043E51EC17AD2009245EB /* ColorBar.swift */; };
@@ -35,7 +35,7 @@
 		19E808C91EB1937E00EFEE50 /* DetailColorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailColorVC.swift; sourceTree = "<group>"; };
 		19E808D11EB1AC1600EFEE50 /* ColorListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorListTVC.swift; sourceTree = "<group>"; };
 		19F9E8651EC30A9400FEA3D5 /* SRCopyableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRCopyableLabel.swift; sourceTree = "<group>"; };
-		CF8C0C0E1ED2DB09008CF436 /* TestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
+		CF8C0C0E1ED2DB09008CF436 /* CameraVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
 		CFB043E11EC17AB3009245EB /* colorData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = colorData.plist; sourceTree = "<group>"; };
 		CFB043E31EC17AC6009245EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CFB043E51EC17AD2009245EB /* ColorBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorBar.swift; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 				CFC754731EC958B8004D8551 /* Sniper.swift */,
 				CFC888D41ECD49C8007972A7 /* YPMagnifyingGlass.swift */,
 				CFC888D51ECD49C8007972A7 /* YPMagnifyingView.swift */,
-				CF8C0C0E1ED2DB09008CF436 /* TestVC.swift */,
+				CF8C0C0E1ED2DB09008CF436 /* CameraVC.swift */,
 			);
 			name = DetectColorView;
 			sourceTree = "<group>";
@@ -159,6 +159,7 @@
 				TargetAttributes = {
 					19E808AA1EB18EE700EFEE50 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = D6F4345AL3;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -207,7 +208,7 @@
 				CFB043ED1EC17AF6009245EB /* color.xcdatamodeld in Sources */,
 				CFC888D71ECD49C8007972A7 /* YPMagnifyingView.swift in Sources */,
 				CFB043EA1EC17ADE009245EB /* ColorListCell.swift in Sources */,
-				CF8C0C0F1ED2DB09008CF436 /* TestVC.swift in Sources */,
+				CF8C0C0F1ED2DB09008CF436 /* CameraVC.swift in Sources */,
 				CFB043E81EC17AD6009245EB /* PieChart.swift in Sources */,
 				CFC2BEA31EB2F7BA00F22496 /* ChosenImageVC.swift in Sources */,
 				19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */,
@@ -323,7 +324,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = D6F4345AL3;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = color/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
@@ -349,7 +350,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = D6F4345AL3;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = color/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
