@@ -25,10 +25,6 @@
 		CFC754741EC958B8004D8551 /* Sniper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC754731EC958B8004D8551 /* Sniper.swift */; };
 		CFC888D61ECD49C8007972A7 /* YPMagnifyingGlass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC888D41ECD49C8007972A7 /* YPMagnifyingGlass.swift */; };
 		CFC888D71ECD49C8007972A7 /* YPMagnifyingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC888D51ECD49C8007972A7 /* YPMagnifyingView.swift */; };
-		CFEA84181ED3DB7F00147F1D /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CFEA84171ED3DB7F00147F1D /* libxml2.2.dylib */; };
-		CFEA84211ED3DB8E00147F1D /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = CFEA841B1ED3DB8E00147F1D /* TFHpple.m */; };
-		CFEA84221ED3DB8E00147F1D /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = CFEA841D1ED3DB8E00147F1D /* TFHppleElement.m */; };
-		CFEA84231ED3DB8E00147F1D /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = CFEA841F1ED3DB8E00147F1D /* XPathQuery.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,15 +48,6 @@
 		CFC754731EC958B8004D8551 /* Sniper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sniper.swift; sourceTree = "<group>"; };
 		CFC888D41ECD49C8007972A7 /* YPMagnifyingGlass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPMagnifyingGlass.swift; sourceTree = "<group>"; };
 		CFC888D51ECD49C8007972A7 /* YPMagnifyingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPMagnifyingView.swift; sourceTree = "<group>"; };
-		CFEA84171ED3DB7F00147F1D /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libxml2.2.dylib; sourceTree = "<group>"; };
-		CFEA84191ED3DB8D00147F1D /* color-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "color-Bridging-Header.h"; sourceTree = "<group>"; };
-		CFEA841A1ED3DB8E00147F1D /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
-		CFEA841B1ED3DB8E00147F1D /* TFHpple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHpple.m; sourceTree = "<group>"; };
-		CFEA841C1ED3DB8E00147F1D /* TFHppleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHppleElement.h; sourceTree = "<group>"; };
-		CFEA841D1ED3DB8E00147F1D /* TFHppleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHppleElement.m; sourceTree = "<group>"; };
-		CFEA841E1ED3DB8E00147F1D /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
-		CFEA841F1ED3DB8E00147F1D /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
-		CFEA84201ED3DB8E00147F1D /* CrawlVideo-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CrawlVideo-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +55,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFEA84181ED3DB7F00147F1D /* libxml2.2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,28 +120,11 @@
 		CFC2BEA41EB2F7CB00F22496 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				CFEA84241ED3DB9100147F1D /* Hpple */,
 				19E808BD1EB18EE700EFEE50 /* Info.plist */,
 				CFB043E11EC17AB3009245EB /* colorData.plist */,
 				CFB043EB1EC17AF6009245EB /* color.xcdatamodeld */,
 			);
 			name = Support;
-			sourceTree = "<group>";
-		};
-		CFEA84241ED3DB9100147F1D /* Hpple */ = {
-			isa = PBXGroup;
-			children = (
-				CFEA84171ED3DB7F00147F1D /* libxml2.2.dylib */,
-				CFEA841A1ED3DB8E00147F1D /* TFHpple.h */,
-				CFEA841B1ED3DB8E00147F1D /* TFHpple.m */,
-				CFEA841C1ED3DB8E00147F1D /* TFHppleElement.h */,
-				CFEA841D1ED3DB8E00147F1D /* TFHppleElement.m */,
-				CFEA841E1ED3DB8E00147F1D /* XPathQuery.h */,
-				CFEA841F1ED3DB8E00147F1D /* XPathQuery.m */,
-				CFEA84201ED3DB8E00147F1D /* CrawlVideo-Bridging-Header.h */,
-				CFEA84191ED3DB8D00147F1D /* color-Bridging-Header.h */,
-			);
-			name = Hpple;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,15 +210,12 @@
 				CFB043EA1EC17ADE009245EB /* ColorListCell.swift in Sources */,
 				CF8C0C0F1ED2DB09008CF436 /* CameraVC.swift in Sources */,
 				CFB043E81EC17AD6009245EB /* PieChart.swift in Sources */,
-				CFEA84221ED3DB8E00147F1D /* TFHppleElement.m in Sources */,
 				CFC2BEA31EB2F7BA00F22496 /* ChosenImageVC.swift in Sources */,
 				19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */,
-				CFEA84211ED3DB8E00147F1D /* TFHpple.m in Sources */,
 				19E808D21EB1AC1600EFEE50 /* ColorListTVC.swift in Sources */,
 				19E808CA1EB1937E00EFEE50 /* DetailColorVC.swift in Sources */,
 				CFC888D61ECD49C8007972A7 /* YPMagnifyingGlass.swift in Sources */,
 				CFB043E61EC17AD2009245EB /* ColorBar.swift in Sources */,
-				CFEA84231ED3DB8E00147F1D /* XPathQuery.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

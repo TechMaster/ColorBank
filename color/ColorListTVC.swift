@@ -50,6 +50,15 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
         
         let data = NSData(contentsOf: NSURL(string: "http://192.168.1.106:3000/") as! URL)
         
+        let doc = TFHpple(htmlData: data as Data!)
+        
+        if let elements = doc?.search(withXPathQuery: "//div[@class='box-name']/a") as? [TFHppleElement]
+        {
+            for element in elements
+            {
+                print(element.attributes)
+            }
+        }
         
     }
 //        __dispatch_async(DispatchQueue.global(), {
