@@ -11,13 +11,13 @@ import UIKit
 
 class ChosenImageVC: UIViewController {
     
+    let magView = YPMagnifyingView()
     let imageView = UIImageView()
     var image = UIImage()
     
-    let magView = YPMagnifyingView()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.white
         
         createMagGlassAndSniper()
     }
@@ -25,8 +25,9 @@ class ChosenImageVC: UIViewController {
     
     func createImageView() {
         
-        imageView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
-        imageView.contentMode = .scaleAspectFit
+        imageView.frame = self.magView.bounds
+        imageView.contentMode = .scaleAspectFill
+        
         imageView.image = image
         imageView.isUserInteractionEnabled = true
         
@@ -34,9 +35,19 @@ class ChosenImageVC: UIViewController {
     
     func createMagGlassAndSniper(){
         
-        createImageView()
+        let navHeight = self.navigationController?.navigationBar.bounds.size.height
+        let screenWidth = self.view.bounds.size.width
+        let statusHeight = UIApplication.shared.statusBarFrame.height
         
-        magView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
+        magView.frame = CGRect(x: 10, y: navHeight! + statusHeight + 10, width: screenWidth - 20, height: screenWidth - 20)
+        
+        print("magView: \(magView.frame.minY)")
+        
+        magView.layer.cornerRadius = 8
+        magView.layer.masksToBounds = true
+        
+        createImageView()
+
         
         let magGlass = YPMagnifyingGlass(frame: CGRect(x: magView.frame.origin.x, y: magView.frame.origin.y, width: 55, height: 55))
         magGlass.layer.cornerRadius = 8

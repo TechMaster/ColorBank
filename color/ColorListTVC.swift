@@ -41,26 +41,26 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         loadData()
         
-        getData()
+//        getData()
     }
     
     //MARK: Lấy dữ liệu từ server truyền vào mảng itemArray
     
-    func getData() {
-        
-        let data = NSData(contentsOf: NSURL(string: "http://192.168.1.106:3000/") as! URL)
-        
-        let doc = TFHpple(htmlData: data as Data!)
-        
-        if let elements = doc?.search(withXPathQuery: "//div[@class='box-name']/a") as? [TFHppleElement]
-        {
-            for element in elements
-            {
-                print(element.attributes)
-            }
-        }
-        
-    }
+//    func getData() {
+//        
+//        let data = NSData(contentsOf: NSURL(string: "http://192.168.1.106:3000/") as! URL)
+//        
+//        let doc = TFHpple(htmlData: data as Data!)
+//        
+//        if let elements = doc?.search(withXPathQuery: "//div[@class='box-name']/a") as? [TFHppleElement]
+//        {
+//            for element in elements
+//            {
+//                print(element.attributes)
+//            }
+//        }
+//        
+//    }
 //        __dispatch_async(DispatchQueue.global(), {
 //            let url = URL(string: "http://192.168.1.107:3001/all")
 //            do {

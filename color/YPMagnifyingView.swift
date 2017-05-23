@@ -43,12 +43,14 @@ public class YPMagnifyingView: UIView {
     }
     
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
         if let touch: UITouch = touches.first {
             
             self.removeSniper()
             self.updateMagnifyingGlassAtPoint(point: touch.location(in: self))
             
             pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
+            
             print(pickedColor)
 
         }
