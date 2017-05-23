@@ -41,12 +41,17 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         loadData()
         
-//        getData()
+        getData()
     }
     
     //MARK: Lấy dữ liệu từ server truyền vào mảng itemArray
     
-//    func getData() {
+    func getData() {
+        
+        let data = NSData(contentsOf: NSURL(string: "http://192.168.1.106:3000/") as! URL)
+        
+        
+    }
 //        __dispatch_async(DispatchQueue.global(), {
 //            let url = URL(string: "http://192.168.1.107:3001/all")
 //            do {
@@ -80,7 +85,6 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
 //            {
 //            }
 //        })
-//    }
     
     
     //MARK: Lấy dữ liệu từ file plist truyền vào mảng itemArray
