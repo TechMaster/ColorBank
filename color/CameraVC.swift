@@ -11,36 +11,22 @@ import AVFoundation
 import CoreMotion
 import Photos
 
-
-public var fusumaCropImage: Bool = true
-public var fusumaSavesImage: Bool = false
-
-public var fusumaBackgroundColor = UIColor(hexString: "3B3D45")
-public var fusumaTintColor       = UIColor(hexString: "F38181")
-public var fusumaBaseTintColor   = UIColor(hexString: "#FFFFFF")
-
-public var fusumaTintIcons : Bool = true
-
-public var fusumaFlashOnImage : UIImage? = nil
-public var fusumaFlashOffImage : UIImage? = nil
-public var fusumaFlipImage : UIImage? = nil
-public var fusumaShotImage : UIImage? = nil
-
-
-@objc protocol FSCameraViewDelegate: class {
-    func cameraShotFinished(_ image: UIImage)
-}
-
 class CameraVC: UIViewController, UIGestureRecognizerDelegate {
+    
+    var fusumaTintIcons : Bool = true
+    var fusumaTintColor = UIColor(hexString: "F38181")
+    var fusumaBaseTintColor = UIColor(hexString: "#FFFFFF")
+    
+    var fusumaFlashOnImage : UIImage? = nil
+    var fusumaFlashOffImage : UIImage? = nil
+    var fusumaFlashAutoImage : UIImage? = nil
+    var fusumaFlipImage : UIImage? = nil
+    var fusumaShotImage : UIImage? = nil
     
     let previewViewContainer = UIView()
     let shotButton = UIButton()
     let flashButton = UIButton()
     let flipButton = UIButton()
-    
-    let capturedImage = UIImageView()
-    
-    weak var delegate: FSCameraViewDelegate? = nil
     
     var session: AVCaptureSession?
     var device: AVCaptureDevice?
@@ -50,10 +36,10 @@ class CameraVC: UIViewController, UIGestureRecognizerDelegate {
     
     var flashOffImage: UIImage?
     var flashOnImage: UIImage?
-    
+    var flashAutoImage: UIImage?
+
     var motionManager: CMMotionManager?
     var currentDeviceOrientation: UIDeviceOrientation?
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +47,6 @@ class CameraVC: UIViewController, UIGestureRecognizerDelegate {
         
         createPreviewViewContainer()
         createShotButton()
-        createCapturedImage()
         createFlashButton()
         createFlipButton()
     }
@@ -79,22 +64,20 @@ class CameraVC: UIViewController, UIGestureRecognizerDelegate {
     
     func initialize() {
         
-        if session != nil {
-            
-            return
-        }
+        if session != nil { return }
         
         let bundle = Bundle(for: self.classForCoder)
         
         flashOnImage = fusumaFlashOnImage != nil ? fusumaFlashOnImage : UIImage(named: "ic_flash_on", in: bundle, compatibleWith: nil)
         flashOffImage = fusumaFlashOffImage != nil ? fusumaFlashOffImage : UIImage(named: "ic_flash_off", in: bundle, compatibleWith: nil)
+        flashAutoImage = fusumaFlashAutoImage != nil ? fusumaFlashAutoImage : UIImage(named: "ic_flash_auto", in: bundle, compatibleWith: nil)
         let flipImage = fusumaFlipImage != nil ? fusumaFlipImage : UIImage(named: "ic_loop", in: bundle, compatibleWith: nil)
         let shotImage = fusumaShotImage != nil ? fusumaShotImage : UIImage(named: "ic_radio_button_checked", in: bundle, compatibleWith: nil)
         
         if(fusumaTintIcons) {
             flashButton.tintColor = fusumaBaseTintColor
             flipButton.tintColor  = fusumaBaseTintColor
-            shotButton.tintColor  = fusumaBaseTintColor
+            shotButton.tintColor  = UIColor.black
             
             flashButton.setImage(flashOffImage?.withRenderingMode(.alwaysTemplate), for: UIControlState())
             flipButton.setImage(flipImage?.withRenderingMode(.alwaysTemplate), for: UIControlState())
@@ -103,10 +86,12 @@ class CameraVC: UIViewController, UIGestureRecognizerDelegate {
             flashButton.setImage(flashOffImage, for: UIControlState())
             flipButton.setImage(flipImage, for: UIControlState())
             shotButton.setImage(shotImage, for: UIControlState())
+
         }
         
+
         
-        //        self.isHidden = false
+        self.view.isHidden = false
         
         // AVCapture
         session = AVCaptureSession()
@@ -129,11 +114,8 @@ class CameraVC: UIViewController, UIGestureRecognizerDelegate {
             if let session = session {
                 
                 videoInput = try AVCaptureDeviceInput(device: device)
-                
                 session.addInput(videoInput)
-                
                 imageOutput = AVCaptureStillImageOutput()
-                
                 session.addOutput(imageOutput)
                 
                 let videoLayer = AVCaptureVideoPreviewLayer(session: session)
@@ -141,7 +123,6 @@ class CameraVC: UIViewController, UIGestureRecognizerDelegate {
                 videoLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
                 
                 self.previewViewContainer.layer.addSublayer(videoLayer!)
-                
                 session.sessionPreset = AVCaptureSessionPresetPhoto
                 
                 session.startRunning()
@@ -149,8 +130,8 @@ class CameraVC: UIViewController, UIGestureRecognizerDelegate {
             }
             
             // Focus View
-            self.focusView         = UIView(frame: CGRect(x: 0, y: 0, width: 90, height: 90))
-            let tapRecognizer      = UITapGestureRecognizer(target: self, action:#selector(CameraVC.focus(_:)))
+            self.focusView = UIView(frame: CGRect(x: 0, y: 0, width: 90, height: 90))
+            let tapRecognizer = UITapGestureRecognizer(target: self, action:#selector(CameraVC.focus(_:)))
             tapRecognizer.delegate = self
             self.previewViewContainer.addGestureRecognizer(tapRecognizer)
             
@@ -233,101 +214,46 @@ class CameraVC: UIViewController, UIGestureRecognizerDelegate {
         DispatchQueue.global(qos: .default).async(execute: { () -> Void in
             
             let videoConnection = imageOutput.connection(withMediaType: AVMediaTypeVideo)
-            
-            let orientation: UIDeviceOrientation = self.currentDeviceOrientation ?? UIDevice.current.orientation
-            switch (orientation) {
-            case .portrait:
-                videoConnection?.videoOrientation = .portrait
-            case .portraitUpsideDown:
-                videoConnection?.videoOrientation = .portraitUpsideDown
-            case .landscapeRight:
-                videoConnection?.videoOrientation = .landscapeLeft
-            case .landscapeLeft:
-                videoConnection?.videoOrientation = .landscapeRight
-            default:
-                videoConnection?.videoOrientation = .portrait
-            }
+            videoConnection?.videoOrientation = .portrait
             
             imageOutput.captureStillImageAsynchronously(from: videoConnection, completionHandler: { (buffer, error) -> Void in
                 
-                if buffer != nil {
-                    let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer)
-                    let dataProvider = CGDataProvider(data: imageData! as CFData)
-                    let cgImageRef = CGImage(jpegDataProviderSource: dataProvider!, decode: nil, shouldInterpolate: true, intent: CGColorRenderingIntent.defaultIntent)
-                    let image = UIImage(cgImage: cgImageRef!, scale: 1.0, orientation: UIImageOrientation.right)
-                    
-                    self.capturedImage.image = image
+                self.stopCamera()
                 
-                    self.pushToChosenImageVC(image: image)
+                let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer)
+                
+                if let image = UIImage(data: data!) {
                     
+                    // Image size
+                    let iw: CGFloat = image.size.width
+                    let ih: CGFloat = image.size.height
+                    
+                    // Frame size
+                    let sw = self.previewViewContainer.frame.width
+                    
+                    // The center coordinate along Y axis
+                    let rcy = ih * 0.5
+                    
+                    let imageRef = image.cgImage?.cropping(to: CGRect(x: rcy-iw*0.5, y: 0 , width: iw, height: iw))
+                    
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        let resizedImage = UIImage(cgImage: imageRef!, scale: sw/iw, orientation: image.imageOrientation)
+                        
+                        self.pushToChosenImageVC(image: resizedImage)
+                        
+                        self.session = nil
+                        self.device = nil
+                        self.imageOutput = nil
+                        self.motionManager = nil
+                    })
                 }
-                
-//                self.stopCamera()
-//                
-//                let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer)
-//                
-//                if let image = UIImage(data: data!), let delegate = self.delegate {
-//                    
-//                    // Image size
-//                    var iw: CGFloat
-//                    var ih: CGFloat
-//                    
-//                    switch (orientation) {
-//                    case .landscapeLeft, .landscapeRight:
-//                        // Swap width and height if orientation is landscape
-//                        iw = image.size.height
-//                        ih = image.size.width
-//                    default:
-//                        iw = image.size.width
-//                        ih = image.size.height
-//                    }
-//                    
-//                    // Frame size
-//                    let sw = self.previewViewContainer.frame.width
-//                    
-//                    // The center coordinate along Y axis
-//                    let rcy = ih * 0.5
-//                    
-//                    let imageRef = image.cgImage?.cropping(to: CGRect(x: rcy-iw*0.5, y: 0 , width: iw, height: iw))
-//                    
-//                    
-//                    
-////                    DispatchQueue.main.async(execute: { () -> Void in
-//                        if fusumaCropImage {
-//                            let resizedImage = UIImage(cgImage: imageRef!, scale: sw/iw, orientation: image.imageOrientation)
-//                            delegate.cameraShotFinished(resizedImage)
-//                            
-//                            if fusumaSavesImage {
-//                                self.saveImageToCameraRoll(image: resizedImage)
-//                            }
-//                            
-//                        } else {
-//                            delegate.cameraShotFinished(image)
-//                            
-//                            if fusumaSavesImage {
-//                                self.saveImageToCameraRoll(image: image)
-//                            }
-//                        }
-//                        
-//                        self.session       = nil
-//                        self.device        = nil
-//                        self.imageOutput   = nil
-//                        self.motionManager = nil
-//                        
-////                    })
-//                }
-                
             })
-            
         })
     }
     
     func flipButtonPressed() {
         
-        if !cameraIsAvailable() {
-            
-            return
-        }
+        if !cameraIsAvailable() { return }
         
         session?.stopRunning()
         
@@ -336,9 +262,7 @@ class CameraVC: UIViewController, UIGestureRecognizerDelegate {
             session?.beginConfiguration()
             
             if let session = session {
-                
                 for input in session.inputs {
-                    
                     session.removeInput(input as! AVCaptureInput)
                 }
                 
@@ -353,11 +277,9 @@ class CameraVC: UIViewController, UIGestureRecognizerDelegate {
                         
                     }
                 }
-                
             }
             
             session?.commitConfiguration()
-            
             
         } catch {
             
@@ -368,27 +290,25 @@ class CameraVC: UIViewController, UIGestureRecognizerDelegate {
     
     func flashButtonPressed() {
         
-        if !cameraIsAvailable() {
-            
-            return
-        }
+        if !cameraIsAvailable() { return }
         
         do {
             
             if let device = device {
                 
                 guard device.hasFlash else { return }
-                
                 try device.lockForConfiguration()
-                
                 let mode = device.flashMode
-                
                 if mode == AVCaptureFlashMode.off {
                     
                     device.flashMode = AVCaptureFlashMode.on
                     flashButton.setImage(flashOnImage?.withRenderingMode(.alwaysTemplate), for: UIControlState())
                     
                 } else if mode == AVCaptureFlashMode.on {
+                    
+                    device.flashMode = AVCaptureFlashMode.auto
+                    flashButton.setImage(flashAutoImage?.withRenderingMode(.alwaysTemplate), for: UIControlState())
+                } else if mode == AVCaptureFlashMode.auto{
                     
                     device.flashMode = AVCaptureFlashMode.off
                     flashButton.setImage(flashOffImage?.withRenderingMode(.alwaysTemplate), for: UIControlState())
@@ -411,8 +331,7 @@ class CameraVC: UIViewController, UIGestureRecognizerDelegate {
         let screenWidth = self.view.bounds.size.width
         let statusHeight = UIApplication.shared.statusBarFrame.height
         previewViewContainer.frame = CGRect(x: 10, y: navHeight! + statusHeight + 10, width: screenWidth - 20, height: screenWidth - 20)
-        print("preview: \(previewViewContainer.frame.minY)")
-
+        
         previewViewContainer.layer.cornerRadius = 8
         previewViewContainer.layer.masksToBounds = true
         
@@ -422,36 +341,30 @@ class CameraVC: UIViewController, UIGestureRecognizerDelegate {
     func createShotButton() {
         let screenWidth = self.view.bounds.size.width
         let screenHeight = self.view.bounds.size.height
-        let buttonWidth = screenWidth/6
+        let heightSpaceLeft = screenHeight - previewViewContainer.frame.maxY
+        let buttonWidth = heightSpaceLeft/2
         
         shotButton.frame = CGRect(x: screenWidth/2 - buttonWidth/2,
                                   y: (screenHeight-previewViewContainer.frame.maxY)/2 - buttonWidth/2 + previewViewContainer.frame.maxY,
                                   width: buttonWidth,
                                   height: buttonWidth)
-        
         shotButton.addTarget(self, action: #selector(shotButtonPressed), for: .touchUpInside)
-        shotButton.backgroundColor = UIColor.cyan
+        shotButton.backgroundColor = UIColor.clear
+        shotButton.layer.cornerRadius = buttonWidth/2
+        shotButton.layer.borderWidth = 5
+        shotButton.layer.borderColor = UIColor.black.cgColor
+        shotButton.layer.masksToBounds = true
         self.view.addSubview(shotButton)
-    }
-    
-    func createCapturedImage() {
-        let screenWidth = self.view.bounds.size.width
-        let screenHeight = self.view.bounds.size.height
-        let buttonWidth = screenWidth/6
-        
-        capturedImage.frame = CGRect(x: screenWidth - 10 - buttonWidth,
-                                     y: (screenHeight-previewViewContainer.frame.maxY)/2 - buttonWidth/2 + previewViewContainer.frame.maxY,
-                                     width: buttonWidth,
-                                     height: buttonWidth)
-        capturedImage.backgroundColor = UIColor.brown
-        self.view.addSubview(capturedImage)
     }
     
     func createFlashButton(){
         let screenWidth = self.view.bounds.size.width
         let buttonWidth = screenWidth/13
         
-        flashButton.frame = CGRect(x: previewViewContainer.frame.maxX-buttonWidth-2, y: previewViewContainer.frame.minY+2, width: buttonWidth, height: buttonWidth)
+        flashButton.frame = CGRect(x: previewViewContainer.frame.maxX-buttonWidth-2,
+                                   y: previewViewContainer.frame.maxY-buttonWidth*3-2,
+                                   width: buttonWidth, height: buttonWidth)
+        
         flashButton.backgroundColor = UIColor.clear
         flashButton.layer.cornerRadius = buttonWidth/2
         flashButton.layer.borderWidth = 2
@@ -464,15 +377,17 @@ class CameraVC: UIViewController, UIGestureRecognizerDelegate {
     
     func createFlipButton(){
         let screenWidth = self.view.bounds.size.width
-        let screenHeight = self.view.bounds.size.height
-        let buttonWidth = screenWidth/6
+        let buttonWidth = screenWidth/13
         
-        flipButton.frame = CGRect(x: 10,
-                                  y: (screenHeight-previewViewContainer.frame.maxY)/2 - buttonWidth/2 + previewViewContainer.frame.maxY,
-                                  width: buttonWidth,
-                                  height: buttonWidth)
+        flipButton.frame = CGRect(x: previewViewContainer.frame.maxX-buttonWidth-2,
+                                  y: previewViewContainer.frame.maxY-buttonWidth-2,
+                                  width: buttonWidth, height: buttonWidth)
         
-        flipButton.backgroundColor = UIColor.green
+        flipButton.backgroundColor = UIColor.clear
+        flipButton.layer.cornerRadius = buttonWidth/2
+        flipButton.layer.borderWidth = 2
+        flipButton.layer.borderColor = UIColor.white.cgColor
+        flipButton.layer.masksToBounds = true
         flipButton.addTarget(self, action: #selector(flipButtonPressed), for: .touchUpInside)
         self.view.addSubview(flipButton)
     }
@@ -553,7 +468,6 @@ extension CameraVC {
             return
         }
     }
-    
     
     func cameraIsAvailable() -> Bool {
         
