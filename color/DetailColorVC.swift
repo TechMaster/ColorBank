@@ -18,37 +18,101 @@ class DetailColorVC: UIViewController {
     var arr = [String]()
     var shareImg = UIImage()
     var navAndStatusHeight: CGFloat!
-    var infoView : UIView! = nil
-    var infoView2 : UIView! = nil
     var button1 = UIButton()
-    var label5 = UILabel()
-    var label4 = UILabel()
-    var label3 = UILabel()
-    var label6 = UILabel()
-    var label7 = UILabel()
-    var label8 = UILabel()
-    var label9 = UILabel()
+    let container = UIView()
+    let frontView = UIView()
+    let backView = UIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.white
         
         arr = colorArr[indexSection].colorArray
-        self.view.backgroundColor = UIColor.white
+        
         self.navigationItem.title = colorArr[indexSection].colorName
+        
         self.navigationController?.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(cea))
+        
         navAndStatusHeight = (self.navigationController?.navigationBar.bounds.size.height)! + UIApplication.shared.statusBarFrame.size.height
-        infoView = UIView(frame:  CGRect(x: 0, y: navAndStatusHeight, width: self.view.frame.width, height: self.view.frame.height*(1/2) - navAndStatusHeight))
-        infoView2 = UIView(frame:  CGRect(x: 0, y: self.view.frame.height*(1/2), width: self.view.frame.width, height: self.view.frame.height*(1/2)))
-        //        infoView2.backgroundColor = UIColor.red
         
-        self.view.addSubview(infoView)
+        container.frame = CGRect(x: 0, y: self.view.bounds.size.height/2, width: self.view.bounds.size.width, height: self.view.bounds.size.height/2)
+        self.view.addSubview(container)
         
-        creatBtn(index: 0).addTarget(self, action: #selector(Colorbtn), for: .touchUpInside)
-        creatBtn(index: 1).addTarget(self, action: #selector(Colorbtn), for: .touchUpInside)
-        creatBtn(index: 2).addTarget(self, action: #selector(Colorbtn), for: .touchUpInside)
-        creatBtn(index: 3).addTarget(self, action: #selector(Colorbtn), for: .touchUpInside)
-        creatBtn(index: 4).addTarget(self, action: #selector(Colorbtn), for: .touchUpInside)
-        self.view.addSubview(drawinfo2())
-        self.view.addSubview(drawinfo3())
+        self.frontView.frame = CGRect(x: 0, y: 0, width: container.bounds.size.width, height: container.bounds.size.height)
+        self.frontView.backgroundColor = UIColor(hexString: arr[0])
+        
+        self.backView.frame = frontView.frame
+        
+        self.container.addSubview(frontView)
+        
+        creatBtn(index: 0).addTarget(self, action: #selector(animate), for: .touchUpInside)
+        creatBtn(index: 1).addTarget(self, action: #selector(animate), for: .touchUpInside)
+        creatBtn(index: 2).addTarget(self, action: #selector(animate), for: .touchUpInside)
+        creatBtn(index: 3).addTarget(self, action: #selector(animate), for: .touchUpInside)
+        creatBtn(index: 4).addTarget(self, action: #selector(animate), for: .touchUpInside)
+    }
+    func creatBtn(index: Int) -> UIButton {
+        let btn = UIButton()
+        let screenHeight =  self.view.bounds.size.height
+        let screenWidth = self.view.bounds.size.width
+        btn.tag = 300 + index
+        btn.frame = CGRect(x:CGFloat(index)*(screenWidth/5), y: navAndStatusHeight, width: screenWidth/5, height: screenHeight/2)
+        btn.backgroundColor = UIColor(hexString: arr[index])
+        
+        if index == 0 {
+            btn.layer.borderWidth = 2
+            btn.layer.borderColor = UIColor.white.cgColor
+        }
+        
+        self.view.addSubview(btn)
+        return btn
+    }
+    func animate(sender: UIButton) {
+        // create a 'tuple' (a pair or more of objects assigned to a single variable)
+        var views : (frontView: UIView, backView: UIView)
+        sender.layer.borderWidth = 2
+        sender.layer.borderColor = UIColor.white.cgColor
+        if self.frontView.superview != nil{
+            self.backView.backgroundColor = sender.backgroundColor
+            for v in view.subviews{
+                if v is SRCopyableLabel{
+                    v.removeFromSuperview()
+                }
+            }
+            self.backView.addSubview(
+                createCodeLabel(index: (sender.tag - 300)))
+            views = (frontView: self.frontView, backView: self.backView)
+        }
+        else
+        {
+            self.frontView.backgroundColor = sender.backgroundColor
+            for v in view.subviews{
+                if v is SRCopyableLabel{
+                    v.removeFromSuperview()
+                }
+            }
+            self.frontView.addSubview(
+                createCodeLabel(index: (sender.tag - 300)))
+            views = (frontView: self.backView, backView: self.frontView)
+        }
+        
+        // set a transition style
+        let transitionOptions = UIViewAnimationOptions.transitionCurlUp
+        
+        // with no animation block, and a completion block set to 'nil' this makes a single line of code
+        UIView.transition(from: views.frontView, to: views.backView, duration: 1.0, options: transitionOptions, completion: nil)
+    }
+    
+    func createCodeLabel(index: Int) -> UILabel {
+        let label = SRCopyableLabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height/2))
+        label.numberOfLines = 4
+        label.baselineAdjustment = .alignCenters
+        label.text = "Hex : \(arr[index])\n\nRGB : \(rgbColor(color: arr[index]))"
+        label.textAlignment = .center
+        label.font = UIFont(name: "American Typewriter", size: 25)
+        label.adjustsFontSizeToFitWidth = true
+        self.view.addSubview(label)
+        return label
     }
     
     func getUIColor(arr: [String])->[UIColor]{
@@ -58,21 +122,6 @@ class DetailColorVC: UIViewController {
         }
         return cl
     }
-    
-    // Rút gọn 2 func createShareButton và createRotateButton
-    
-    //    func createButton(title: String, posX: CGFloat ) -> UIButton {
-    //        let Button = UIButton()
-    //        Button.tag = 200
-    //
-    //        Button.frame = CGRect(x: self.view.bounds.size.width*(posX)/8, y: self.view.bounds.size.height*17/20, width: self.view.bounds.size.width/4, height: self.view.bounds.size.height/10)
-    //        Button.backgroundColor = UIColor.cyan
-    //        Button.setTitle(title, for: .normal)
-    //
-    //        Button.layer.cornerRadius = 10
-    //        self.view.addSubview(Button)
-    //        return Button
-    //    }
     func cea() {
         print("xxx")
     }
@@ -83,108 +132,6 @@ class DetailColorVC: UIViewController {
         self.present(activityVC, animated: true, completion: nil)
     }
     
-    func creatBtn(index: Int) -> UIButton {
-        let btn = UIButton()
-        btn.setTitle(arr[index], for: .normal)
-        btn.tag = 300 + index
-        let infoViewHeight = infoView.frame.height
-        let infoViewWidth = infoView.frame.width/5
-        btn.frame = CGRect(x:CGFloat(index)*infoViewWidth, y: 0, width: infoViewWidth, height: infoViewHeight)
-        btn.backgroundColor = UIColor(hexString: arr[index])
-        self.infoView.addSubview(btn)
-        return btn
-    }
-    func Colorbtn(sender: UIButton){
-        label5.backgroundColor = sender.backgroundColor
-        label3.text = sender.titleLabel?.text
-        
-        label4.text = rgbColor(color: (sender.titleLabel?.text)!)
-        
-        switch (sender.tag - 300) {
-        case 0:
-            label6.backgroundColor = UIColor(hexString: arr[1])
-            label7.backgroundColor = UIColor(hexString: arr[2])
-            label8.backgroundColor = UIColor(hexString: arr[3])
-            label9.backgroundColor = UIColor(hexString: arr[4])
-        case 1:
-            label6.backgroundColor = UIColor(hexString: arr[0])
-            label7.backgroundColor = UIColor(hexString: arr[2])
-            label8.backgroundColor = UIColor(hexString: arr[4])
-            label9.backgroundColor = UIColor(hexString: arr[3])
-        case 2:
-            label6.backgroundColor = UIColor(hexString: arr[0])
-            label7.backgroundColor = UIColor(hexString: arr[1])
-            label8.backgroundColor = UIColor(hexString: arr[3])
-            label9.backgroundColor = UIColor(hexString: arr[4])
-        case 3:
-            label6.backgroundColor = UIColor(hexString: arr[1])
-            label7.backgroundColor = UIColor(hexString: arr[0])
-            label8.backgroundColor = UIColor(hexString: arr[4])
-            label9.backgroundColor = UIColor(hexString: arr[2])
-        case 4:
-            label6.backgroundColor = UIColor(hexString: arr[1])
-            label7.backgroundColor = UIColor(hexString: arr[0])
-            label8.backgroundColor = UIColor(hexString: arr[2])
-            label9.backgroundColor = UIColor(hexString: arr[3])
-        default:
-            print("xxx")
-        }
-    }
-    func drawinfo2() -> UIView {
-        
-        
-        let label1 = UILabel(frame: CGRect(x: 160, y: 125, width: 200, height: 20))
-        label1.text = "HEX :"
-        label1.font = label1.font.withSize(20)
-        label1.textColor = UIColor.black
-        let label2 = UILabel(frame: CGRect(x: 160, y: 170, width: 200, height: 20))
-        label2.text = "RGB :"
-        label2.font = label2.font.withSize(20)
-        label2.textColor = UIColor.black
-        label3.frame = CGRect(x: 220, y: 125, width: 180, height: 20)
-        label3.text = arr[2]
-        label3.font = UIFont(name: "Arial", size: 20)
-        label3.textColor = UIColor.black
-        label4 = UILabel(frame: CGRect(x: 220, y: 170, width: 180, height: 20))
-        label4.text = rgbColor(color: arr[2])
-        label3.font = UIFont(name: "Arial", size: 20)
-        label4.textColor = UIColor.black
-        infoView2.addSubview(label1)
-        infoView2.addSubview(label2)
-        infoView2.addSubview(label3)
-        infoView2.addSubview(label4)
-        return infoView2
-    }
-    
-    func drawinfo3()->UIView{
-        label5.frame = CGRect(x: 20, y: 120, width: 100, height: 100)
-        label5.backgroundColor = UIColor(hexString: arr[2])
-        label5.layer.masksToBounds = true
-        label5.layer.cornerRadius = 50
-        label6.frame = CGRect(x: 85, y: 60, width: 50, height: 50)
-        label6.backgroundColor = UIColor(hexString: arr[1])
-        label6.layer.masksToBounds = true
-        label6.layer.cornerRadius = 25
-        
-        label7.frame = CGRect(x: 150, y: 18, width: 50, height: 50)
-        label7.backgroundColor = UIColor(hexString: arr[0])
-        label7.layer.masksToBounds = true
-        label7.layer.cornerRadius = 25
-        label8.frame = CGRect(x: 85, y: 230, width: 50, height: 50)
-        label8.backgroundColor = UIColor(hexString: arr[3])
-        label8.layer.masksToBounds = true
-        label8.layer.cornerRadius = 25
-        label9.frame = CGRect(x: 150, y: 275, width: 50, height: 50)
-        label9.backgroundColor = UIColor(hexString: arr[4])
-        label9.layer.masksToBounds = true
-        label9.layer.cornerRadius = 25
-        infoView2.addSubview(label5)
-        infoView2.addSubview(label6)
-        infoView2.addSubview(label7)
-        infoView2.addSubview(label8)
-        infoView2.addSubview(label9)
-        return infoView2
-    }
     func rgbColor(color: String)->String{
         let red = Int((UIColor(hexString: color).cgColor.components?[0])! * 255)
         let green = Int((UIColor(hexString: color).cgColor.components?[1])! * 255)
