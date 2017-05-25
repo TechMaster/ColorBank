@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		191F85AA1ED49A850065A07B /* CropVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191F85A91ED49A850065A07B /* CropVC.swift */; };
+		1901D34B1ED68C9900FF8BED /* ImageCropVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1901D3491ED68C9900FF8BED /* ImageCropVC.swift */; };
 		19222F991ED41DD100BF5F2C /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19222F981ED41DD100BF5F2C /* CameraVC.swift */; };
 		19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */; };
 		19E808B11EB18EE700EFEE50 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808B01EB18EE700EFEE50 /* ViewController.swift */; };
@@ -29,7 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		191F85A91ED49A850065A07B /* CropVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropVC.swift; sourceTree = "<group>"; };
+		1901D3491ED68C9900FF8BED /* ImageCropVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCropVC.swift; sourceTree = "<group>"; };
 		19222F981ED41DD100BF5F2C /* CameraVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
 		19E808AB1EB18EE700EFEE50 /* color.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = color.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 				CFC888D41ECD49C8007972A7 /* YPMagnifyingGlass.swift */,
 				CFC888D51ECD49C8007972A7 /* YPMagnifyingView.swift */,
 				19222F981ED41DD100BF5F2C /* CameraVC.swift */,
-				191F85A91ED49A850065A07B /* CropVC.swift */,
+				1901D3491ED68C9900FF8BED /* ImageCropVC.swift */,
 			);
 			name = DetectColorView;
 			sourceTree = "<group>";
@@ -162,6 +162,7 @@
 				TargetAttributes = {
 					19E808AA1EB18EE700EFEE50 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = D6F4345AL3;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -211,11 +212,11 @@
 				CFB043ED1EC17AF6009245EB /* color.xcdatamodeld in Sources */,
 				CFC888D71ECD49C8007972A7 /* YPMagnifyingView.swift in Sources */,
 				CFB043EA1EC17ADE009245EB /* ColorListCell.swift in Sources */,
+				1901D34B1ED68C9900FF8BED /* ImageCropVC.swift in Sources */,
 				CFB043E81EC17AD6009245EB /* PieChart.swift in Sources */,
 				CFC2BEA31EB2F7BA00F22496 /* ChosenImageVC.swift in Sources */,
 				19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */,
 				19E808D21EB1AC1600EFEE50 /* ColorListTVC.swift in Sources */,
-				191F85AA1ED49A850065A07B /* CropVC.swift in Sources */,
 				19E808CA1EB1937E00EFEE50 /* DetailColorVC.swift in Sources */,
 				CFC888D61ECD49C8007972A7 /* YPMagnifyingGlass.swift in Sources */,
 				CFB043E61EC17AD2009245EB /* ColorBar.swift in Sources */,
@@ -327,10 +328,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = D6F4345AL3;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = color/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -353,10 +354,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = D6F4345AL3;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = color/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
