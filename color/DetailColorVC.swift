@@ -22,6 +22,8 @@ class DetailColorVC: UIViewController {
     let container = UIView()
     let frontView = UIView()
     let backView = UIView()
+    var lastBtnIndex = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,8 +33,6 @@ class DetailColorVC: UIViewController {
         
         self.navigationItem.title = colorArr[indexSection].colorName
         
-        self.navigationController?.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(cea))
-        
         navAndStatusHeight = (self.navigationController?.navigationBar.bounds.size.height)! + UIApplication.shared.statusBarFrame.size.height
         
         container.frame = CGRect(x: 0, y: self.view.bounds.size.height/2, width: self.view.bounds.size.width, height: self.view.bounds.size.height/2)
@@ -40,59 +40,45 @@ class DetailColorVC: UIViewController {
         
         self.frontView.frame = CGRect(x: 0, y: 0, width: container.bounds.size.width, height: container.bounds.size.height)
         self.frontView.backgroundColor = UIColor(hexString: arr[0])
-        
+        self.frontView.addSubview(createCodeLabel(index: 0))
         self.backView.frame = frontView.frame
         
         self.container.addSubview(frontView)
         
-        creatBtn(index: 0).addTarget(self, action: #selector(animate), for: .touchUpInside)
-        creatBtn(index: 1).addTarget(self, action: #selector(animate), for: .touchUpInside)
-        creatBtn(index: 2).addTarget(self, action: #selector(animate), for: .touchUpInside)
-        creatBtn(index: 3).addTarget(self, action: #selector(animate), for: .touchUpInside)
-        creatBtn(index: 4).addTarget(self, action: #selector(animate), for: .touchUpInside)
+        creatBtn(index: 0).layer.borderWidth = 2
+        creatBtn(index: 1)
+        creatBtn(index: 2)
+        creatBtn(index: 3)
+        creatBtn(index: 4)
     }
-    func creatBtn(index: Int) -> UIButton {
+    func creatBtn(index: Int) -> UIButton{
         let btn = UIButton()
         let screenHeight =  self.view.bounds.size.height
         let screenWidth = self.view.bounds.size.width
         btn.tag = 300 + index
         btn.frame = CGRect(x:CGFloat(index)*(screenWidth/5), y: navAndStatusHeight, width: screenWidth/5, height: screenHeight/2)
         btn.backgroundColor = UIColor(hexString: arr[index])
-        
-        if index == 0 {
-            btn.layer.borderWidth = 2
-            btn.layer.borderColor = UIColor.white.cgColor
-        }
-        
+        btn.layer.borderColor = UIColor.white.cgColor
         self.view.addSubview(btn)
         return btn
     }
     func animate(sender: UIButton) {
         // create a 'tuple' (a pair or more of objects assigned to a single variable)
         var views : (frontView: UIView, backView: UIView)
+        lastBtnIndex = sender.tag - 300
+        creatBtn(index: lastBtnIndex).addTarget(self, action: #selector(animate), for: .touchUpInside)
         sender.layer.borderWidth = 2
-        sender.layer.borderColor = UIColor.white.cgColor
         if self.frontView.superview != nil{
             self.backView.backgroundColor = sender.backgroundColor
-            for v in view.subviews{
-                if v is SRCopyableLabel{
-                    v.removeFromSuperview()
-                }
-            }
-            self.backView.addSubview(
-                createCodeLabel(index: (sender.tag - 300)))
+            deleteHexAndRgbLabel(view: backView)
+            self.backView.addSubview(createCodeLabel(index: (sender.tag - 300)))
             views = (frontView: self.frontView, backView: self.backView)
         }
         else
         {
             self.frontView.backgroundColor = sender.backgroundColor
-            for v in view.subviews{
-                if v is SRCopyableLabel{
-                    v.removeFromSuperview()
-                }
-            }
-            self.frontView.addSubview(
-                createCodeLabel(index: (sender.tag - 300)))
+            deleteHexAndRgbLabel(view: frontView)
+            self.frontView.addSubview(createCodeLabel(index: (sender.tag - 300)))
             views = (frontView: self.backView, backView: self.frontView)
         }
         
@@ -108,6 +94,14 @@ class DetailColorVC: UIViewController {
         label.numberOfLines = 4
         label.baselineAdjustment = .alignCenters
         label.text = "Hex : \(arr[index])\n\nRGB : \(rgbColor(color: arr[index]))"
+        if UIColor(hexString: arr[index]).isLight() == true
+        {
+            label.textColor = UIColor.black
+        }
+        else
+        {
+            label.textColor = UIColor.white
+        }
         label.textAlignment = .center
         label.font = UIFont(name: "American Typewriter", size: 25)
         label.adjustsFontSizeToFitWidth = true
@@ -122,8 +116,11 @@ class DetailColorVC: UIViewController {
         }
         return cl
     }
-    func cea() {
-        print("xxx")
+    func deleteHexAndRgbLabel(view: UIView) {
+        for v in view.subviews
+        {
+            v.removeFromSuperview()
+        }
     }
     func share(sender: UIButton){
         let activityVC = UIActivityViewController(activityItems: [shareImg], applicationActivities: nil)
