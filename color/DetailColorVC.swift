@@ -116,12 +116,14 @@ class DetailColorVC: UIViewController {
         }
         return cl
     }
+    
     func deleteHexAndRgbLabel(view: UIView) {
         for v in view.subviews
         {
             v.removeFromSuperview()
         }
     }
+    
     func share(sender: UIButton){
         let activityVC = UIActivityViewController(activityItems: [shareImg], applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = self.view
