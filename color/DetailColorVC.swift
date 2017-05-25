@@ -58,7 +58,7 @@ class DetailColorVC: UIViewController {
         btn.tag = 300 + index
         btn.frame = CGRect(x:CGFloat(index)*(screenWidth/5), y: navAndStatusHeight, width: screenWidth/5, height: screenHeight/2)
         btn.backgroundColor = UIColor(hexString: arr[index])
-        btn.layer.borderColor = UIColor.white.cgColor
+        btn.addTarget(self, action: #selector(animate), for: .touchUpInside)
         self.view.addSubview(btn)
         return btn
     }
@@ -68,6 +68,7 @@ class DetailColorVC: UIViewController {
         lastBtnIndex = sender.tag - 300
         creatBtn(index: lastBtnIndex).addTarget(self, action: #selector(animate), for: .touchUpInside)
         sender.layer.borderWidth = 2
+        sender.layer.borderColor = UIColor.white.cgColor
         if self.frontView.superview != nil{
             self.backView.backgroundColor = sender.backgroundColor
             deleteHexAndRgbLabel(view: backView)
