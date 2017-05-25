@@ -128,8 +128,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             baseImage = pickedImage
         }
         
-        let newViewController = ChosenImageVC()
-        newViewController.image = baseImage
+        let newViewController = ImageCropVC()
+        newViewController.imagePicked = baseImage
         self.navigationController?.pushViewController(newViewController, animated: true)
         dismiss(animated: true, completion: nil)
         
