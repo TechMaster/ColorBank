@@ -8,17 +8,18 @@
 
 import UIKit
 
-class ImageCropVC: UIViewController, UINavigationControllerDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate {
-    
+class ImageCropVC: UIViewController, UINavigationControllerDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate {
     
     var scrollView = UIScrollView()
     var imageView = UIImageView()
-    
-    
-    
     var imagePicked = UIImage()
-    
     var cropAreaView = CropAreaView()
+    var isZoomIn = false
+    
+    var frontScrollViews: [UIScrollView] = []
+    
+
+    
     
     var cropArea:CGRect{
         get{
@@ -36,12 +37,13 @@ class ImageCropVC: UIViewController, UINavigationControllerDelegate, UIScrollVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        createScrollView()
-        createImageView()
+        self.createScrollView()
+        self.createImageView()
         
+        self.imageView.isUserInteractionEnabled = true
         self.imageView.image = imagePicked
         self.createCropAreaView()
-        self.createCropButton()
+        self.createChooseButton()
         self.createCancelButton()
         
         // Do any additional setup after loading the view.
@@ -66,42 +68,125 @@ class ImageCropVC: UIViewController, UINavigationControllerDelegate, UIScrollVie
         return true
     }
     
-    
-    
     func createScrollView() {
+        
+        let screenWidth = self.view.bounds.size.width
+        let screenHeight = self.view.bounds.size.height
+        
         scrollView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
-        scrollView.contentSize = CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height*1.5)
-        scrollView.delegate = self
+        
+        scrollView.contentSize = CGSize(width: screenWidth, height: screenHeight + (screenHeight - screenWidth)/2)
+        
+        scrollView.contentInset = UIEdgeInsets(top: (screenHeight - screenWidth)/2, left: 0, bottom: 0, right: 0)
+        
+        
+        scrollView.clipsToBounds = true
         scrollView.minimumZoomScale = 1.0
-        scrollView.maximumZoomScale = 10.0
+        scrollView.maximumZoomScale = 4.0
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.bouncesZoom = true
+        scrollView.bounces = true
+        scrollView.scrollsToTop = true
+        
+        scrollView.delegate = self
+
         self.view.addSubview(scrollView)
     }
     
     func createImageView(){
         imageView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
         imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
         
-        self.scrollView.addSubview(imageView)
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(doubleTapImg(_:)))
+        doubleTap.numberOfTapsRequired = 2
+        self.imageView.addGestureRecognizer(doubleTap)
+        
+        let frontScrollView = UIScrollView(frame: CGRect( x: 0, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height))
+        frontScrollView.minimumZoomScale = 1
+        frontScrollView.maximumZoomScale = 4
+        frontScrollView.delegate = self
+        frontScrollView.addSubview(imageView)
+        frontScrollViews.append(frontScrollView)
+        
+        self.scrollView.addSubview(frontScrollView)
     }
+    
+    
+    func doubleTapImg(_ gesture: UITapGestureRecognizer){
+        
+        let position = gesture.location(in: self.imageView)
+        
+        if isZoomIn == false {
+            zoomRectForScale(scale: scrollView.zoomScale * 4, center: position)
+            isZoomIn = true
+        }else{
+            zoomRectForScale(scale: scrollView.zoomScale * 0.25, center: position)
+            isZoomIn = false
+        }
+    }
+    
+    func zoomRectForScale(scale: CGFloat, center: CGPoint){
+        var zoomRect = CGRect()
+        let scrollViewSize = scrollView.bounds.size
+        zoomRect.size.height = scrollViewSize.height/scale
+        zoomRect.size.width = scrollViewSize.width/scale
+        zoomRect.origin.x = center.x - (zoomRect.size.width / 2.0)
+        zoomRect.origin.y = center.y - (zoomRect.size.height / 2.0)
+        frontScrollViews[0].zoom(to: zoomRect, animated: true)
+    }
+
+    
+    func changeScrollable(_ isScrollable: Bool) {
+        
+        self.scrollView.isScrollEnabled = isScrollable
+    }
+    
+    
+    
+    // MARK: UIScrollViewDelegate Protocol
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return imageView
+        return self.imageView
     }
     
-    func createCropAreaView(){
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
         
+        let boundsSize = scrollView.bounds.size
+        var contentsFrame = imageView.frame
+        
+        if contentsFrame.size.width < boundsSize.width {
+            
+            contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2.0
+            
+        } else {
+            contentsFrame.origin.x = 0.0
+        }
+        
+        if contentsFrame.size.height < boundsSize.height {
+            
+            contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2.0
+        } else {
+            
+            contentsFrame.origin.y = 0.0
+        }
+        
+        imageView.frame = contentsFrame
+        
+    }
+    
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         let screenWidth = self.view.bounds.size.width
         let screenHeight = self.view.bounds.size.height
         
-        cropAreaView.frame = CGRect(x: 0, y: screenHeight/4, width: screenWidth, height: screenWidth)
-        cropAreaView.backgroundColor = UIColor.blue
-        cropAreaView.alpha = 0.3
-        
-        self.view.addSubview(cropAreaView)
+        self.scrollView.contentSize = CGSize(width: screenWidth, height: screenHeight + (screenHeight - screenWidth)/2)
     }
     
+    
+    
     func crop(){
-        let croppedCGImage = imageView.image?.cgImage?.cropping(to: cropArea)
+        let croppedCGImage = frontScrollViews[0].subviews.image?.cgImage?.cropping(to: cropArea)
         let croppedImage = UIImage(cgImage: croppedCGImage!)
         
         let newViewController = ChosenImageVC()
@@ -115,12 +200,13 @@ class ImageCropVC: UIViewController, UINavigationControllerDelegate, UIScrollVie
     func cancel(){
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
             let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self as! UIImagePickerControllerDelegate & UINavigationControllerDelegate
+            imagePicker.delegate = self as UIImagePickerControllerDelegate & UINavigationControllerDelegate
             imagePicker.sourceType = .photoLibrary
             imagePicker.allowsEditing = false
             self.present(imagePicker, animated: true, completion: nil)
         }
     }
+    
     
     //MARK:  image picker delegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -135,7 +221,6 @@ class ImageCropVC: UIViewController, UINavigationControllerDelegate, UIScrollVie
         
     }
     
-    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         
         let viewController = ViewController()
@@ -145,15 +230,51 @@ class ImageCropVC: UIViewController, UINavigationControllerDelegate, UIScrollVie
         
     }
     
-    func createCropButton(){
+    //MARK: create crop window
+    func createCropAreaView(){
+        
         let screenWidth = self.view.bounds.size.width
         let screenHeight = self.view.bounds.size.height
         
-        let cropButton = UIButton()
-        cropButton.frame = CGRect(x: screenWidth - 40, y: screenHeight - 40, width: 40, height: 40)
-        cropButton.backgroundColor = UIColor.red
-        cropButton.addTarget(self, action: #selector(crop), for: .touchUpInside)
-        self.view.addSubview(cropButton)
+        //Crop window
+        cropAreaView.frame = CGRect(x: 0, y: screenHeight/2 - screenWidth/2, width: screenWidth, height: screenWidth)
+        cropAreaView.layer.borderWidth = 1
+        cropAreaView.layer.borderColor = UIColor.lightGray.cgColor
+        self.view.addSubview(cropAreaView)
+        
+        //Dim part
+        let upperArea = UIView()
+        upperArea.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight/2 - screenWidth/2)
+        upperArea.backgroundColor = UIColor.black
+        upperArea.alpha = 0.7
+        self.view.addSubview(upperArea)
+        
+        let lowerArea = UIView()
+        lowerArea.frame = CGRect(x: 0, y: cropAreaView.frame.maxY, width: screenWidth, height: screenHeight/2 - screenWidth/2)
+        lowerArea.backgroundColor = UIColor.black
+        lowerArea.alpha = 0.7
+        self.view.addSubview(lowerArea)
+        
+        let buttonBar = UIButton()
+        buttonBar.frame = CGRect(x: 0, y: screenHeight-lowerArea.bounds.size.height/2, width: screenWidth, height: lowerArea.bounds.size.width/2)
+        buttonBar.backgroundColor = UIColor.black
+        buttonBar.alpha = 0.5
+        self.view.addSubview(buttonBar)
+        
+    }
+    
+    //MARK: create button
+    func createChooseButton(){
+        let screenWidth = self.view.bounds.size.width
+        let screenHeight = self.view.bounds.size.height
+        
+        let chooseButton = UIButton()
+        chooseButton.frame = CGRect(x: screenWidth*3/4, y: screenHeight - (screenHeight - cropAreaView.frame.maxY)/2, width: screenWidth/4, height: (screenHeight - cropAreaView.frame.maxY)/2)
+        chooseButton.setTitle("Choose", for: .normal)
+        chooseButton.setTitleColor(UIColor.white, for: .normal)
+        chooseButton.titleLabel?.textAlignment = .center
+        chooseButton.addTarget(self, action: #selector(crop), for: .touchUpInside)
+        self.view.addSubview(chooseButton)
     }
     
     func createCancelButton(){
@@ -161,8 +282,10 @@ class ImageCropVC: UIViewController, UINavigationControllerDelegate, UIScrollVie
         let screenHeight = self.view.bounds.size.height
         
         let cancelButton = UIButton()
-        cancelButton.frame = CGRect(x: 0, y: screenHeight - 40, width: 40, height: 40)
-        cancelButton.backgroundColor = UIColor.blue
+        cancelButton.frame = CGRect(x: 0, y: screenHeight - (screenHeight - cropAreaView.frame.maxY)/2, width: screenWidth/4, height: (screenHeight - cropAreaView.frame.maxY)/2)
+        cancelButton.setTitle("Cancel", for: .normal)
+        cancelButton.setTitleColor(UIColor.white, for: .normal)
+        cancelButton.titleLabel?.textAlignment = .center
         cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
         self.view.addSubview(cancelButton)
     }
@@ -170,6 +293,7 @@ class ImageCropVC: UIViewController, UINavigationControllerDelegate, UIScrollVie
     
 }
 
+//MARK: allow to touch the view behind
 class CropAreaView: UIView {
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return false
@@ -197,9 +321,7 @@ extension UIImageView{
 }
 
 extension UINavigationController {
-    
     func backToViewController(viewController: Swift.AnyClass) {
-        
         for element in viewControllers as Array {
             if element.isKind(of: viewController) {
                 self.popToViewController(element, animated: true)
