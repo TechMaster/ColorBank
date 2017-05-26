@@ -23,7 +23,7 @@ class DetailColorVC: UIViewController {
     let frontView = UIView()
     let backView = UIView()
     var lastBtnIndex = 0
-    
+    var intro = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,42 +35,58 @@ class DetailColorVC: UIViewController {
         
         navAndStatusHeight = (self.navigationController?.navigationBar.bounds.size.height)! + UIApplication.shared.statusBarFrame.size.height
         
+        
+        
+        creatBtn(index: 0).addTarget(self, action: #selector(animate), for: .touchUpInside)
+        creatBtn(index: 1).addTarget(self, action: #selector(animate), for: .touchUpInside)
+        creatBtn(index: 2).addTarget(self, action: #selector(animate), for: .touchUpInside)
+        creatBtn(index: 3).addTarget(self, action: #selector(animate), for: .touchUpInside)
+        creatBtn(index: 4).addTarget(self, action: #selector(animate), for: .touchUpInside)
+        
+        createAnimateView()
+    }
+    
+    func createAnimateView() {
         container.frame = CGRect(x: 0, y: self.view.bounds.size.height/2, width: self.view.bounds.size.width, height: self.view.bounds.size.height/2)
         self.view.addSubview(container)
         
         self.frontView.frame = CGRect(x: 0, y: 0, width: container.bounds.size.width, height: container.bounds.size.height)
         self.frontView.backgroundColor = UIColor(hexString: arr[0])
         self.frontView.addSubview(createCodeLabel(index: 0))
+        self.frontView.layer.borderColor = UIColor.white.cgColor
+        self.frontView.layer.borderWidth = 2
         self.backView.frame = frontView.frame
         
         self.container.addSubview(frontView)
-        
-        creatBtn(index: 0).layer.borderWidth = 2
-        creatBtn(index: 1)
-        creatBtn(index: 2)
-        creatBtn(index: 3)
-        creatBtn(index: 4)
     }
+    
     func creatBtn(index: Int) -> UIButton{
         let btn = UIButton()
-        let screenHeight =  self.view.bounds.size.height
         let screenWidth = self.view.bounds.size.width
         btn.tag = 300 + index
-        btn.frame = CGRect(x:CGFloat(index)*(screenWidth/5), y: navAndStatusHeight, width: screenWidth/5, height: screenHeight/2)
+        btn.frame = CGRect(x:CGFloat(index)*(screenWidth/5), y: navAndStatusHeight, width: screenWidth/5, height: self.view.bounds.size.height/2 - navAndStatusHeight + 2)
         btn.backgroundColor = UIColor(hexString: arr[index])
-        btn.addTarget(self, action: #selector(animate), for: .touchUpInside)
+        if intro == true && index == 0 {
+            btn.layer.borderWidth = 2
+            btn.layer.borderColor = UIColor.white.cgColor
+            intro = false
+        }
         self.view.addSubview(btn)
         return btn
     }
     func animate(sender: UIButton) {
         // create a 'tuple' (a pair or more of objects assigned to a single variable)
         var views : (frontView: UIView, backView: UIView)
-        lastBtnIndex = sender.tag - 300
-        creatBtn(index: lastBtnIndex).addTarget(self, action: #selector(animate), for: .touchUpInside)
+        if sender.tag - 300 != lastBtnIndex {
+            creatBtn(index: lastBtnIndex).addTarget(self, action: #selector(animate), for: .touchUpInside)
+        }
+        createAnimateView()
         sender.layer.borderWidth = 2
         sender.layer.borderColor = UIColor.white.cgColor
         if self.frontView.superview != nil{
             self.backView.backgroundColor = sender.backgroundColor
+            self.backView.layer.borderColor = UIColor.white.cgColor
+            self.backView.layer.borderWidth = 2
             deleteHexAndRgbLabel(view: backView)
             self.backView.addSubview(createCodeLabel(index: (sender.tag - 300)))
             views = (frontView: self.frontView, backView: self.backView)
@@ -78,6 +94,8 @@ class DetailColorVC: UIViewController {
         else
         {
             self.frontView.backgroundColor = sender.backgroundColor
+            self.frontView.layer.borderColor = UIColor.white.cgColor
+            self.frontView.layer.borderWidth = 2
             deleteHexAndRgbLabel(view: frontView)
             self.frontView.addSubview(createCodeLabel(index: (sender.tag - 300)))
             views = (frontView: self.backView, backView: self.frontView)
@@ -87,7 +105,10 @@ class DetailColorVC: UIViewController {
         let transitionOptions = UIViewAnimationOptions.transitionCurlUp
         
         // with no animation block, and a completion block set to 'nil' this makes a single line of code
-        UIView.transition(from: views.frontView, to: views.backView, duration: 1.0, options: transitionOptions, completion: nil)
+        if sender.tag - 300 != lastBtnIndex {
+            UIView.transition(from: views.frontView, to: views.backView, duration: 1.0, options: transitionOptions, completion: nil)
+        }
+        lastBtnIndex = sender.tag - 300
     }
     
     func createCodeLabel(index: Int) -> UILabel {

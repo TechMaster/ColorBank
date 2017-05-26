@@ -90,7 +90,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let Button = UIButton()
         Button.frame = CGRect(x: posX, y: posY, width: self.view.bounds.size.width/6, height: self.view.bounds.size.width/6)
         Button.setBackgroundImage(image, for: .normal)
-        Button.layer.cornerRadius = Button.frame.width/2
+        Button.layer.cornerRadius = Button.frame.width/2                     
         self.view.addSubview(Button)
         return Button
     }
