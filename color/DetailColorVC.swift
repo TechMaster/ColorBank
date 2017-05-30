@@ -16,7 +16,9 @@ class DetailColorVC: UIViewController {
     var indexSection: Int!
     var rotateCount: Int = 1
     var arr = [String]()
+    
     var shareImg = UIImage()
+    
     var navAndStatusHeight: CGFloat!
     var button1 = UIButton()
     let container = UIView()
@@ -40,6 +42,9 @@ class DetailColorVC: UIViewController {
         {
             creatBtn(index: i).addTarget(self, action: #selector(animate), for: .touchUpInside)
         }
+        
+        let shareButton = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(share))
+        self.navigationItem.rightBarButtonItem = shareButton
         
         createAnimateView()
     }
@@ -72,6 +77,7 @@ class DetailColorVC: UIViewController {
         self.view.addSubview(btn)
         return btn
     }
+    
     func animate(sender: UIButton) {
         var views : (frontView: UIView, backView: UIView)
         if sender.tag - 300 != lastBtnIndex {
@@ -143,7 +149,61 @@ class DetailColorVC: UIViewController {
         }
     }
     
-    func share(sender: UIButton){
+    func createShareView(){
+        let shareView = UIView()
+        shareView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.width)
+        
+        let nameLabel = UILabel()
+        nameLabel.frame = CGRect(x: 0, y: 0, width: shareView.bounds.size.width, height: shareView.bounds.size.width/6)
+        nameLabel.text = colorArr[indexSection].colorName
+        nameLabel.textAlignment = .center
+        nameLabel.textColor = UIColor.white
+        nameLabel.backgroundColor = UIColor.black
+        nameLabel.adjustsFontSizeToFitWidth = true
+        
+        shareView.addSubview(nameLabel)
+        
+        for i in 0..<5
+        {
+            let colorLabel = UILabel()
+            colorLabel.frame = CGRect(x:CGFloat(i)*(shareView.bounds.size.width/5),
+                                      y: nameLabel.frame.maxY,
+                                      width: shareView.bounds.size.width/5,
+                                      height: shareView.bounds.size.width*2/3)
+            colorLabel.backgroundColor = UIColor(hexString: arr[i])
+            colorLabel.layer.borderWidth = 1
+            colorLabel.layer.borderColor = UIColor.white.cgColor
+            colorLabel.layer.masksToBounds = true
+            
+            let hexLabel = HexLabel()
+            hexLabel.frame = CGRect(x:CGFloat(i)*(shareView.bounds.size.width/5),
+                                      y: shareView.bounds.size.width*5/6,
+                                      width: shareView.bounds.size.width/5,
+                                      height: shareView.bounds.size.width/6)
+            
+            hexLabel.text = arr[i]
+            hexLabel.textAlignment = .center
+            hexLabel.backgroundColor = UIColor.black
+            hexLabel.textColor = UIColor.white
+            hexLabel.layer.borderWidth = 1
+            hexLabel.layer.borderColor = UIColor.white.cgColor
+            hexLabel.layer.masksToBounds = true
+            hexLabel.adjustsFontSizeToFitWidth = true
+            
+            shareView.addSubview(colorLabel)
+            shareView.addSubview(hexLabel)
+        }
+        
+        shareImg = UIImage(view: shareView)
+        
+    }
+    
+    
+    
+    
+    func share(){
+        createShareView()
+        
         let activityVC = UIActivityViewController(activityItems: [shareImg], applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = self.view
         
@@ -160,6 +220,14 @@ class DetailColorVC: UIViewController {
         return rgbColor
     }
     
+}
+
+class HexLabel: UILabel {
+    override func draw(_ rect: CGRect) {
+        let  insets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        super.drawText(in: UIEdgeInsetsInsetRect(rect, insets))
+        
+    }
 }
 
 extension UIImage {
