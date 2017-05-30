@@ -186,7 +186,7 @@ class ImageCropVC: UIViewController, UINavigationControllerDelegate, UIScrollVie
     
     
     func crop(){
-        let croppedCGImage = frontScrollViews[0].subviews.image?.cgImage?.cropping(to: cropArea)
+        let croppedCGImage = imageView.image?.cgImage?.cropping(to: cropArea)
         let croppedImage = UIImage(cgImage: croppedCGImage!)
         
         let newViewController = ChosenImageVC()

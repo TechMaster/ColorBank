@@ -36,12 +36,10 @@ class DetailColorVC: UIViewController {
         navAndStatusHeight = (self.navigationController?.navigationBar.bounds.size.height)! + UIApplication.shared.statusBarFrame.size.height
         
         
-        
-        creatBtn(index: 0).addTarget(self, action: #selector(animate), for: .touchUpInside)
-        creatBtn(index: 1).addTarget(self, action: #selector(animate), for: .touchUpInside)
-        creatBtn(index: 2).addTarget(self, action: #selector(animate), for: .touchUpInside)
-        creatBtn(index: 3).addTarget(self, action: #selector(animate), for: .touchUpInside)
-        creatBtn(index: 4).addTarget(self, action: #selector(animate), for: .touchUpInside)
+        for i in 0..<5
+        {
+            creatBtn(index: i).addTarget(self, action: #selector(animate), for: .touchUpInside)
+        }
         
         createAnimateView()
     }
@@ -75,12 +73,11 @@ class DetailColorVC: UIViewController {
         return btn
     }
     func animate(sender: UIButton) {
-        // create a 'tuple' (a pair or more of objects assigned to a single variable)
         var views : (frontView: UIView, backView: UIView)
         if sender.tag - 300 != lastBtnIndex {
             creatBtn(index: lastBtnIndex).addTarget(self, action: #selector(animate), for: .touchUpInside)
+            createAnimateView()
         }
-        createAnimateView()
         sender.layer.borderWidth = 2
         sender.layer.borderColor = UIColor.white.cgColor
         if self.frontView.superview != nil{
