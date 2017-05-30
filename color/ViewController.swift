@@ -15,8 +15,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var baseImage = UIImage()
     var menuButton = UIButton()
     var paletteButton = UIButton()
-    var albumButton = UIButton()
-    var cameraButton = UIButton()
+    var infoButton = UIButton()
+    var mediaButton = UIButton()
     var expanding: Bool = false
     
     
@@ -32,18 +32,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let buttonWidth = self.view.bounds.size.width/7
         
         paletteButton = createButton(image: #imageLiteral(resourceName: "Palette"), posX: X - buttonWidth/2, posY: Y - buttonWidth/2)
-        albumButton = createButton(image: #imageLiteral(resourceName: "Album"), posX: X - buttonWidth/2, posY: Y - buttonWidth/2)
-        cameraButton = createButton(image: #imageLiteral(resourceName: "Camera"), posX: X - buttonWidth/2, posY: Y - buttonWidth/2)
+        infoButton = createButton(image: #imageLiteral(resourceName: "Info"), posX: X - buttonWidth/2, posY: Y - buttonWidth/2)
+        mediaButton = createButton(image: #imageLiteral(resourceName: "Album"), posX: X - buttonWidth/2, posY: Y - buttonWidth/2)
         menuButton = createButton(image: #imageLiteral(resourceName: "Menu"), posX: X - buttonWidth/2, posY: Y - buttonWidth/2)
         
         paletteButton.alpha = 0
-        albumButton.alpha = 0
-        cameraButton.alpha = 0
+        infoButton.alpha = 0
+        mediaButton.alpha = 0
         
         menuButton.addTarget(self, action: #selector(animateButtons), for: .touchUpInside)
         paletteButton.addTarget(self, action: #selector(pushToColorListView), for: .touchUpInside)
-        albumButton.addTarget(self, action: #selector(pushToAlbumView), for: .touchUpInside)
-        cameraButton.addTarget(self, action: #selector(pushToCameraView), for: .touchUpInside)
+        infoButton.addTarget(self, action: #selector(pushToInfoView), for: .touchUpInside)
+        mediaButton.addTarget(self, action: #selector(pushToMediaView), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,11 +68,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 self.paletteButton.center = CGPoint(x: center.x, y: center.y - spacing)
                 self.paletteButton.alpha = 1
                 
-                self.albumButton.center = CGPoint(x: center.x/2, y: center.y)
-                self.albumButton.alpha = 1
+                self.infoButton.center = CGPoint(x: center.x/2, y: center.y)
+                self.infoButton.alpha = 1
                 
-                self.cameraButton.center = CGPoint(x: center.x*3/2, y: center.y)
-                self.cameraButton.alpha = 1
+                self.mediaButton.center = CGPoint(x: center.x*3/2, y: center.y)
+                self.mediaButton.alpha = 1
             })
             expanding = true
         }
@@ -82,11 +82,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 self.paletteButton.center = self.menuButton.center
                 self.paletteButton.alpha = 0
                 
-                self.albumButton.center = self.menuButton.center
-                self.albumButton.alpha = 0
+                self.infoButton.center = self.menuButton.center
+                self.infoButton.alpha = 0
                 
-                self.cameraButton.center = self.menuButton.center
-                self.cameraButton.alpha = 0
+                self.mediaButton.center = self.menuButton.center
+                self.mediaButton.alpha = 0
             })
             expanding = false
         }
@@ -108,20 +108,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.navigationController?.pushViewController(newViewController, animated: true)
     }
     
-    //MARK: Album
-    func pushToAlbumView() {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
-            let imagePicker = UIImagePickerController()
-            
-            imagePicker.delegate = self
-            imagePicker.sourceType = .photoLibrary
-            imagePicker.allowsEditing = false
-            self.present(imagePicker, animated: true, completion: nil)
-        }
+    //MARK: Info
+    func pushToInfoView() {
+        
     }
     
-    //MARK: Camera
-    func pushToCameraView() {
+    //MARK: Media
+    func pushToMediaView() {
         
         let fusuma = FusumaViewController()
         fusuma.delegate = self as FusumaDelegate
@@ -149,7 +142,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func fusumaWillClosed() {
         self.navigationController?.popViewController(animated: true)
-        
     }
     
     // Return the image but called after is dismissed.
