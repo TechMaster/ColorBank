@@ -8,14 +8,18 @@
 
 import UIKit
 import Foundation
+import Fusuma
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FusumaDelegate {
+    
     var baseImage = UIImage()
     var menuButton = UIButton()
     var paletteButton = UIButton()
     var albumButton = UIButton()
     var cameraButton = UIButton()
     var expanding: Bool = false
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
@@ -116,29 +120,47 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     //MARK: Camera
     func pushToCameraView() {
         
-        let newViewController = CameraVC()
-        self.navigationController?.pushViewController(newViewController, animated: true)
-        dismiss(animated: true, completion: nil)
+        let fusuma = FusumaViewController()
+        fusuma.delegate = self as FusumaDelegate
+        fusuma.hasVideo = false // If you want to let the users allow to use video.
+        self.present(fusuma, animated: true, completion: nil)
         
     }
     
-    //MARK:  image picker delegate
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            baseImage = pickedImage
+    //MARK:  select image delegate
+    func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
+        switch source {
+        case .camera:
+            print("Image captured from Camera")
+        case .library:
+            print("Image selected from Camera Roll")
+        default:
+            print("Image selected")
         }
         
-        let newViewController = ImageCropVC()
-        newViewController.imagePicked = baseImage
+        let newViewController = ChosenImageVC()
+        newViewController.image = image
         self.navigationController?.pushViewController(newViewController, animated: true)
         dismiss(animated: true, completion: nil)
+    }
+    
+    
+    // Return the image but called after is dismissed.
+    func fusumaDismissedWithImage(image: UIImage) {
         
+        print("Called just after FusumaViewController is dismissed.")
     }
     
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
+    func fusumaVideoCompleted(withFileURL fileURL: URL) {
+        
+        print("Called just after a video has been selected.")
     }
     
+    // When camera roll is not authorized, this method is called.
+    func fusumaCameraRollUnauthorized() {
+        
+        print("Camera roll unauthorized")
+    }
 }
 
 extension UIView{

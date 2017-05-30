@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1901D34B1ED68C9900FF8BED /* ImageCropVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1901D3491ED68C9900FF8BED /* ImageCropVC.swift */; };
-		19222F991ED41DD100BF5F2C /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19222F981ED41DD100BF5F2C /* CameraVC.swift */; };
 		19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */; };
 		19E808B11EB18EE700EFEE50 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808B01EB18EE700EFEE50 /* ViewController.swift */; };
 		19E808CA1EB1937E00EFEE50 /* DetailColorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808C91EB1937E00EFEE50 /* DetailColorVC.swift */; };
 		19E808D21EB1AC1600EFEE50 /* ColorListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808D11EB1AC1600EFEE50 /* ColorListTVC.swift */; };
 		19F9E8661EC30A9400FEA3D5 /* SRCopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F9E8651EC30A9400FEA3D5 /* SRCopyableLabel.swift */; };
+		2399C8B5CDA73651DBBAF367 /* Pods_color.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09709D13FA795FE3CC57B389 /* Pods_color.framework */; };
 		CFB043E21EC17AB3009245EB /* colorData.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFB043E11EC17AB3009245EB /* colorData.plist */; };
 		CFB043E41EC17AC6009245EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFB043E31EC17AC6009245EB /* Assets.xcassets */; };
 		CFB043E61EC17AD2009245EB /* ColorBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB043E51EC17AD2009245EB /* ColorBar.swift */; };
@@ -29,8 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1901D3491ED68C9900FF8BED /* ImageCropVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCropVC.swift; sourceTree = "<group>"; };
-		19222F981ED41DD100BF5F2C /* CameraVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
+		09709D13FA795FE3CC57B389 /* Pods_color.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_color.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		19E808AB1EB18EE700EFEE50 /* color.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = color.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		19E808B01EB18EE700EFEE50 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -38,6 +36,8 @@
 		19E808C91EB1937E00EFEE50 /* DetailColorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailColorVC.swift; sourceTree = "<group>"; };
 		19E808D11EB1AC1600EFEE50 /* ColorListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorListTVC.swift; sourceTree = "<group>"; };
 		19F9E8651EC30A9400FEA3D5 /* SRCopyableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRCopyableLabel.swift; sourceTree = "<group>"; };
+		A3193649A9C9C4686D6DBEF6 /* Pods-color.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-color.debug.xcconfig"; path = "Pods/Target Support Files/Pods-color/Pods-color.debug.xcconfig"; sourceTree = "<group>"; };
+		A8581122575E74F689CA31E9 /* Pods-color.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-color.release.xcconfig"; path = "Pods/Target Support Files/Pods-color/Pods-color.release.xcconfig"; sourceTree = "<group>"; };
 		CFB043E11EC17AB3009245EB /* colorData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = colorData.plist; sourceTree = "<group>"; };
 		CFB043E31EC17AC6009245EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CFB043E51EC17AD2009245EB /* ColorBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorBar.swift; sourceTree = "<group>"; };
@@ -57,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2399C8B5CDA73651DBBAF367 /* Pods_color.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +69,8 @@
 			children = (
 				19E808AD1EB18EE700EFEE50 /* color */,
 				19E808AC1EB18EE700EFEE50 /* Products */,
+				2E2BEEE52D01DE543C95DBB3 /* Pods */,
+				8113CF80AC9145A05D00D581 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,6 +97,23 @@
 			path = color;
 			sourceTree = "<group>";
 		};
+		2E2BEEE52D01DE543C95DBB3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A3193649A9C9C4686D6DBEF6 /* Pods-color.debug.xcconfig */,
+				A8581122575E74F689CA31E9 /* Pods-color.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		8113CF80AC9145A05D00D581 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				09709D13FA795FE3CC57B389 /* Pods_color.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CFC2BE9F1EB2F45F00F22496 /* ColorListView */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,8 +134,6 @@
 				CFC754731EC958B8004D8551 /* Sniper.swift */,
 				CFC888D41ECD49C8007972A7 /* YPMagnifyingGlass.swift */,
 				CFC888D51ECD49C8007972A7 /* YPMagnifyingView.swift */,
-				19222F981ED41DD100BF5F2C /* CameraVC.swift */,
-				1901D3491ED68C9900FF8BED /* ImageCropVC.swift */,
 			);
 			name = DetectColorView;
 			sourceTree = "<group>";
@@ -137,9 +155,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 19E808C01EB18EE700EFEE50 /* Build configuration list for PBXNativeTarget "color" */;
 			buildPhases = (
+				F8890F662A4FA08A5E1B1F89 /* [CP] Check Pods Manifest.lock */,
 				19E808A71EB18EE700EFEE50 /* Sources */,
 				19E808A81EB18EE700EFEE50 /* Frameworks */,
 				19E808A91EB18EE700EFEE50 /* Resources */,
+				925E6675EF521D29139B07B9 /* [CP] Embed Pods Frameworks */,
+				6874C3BC898744E5D14E10B8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -162,6 +183,7 @@
 				TargetAttributes = {
 					19E808AA1EB18EE700EFEE50 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = D6F4345AL3;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -199,6 +221,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6874C3BC898744E5D14E10B8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-color/Pods-color-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		925E6675EF521D29139B07B9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-color/Pods-color-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F8890F662A4FA08A5E1B1F89 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		19E808A71EB18EE700EFEE50 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -206,12 +276,10 @@
 			files = (
 				19F9E8661EC30A9400FEA3D5 /* SRCopyableLabel.swift in Sources */,
 				19E808B11EB18EE700EFEE50 /* ViewController.swift in Sources */,
-				19222F991ED41DD100BF5F2C /* CameraVC.swift in Sources */,
 				CFC754741EC958B8004D8551 /* Sniper.swift in Sources */,
 				CFB043ED1EC17AF6009245EB /* color.xcdatamodeld in Sources */,
 				CFC888D71ECD49C8007972A7 /* YPMagnifyingView.swift in Sources */,
 				CFB043EA1EC17ADE009245EB /* ColorListCell.swift in Sources */,
-				1901D34B1ED68C9900FF8BED /* ImageCropVC.swift in Sources */,
 				CFB043E81EC17AD6009245EB /* PieChart.swift in Sources */,
 				CFC2BEA31EB2F7BA00F22496 /* ChosenImageVC.swift in Sources */,
 				19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */,
@@ -322,12 +390,13 @@
 		};
 		19E808C11EB18EE700EFEE50 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3193649A9C9C4686D6DBEF6 /* Pods-color.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = D6F4345AL3;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = color/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
@@ -348,12 +417,13 @@
 		};
 		19E808C21EB18EE700EFEE50 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A8581122575E74F689CA31E9 /* Pods-color.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = D6F4345AL3;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = color/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
