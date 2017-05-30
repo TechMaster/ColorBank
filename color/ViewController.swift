@@ -22,7 +22,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
+        
+        self.view.backgroundColor = fusumaBackgroundColor
+        self.navigationController?.navigationBar.barTintColor = fusumaBackgroundColor
+        
         
         let X = self.view.bounds.size.width/2
         let Y = self.view.bounds.size.height/2
@@ -44,13 +47,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     //MARK:
@@ -94,7 +97,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let Button = UIButton()
         Button.frame = CGRect(x: posX, y: posY, width: self.view.bounds.size.width/6, height: self.view.bounds.size.width/6)
         Button.setBackgroundImage(image, for: .normal)
-        Button.layer.cornerRadius = Button.frame.width/2                     
+        Button.layer.cornerRadius = Button.frame.width/2
         self.view.addSubview(Button)
         return Button
     }
@@ -123,7 +126,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let fusuma = FusumaViewController()
         fusuma.delegate = self as FusumaDelegate
         fusuma.hasVideo = false // If you want to let the users allow to use video.
-        self.present(fusuma, animated: true, completion: nil)
+        self.navigationController?.pushViewController(fusuma, animated: true)
         
     }
     
@@ -144,6 +147,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         dismiss(animated: true, completion: nil)
     }
     
+    func fusumaWillClosed() {
+        self.navigationController?.popViewController(animated: true)
+        
+    }
     
     // Return the image but called after is dismissed.
     func fusumaDismissedWithImage(image: UIImage) {
@@ -160,6 +167,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func fusumaCameraRollUnauthorized() {
         
         print("Camera roll unauthorized")
+        
+        let alert = UIAlertController(title: "Access Requested", message: "Saving image needs to access your photo album", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { (action) -> Void in
+            
+            if let url = URL(string:UIApplicationOpenSettingsURLString) {
+                UIApplication.shared.openURL(url)
+            }
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

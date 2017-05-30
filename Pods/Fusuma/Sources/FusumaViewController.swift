@@ -67,8 +67,8 @@ public var fusumaVideoStopImage : UIImage? = nil
 
 public var fusumaCropImage: Bool = true
 
-public var fusumaCameraRollTitle = "CAMERA ROLL"
-public var fusumaCameraTitle = "PHOTO"
+public var fusumaCameraRollTitle = "ALBUM"
+public var fusumaCameraTitle = "CAMERA"
 public var fusumaVideoTitle = "VIDEO"
 public var fusumaTitleFont = UIFont(name: "AvenirNext-DemiBold", size: 15)
 
@@ -120,6 +120,19 @@ public class FusumaViewController: UIViewController {
     
     public weak var delegate: FusumaDelegate? = nil
     
+    override public func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+
+    }
+    
+    override public func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        self.stopAll()
+
+    }
+    
     override public func loadView() {
         
         if let view = UINib(nibName: "FusumaViewController", bundle: Bundle(for: self.classForCoder)).instantiate(withOwner: self, options: nil).first as? UIView {
@@ -133,6 +146,8 @@ public class FusumaViewController: UIViewController {
     
         self.view.backgroundColor = fusumaBackgroundColor
         
+        self.navigationController?.navigationBar.isHidden = true
+        
         cameraView.delegate = self
         albumView.delegate  = self
         videoView.delegate = self
@@ -145,7 +160,6 @@ public class FusumaViewController: UIViewController {
         // Get the custom button images if they're set
         let albumImage = fusumaAlbumImage != nil ? fusumaAlbumImage : UIImage(named: "ic_insert_photo", in: bundle, compatibleWith: nil)
         let cameraImage = fusumaCameraImage != nil ? fusumaCameraImage : UIImage(named: "ic_photo_camera", in: bundle, compatibleWith: nil)
-        
         let videoImage = fusumaVideoImage != nil ? fusumaVideoImage : UIImage(named: "ic_videocam", in: bundle, compatibleWith: nil)
 
         
@@ -249,10 +263,6 @@ public class FusumaViewController: UIViewController {
         }
     }
     
-    override public func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
 
     override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -274,10 +284,6 @@ public class FusumaViewController: UIViewController {
         }
     }
     
-    public override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.stopAll()
-    }
 
     override public var prefersStatusBarHidden : Bool {
         
@@ -286,6 +292,7 @@ public class FusumaViewController: UIViewController {
     
     @IBAction func closeButtonPressed(_ sender: UIButton) {
         self.delegate?.fusumaWillClosed()
+        
         self.dismiss(animated: true, completion: {
             self.delegate?.fusumaClosed()
         })

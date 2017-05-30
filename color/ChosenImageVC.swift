@@ -8,20 +8,21 @@
 
 import Foundation
 import UIKit
+import Fusuma
 
 class ChosenImageVC: UIViewController {
     
     let magView = YPMagnifyingView()
-    let imageView = UIImageView()
+    var imageView = UIImageView()
     var image = UIImage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = fusumaBackgroundColor
+        self.navigationController?.navigationBar.barTintColor = fusumaBackgroundColor
         
         createMagGlassAndSniper()
     }
-    
     
     func createImageView() {
         
@@ -40,9 +41,7 @@ class ChosenImageVC: UIViewController {
         let statusHeight = UIApplication.shared.statusBarFrame.height
         
         magView.frame = CGRect(x: 10, y: navHeight! + statusHeight + 10, width: screenWidth - 20, height: screenWidth - 20)
-        
-        print("magView: \(magView.frame.minY)")
-        
+                
         magView.layer.cornerRadius = 8
         magView.layer.masksToBounds = true
         
