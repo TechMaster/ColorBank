@@ -30,6 +30,9 @@ class DetailColorVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = UIColor(hexString: "#F38181")
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(hexString: "#F38181")]
         
         arr = colorArr[indexSection].colorArray
         
@@ -160,6 +163,9 @@ class DetailColorVC: UIViewController {
         nameLabel.textColor = UIColor.white
         nameLabel.backgroundColor = UIColor.black
         nameLabel.adjustsFontSizeToFitWidth = true
+        nameLabel.layer.borderWidth = 1
+        nameLabel.layer.borderColor = UIColor.white.cgColor
+        nameLabel.layer.masksToBounds = true
         
         shareView.addSubview(nameLabel)
         

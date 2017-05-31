@@ -43,7 +43,6 @@ public class YPMagnifyingView: UIView {
             self.touchTimer = Timer.scheduledTimer(timeInterval: magnifyingGlassShowDelay, target: self, selector: #selector(YPMagnifyingView.addMagnifyingGlassTimer(timer:)), userInfo: NSValue(cgPoint: touch.location(in: self)), repeats: false)
             
             self.pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
-            print(pickedColor)
             
             delegate?.passColor(hexString: pickedColor)
             
@@ -58,7 +57,6 @@ public class YPMagnifyingView: UIView {
             self.updateMagnifyingGlassAtPoint(point: touch.location(in: self))
             
             pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
-            print(pickedColor)
             
             delegate?.passColor(hexString: pickedColor)
             
@@ -74,7 +72,6 @@ public class YPMagnifyingView: UIView {
         if let touch: UITouch = touches.first {
             self.addSniperAtPoint(point: touch.location(in: self))
             pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
-            print(pickedColor)
             
             delegate?.passColor(hexString: pickedColor)
             
@@ -82,11 +79,6 @@ public class YPMagnifyingView: UIView {
     }
     
     // MARK: - Private Functions
-    
-//    private func getColorAt(point: CGPoint){
-//        self.pickedColor = self.getPixelColorAtPoint(point: point, sourceView: self)
-//        
-//    }
     
     private func addSniperAtPoint(point: CGPoint){
         self.sniper.viewToMagnify = self as UIView

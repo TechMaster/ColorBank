@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import Fusuma
 
 struct ColorItem {
     var colorName: String
@@ -32,8 +33,12 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
         tableView.tableHeaderView = searchController.searchBar
         
         searchController.searchBar.barTintColor = UIColor.clear
-        
         searchController.searchBar.placeholder = "E.g. #ffffff"
+        
+        self.view.backgroundColor = UIColor.white
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = UIColor(hexString: "#F38181")
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(hexString: "#F38181")]
         
         
         self.navigationItem.title = "Palettes"

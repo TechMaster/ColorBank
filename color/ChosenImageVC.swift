@@ -18,6 +18,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     var getColorButton = UIButton()
     var paletteView = UIView()
     var customPalette = [UILabel]()
+    let descriptionLabel = DescriptionLabel()
     
     
     override func viewDidLoad() {
@@ -53,12 +54,11 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         let statusHeight = UIApplication.shared.statusBarFrame.height
         
         magView.frame = CGRect(x: 10, y: navHeight! + statusHeight + 10, width: screenWidth - 20, height: screenWidth - 20)
-                
-        magView.layer.cornerRadius = 8
-        magView.layer.masksToBounds = true
+        magView.layer.borderWidth = 1
+        magView.layer.borderColor = UIColor.black.cgColor
         
         createImageView()
-
+        
         
         let magGlass = YPMagnifyingGlass(frame: CGRect(x: magView.frame.origin.x, y: magView.frame.origin.y, width: 55, height: 55))
         magGlass.layer.cornerRadius = 8
@@ -79,19 +79,36 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     }
     
     func createCustomPaletteView() {
-        let magViewFrame = self.magView.frame
-        let screenSize = self.view.bounds.size
-        let navHeight = self.navigationController?.navigationBar.bounds.size.height
-        let statusHeight = UIApplication.shared.statusBarFrame.height
-        paletteView.frame = CGRect(x: magViewFrame.minX, y: self.magView.frame.maxY, width: magViewFrame.size.width, height: screenSize.height - (navHeight! + statusHeight + magViewFrame.maxY + getColorButton.bounds.size.height))
+        let paletteViewWidth = self.magView.bounds.size.width
+        let paletteViewHeight = self.view.bounds.size.height - 15 - self.getColorButton.bounds.size.height - self.magView.frame.maxY
+        paletteView.frame = CGRect(x: self.magView.frame.minX,
+                                   y: self.magView.frame.maxY,
+                                   width: paletteViewWidth,
+                                   height: paletteViewHeight)
+        
         paletteView.layer.borderWidth = 1
         paletteView.layer.borderColor = UIColor.black.cgColor
         self.view.addSubview(paletteView)
+        
+        descriptionLabel.frame = self.paletteView.bounds
+        descriptionLabel.text = "Press the button below to pick color for your palette."
+        descriptionLabel.textAlignment = .center
+        descriptionLabel.adjustsFontSizeToFitWidth = true
+        descriptionLabel.layer.zPosition = -1
+        
+        self.paletteView.addSubview(descriptionLabel)
+        
+        
     }
-   
+    
     func passColor(hexString: String) {
-        print(hexString)
         getColorButton.backgroundColor = UIColor(hexString: hexString)
+        getColorButton.setTitle(hexString, for: .normal)
+        if UIColor(hexString: hexString).isLight() == true {
+            getColorButton.titleLabel?.textColor = UIColor.black
+        }else{
+            getColorButton.titleLabel?.textColor = UIColor.white
+        }
     }
     
     
@@ -99,26 +116,35 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         
         let buttonWidth = (self.view.bounds.size.height - self.magView.frame.maxY)/2 - 15
         
-        getColorButton.frame = CGRect(x: self.view.bounds.size.width/2 - buttonWidth/2, y: self.view.bounds.size.height - buttonWidth - 7.5, width: buttonWidth, height: buttonWidth)
-        getColorButton.backgroundColor = UIColor.black
+        getColorButton.frame = CGRect(x: self.view.bounds.size.width/2 - buttonWidth/2,
+                                      y: self.view.bounds.size.height - buttonWidth - 7.5,
+                                      width: buttonWidth,
+                                      height: buttonWidth)
+//        getColorButton.backgroundColor = UIColor.black
         getColorButton.layer.cornerRadius = buttonWidth/2
         getColorButton.addTarget(self, action: #selector(getColor), for: .touchUpInside)
         self.view.addSubview(getColorButton)
     }
     
     func getColor() {
-        if customPalette.count < 5{
-        let screenWidth = self.view.bounds.size.width
-        let paletteViewWidth = self.paletteView.bounds.size.width
-        let paletteViewHeight = self.paletteView.bounds.size.height
-        let newColor = UILabel()
-        newColor.frame = CGRect(x: screenWidth*6/5, y: paletteView.frame.minY, width: paletteViewWidth/5, height: paletteViewHeight)
-        newColor.backgroundColor = getColorButton.backgroundColor
-        customPalette.append(newColor)
-        self.view.addSubview(newColor)
         
-        UIView.animate(withDuration: 1, animations: {
-            newColor.center.x = paletteViewWidth*(CGFloat(self.customPalette.count)/5) - (newColor.frame.size.width/2)
+        self.descriptionLabel.isHidden = true
+        
+        if customPalette.count < 5 {
+            let screenWidth = self.view.bounds.size.width
+            let paletteViewWidth = self.paletteView.bounds.size.width
+            let paletteViewHeight = self.paletteView.bounds.size.height
+            let newColor = UILabel()
+            newColor.frame = CGRect(x: screenWidth*6/5,
+                                    y: paletteView.frame.minY,
+                                    width: paletteViewWidth/5,
+                                    height: paletteViewHeight)
+            newColor.backgroundColor = getColorButton.backgroundColor
+            customPalette.append(newColor)
+            self.view.addSubview(newColor)
+            
+            UIView.animate(withDuration: 1, animations: {
+                newColor.center.x = self.magView.frame.minX + self.paletteView.bounds.size.width*(CGFloat(self.customPalette.count)/5) - (newColor.frame.size.width/2)
             })
         }
     }
@@ -137,6 +163,14 @@ extension UIColor {
         }else{
             return true
         }
+    }
+}
+
+class DescriptionLabel: UILabel {
+    override func draw(_ rect: CGRect) {
+        let  insets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        super.drawText(in: UIEdgeInsetsInsetRect(rect, insets))
+        
     }
 }
 
