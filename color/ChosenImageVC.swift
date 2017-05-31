@@ -16,6 +16,9 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     var imageView = UIImageView()
     var image = UIImage()
     var getColorButton = UIButton()
+    var paletteView = UIView()
+    var customPalette = [UILabel]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +33,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         
         createMagGlassAndSniper()
         createGetColorButton()
+        createCustomPaletteView()
     }
     
     func createImageView() {
@@ -74,6 +78,16 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         
     }
     
+    func createCustomPaletteView() {
+        let magViewFrame = self.magView.frame
+        let screenSize = self.view.bounds.size
+        let navHeight = self.navigationController?.navigationBar.bounds.size.height
+        let statusHeight = UIApplication.shared.statusBarFrame.height
+        paletteView.frame = CGRect(x: magViewFrame.minX, y: self.magView.frame.maxY, width: magViewFrame.size.width, height: screenSize.height - (navHeight! + statusHeight + magViewFrame.maxY + getColorButton.bounds.size.height))
+        paletteView.layer.borderWidth = 1
+        paletteView.layer.borderColor = UIColor.black.cgColor
+        self.view.addSubview(paletteView)
+    }
    
     func passColor(hexString: String) {
         print(hexString)
@@ -83,13 +97,30 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     
     func createGetColorButton(){
         
-        var buttonWidth = (self.view.bounds.size.height - self.magView.frame.maxY)/2 - 15
+        let buttonWidth = (self.view.bounds.size.height - self.magView.frame.maxY)/2 - 15
         
         getColorButton.frame = CGRect(x: self.view.bounds.size.width/2 - buttonWidth/2, y: self.view.bounds.size.height - buttonWidth - 7.5, width: buttonWidth, height: buttonWidth)
         getColorButton.backgroundColor = UIColor.black
         getColorButton.layer.cornerRadius = buttonWidth/2
-        
+        getColorButton.addTarget(self, action: #selector(getColor), for: .touchUpInside)
         self.view.addSubview(getColorButton)
+    }
+    
+    func getColor() {
+        if customPalette.count < 5{
+        let screenWidth = self.view.bounds.size.width
+        let paletteViewWidth = self.paletteView.bounds.size.width
+        let paletteViewHeight = self.paletteView.bounds.size.height
+        let newColor = UILabel()
+        newColor.frame = CGRect(x: screenWidth*6/5, y: paletteView.frame.minY, width: paletteViewWidth/5, height: paletteViewHeight)
+        newColor.backgroundColor = getColorButton.backgroundColor
+        customPalette.append(newColor)
+        self.view.addSubview(newColor)
+        
+        UIView.animate(withDuration: 1, animations: {
+            newColor.center.x = paletteViewWidth*(CGFloat(self.customPalette.count)/5) - (newColor.frame.size.width/2)
+            })
+        }
     }
     
 }
