@@ -15,13 +15,19 @@ class ChosenImageVC: UIViewController {
     let magView = YPMagnifyingView()
     var imageView = UIImageView()
     var image = UIImage()
+    var getColorButton = UIButton()
+    var buttonColor = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = fusumaBackgroundColor
         self.navigationController?.navigationBar.barTintColor = fusumaBackgroundColor
+        self.navigationController?.navigationBar.tintColor = fusumaTintColor
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: fusumaTintColor]
+
         
         createMagGlassAndSniper()
+        createGetColorButton()
     }
     
     func createImageView() {
@@ -64,6 +70,18 @@ class ChosenImageVC: UIViewController {
         self.view.addSubview(magView)
         magView.addSubview(imageView)
         
+    }
+    
+    
+    func createGetColorButton(){
+        
+        var buttonWidth = (self.view.bounds.size.height - self.magView.frame.maxY)/2 - 15
+        
+        getColorButton.frame = CGRect(x: self.view.bounds.size.width/2 - buttonWidth/2, y: self.view.bounds.size.height - buttonWidth - 7.5, width: buttonWidth, height: buttonWidth)
+        getColorButton.backgroundColor = UIColor.black
+        getColorButton.layer.cornerRadius = buttonWidth/2
+        
+        self.view.addSubview(getColorButton)
     }
     
 }

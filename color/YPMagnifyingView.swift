@@ -22,6 +22,8 @@ public class YPMagnifyingView: UIView {
     
     public var pickedColor: String = String()
     
+//    var chosenImageVC = ChosenImageVC()
+    
     override public init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -38,7 +40,10 @@ public class YPMagnifyingView: UIView {
             
             pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
             
-            print(pickedColor)
+//            let chosenImageVC = ChosenImageVC()
+//            chosenImageVC.getColorButton.backgroundColor = UIColor(hexString: pickedColor)
+            
+            
         }
     }
     
@@ -51,8 +56,10 @@ public class YPMagnifyingView: UIView {
             
             pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
             
-            print(pickedColor)
-
+//            let chosenImageVC = ChosenImageVC()
+//            
+//            chosenImageVC.getColorButton.backgroundColor = UIColor(hexString: pickedColor)
+//
         }
     }
     
@@ -65,7 +72,6 @@ public class YPMagnifyingView: UIView {
         if let touch: UITouch = touches.first {
             self.addSniperAtPoint(point: touch.location(in: self))
             pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
-            print(pickedColor)
 
         }
     }

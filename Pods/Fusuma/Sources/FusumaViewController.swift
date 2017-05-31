@@ -47,9 +47,10 @@ public extension FusumaDelegate {
     func fusumaWillClosed() {}
 }
 
-public var fusumaBaseTintColor   = UIColor.hex("#FFFFFF", alpha: 1.0)
+public var fusumaBaseTintColor   = UIColor.hex("#F38181", alpha: 1.0)
 public var fusumaTintColor       = UIColor.hex("#F38181", alpha: 1.0)
-public var fusumaBackgroundColor = UIColor.hex("#3B3D45", alpha: 1.0)
+//public var fusumaBackgroundColor = UIColor.hex("#3B3D45", alpha: 1.0)
+public var fusumaBackgroundColor = UIColor.white
 
 public var fusumaAlbumImage : UIImage? = nil
 public var fusumaCameraImage : UIImage? = nil
@@ -471,8 +472,8 @@ private extension FusumaViewController {
     }
     
     func dishighlightButtons() {
-        cameraButton.tintColor  = fusumaBaseTintColor
-        libraryButton.tintColor = fusumaBaseTintColor
+        cameraButton.tintColor  = UIColor.lightGray
+        libraryButton.tintColor = UIColor.lightGray
         
         if cameraButton.layer.sublayers?.count > 1 {
             
