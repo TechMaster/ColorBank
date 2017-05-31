@@ -17,9 +17,7 @@ public class YPMagnifyingGlass: UIView {
         self.center = CGPoint(x: touchPoint.x + touchPointOffset.x, y: touchPoint.y + touchPointOffset.y)
     }
   }
-    
-//    var sniper: DetectLabel = DetectLabel()
-  
+
   public var touchPointOffset: CGPoint!
   public var scale: CGFloat!
   public var scaleAtTouchPoint: Bool!

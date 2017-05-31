@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol PassingDetectColorDelegate {
+    func passColor(hexString: String)
+}
+
 public class YPMagnifyingView: UIView {
     
     private var magnifyingGlassShowDelay: TimeInterval = 0.2
@@ -22,7 +26,7 @@ public class YPMagnifyingView: UIView {
     
     public var pickedColor: String = String()
     
-//    var chosenImageVC = ChosenImageVC()
+    var delegate: PassingDetectColorDelegate! = nil
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,11 +42,10 @@ public class YPMagnifyingView: UIView {
             
             self.touchTimer = Timer.scheduledTimer(timeInterval: magnifyingGlassShowDelay, target: self, selector: #selector(YPMagnifyingView.addMagnifyingGlassTimer(timer:)), userInfo: NSValue(cgPoint: touch.location(in: self)), repeats: false)
             
-            pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
+            self.pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
+            print(pickedColor)
             
-//            let chosenImageVC = ChosenImageVC()
-//            chosenImageVC.getColorButton.backgroundColor = UIColor(hexString: pickedColor)
-            
+            delegate?.passColor(hexString: pickedColor)
             
         }
     }
@@ -55,28 +58,35 @@ public class YPMagnifyingView: UIView {
             self.updateMagnifyingGlassAtPoint(point: touch.location(in: self))
             
             pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
+            print(pickedColor)
             
-//            let chosenImageVC = ChosenImageVC()
-//            
-//            chosenImageVC.getColorButton.backgroundColor = UIColor(hexString: pickedColor)
-//
+            delegate?.passColor(hexString: pickedColor)
+            
+            
         }
     }
     
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.touchTimer.invalidate()
         self.touchTimer = nil
-        
         self.removeMagnifyingGlass()
         
         if let touch: UITouch = touches.first {
             self.addSniperAtPoint(point: touch.location(in: self))
             pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
-
+            print(pickedColor)
+            
+            delegate?.passColor(hexString: pickedColor)
+            
         }
     }
     
     // MARK: - Private Functions
+    
+//    private func getColorAt(point: CGPoint){
+//        self.pickedColor = self.getPixelColorAtPoint(point: point, sourceView: self)
+//        
+//    }
     
     private func addSniperAtPoint(point: CGPoint){
         self.sniper.viewToMagnify = self as UIView
@@ -86,7 +96,7 @@ public class YPMagnifyingView: UIView {
         
         selfView.addSubview(self.sniper)
         self.sniper.setNeedsDisplay()
-
+        
     }
     
     private func addMagnifyingGlassAtPoint(point: CGPoint) {
@@ -104,7 +114,7 @@ public class YPMagnifyingView: UIView {
         
         self.magnifyingGlass.setNeedsDisplay()
         self.focusPoint.setNeedsDisplay()
-
+        
     }
     
     private func removeMagnifyingGlass() {
@@ -123,7 +133,7 @@ public class YPMagnifyingView: UIView {
         
         self.focusPoint.touchPoint = point
         self.focusPoint.setNeedsDisplay()
-
+        
     }
     
     public func addMagnifyingGlassTimer(timer: Timer) {

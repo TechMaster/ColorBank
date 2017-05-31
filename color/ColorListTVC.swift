@@ -33,7 +33,7 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
         
         searchController.searchBar.barTintColor = UIColor.clear
         
-        searchController.searchBar.placeholder = "e.g. #ffffff"
+        searchController.searchBar.placeholder = "E.g. #ffffff"
         
         
         self.navigationItem.title = "Palettes"

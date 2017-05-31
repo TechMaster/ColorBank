@@ -10,21 +10,23 @@ import Foundation
 import UIKit
 import Fusuma
 
-class ChosenImageVC: UIViewController {
+class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     
     let magView = YPMagnifyingView()
     var imageView = UIImageView()
     var image = UIImage()
     var getColorButton = UIButton()
-    var buttonColor = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         self.view.backgroundColor = fusumaBackgroundColor
         self.navigationController?.navigationBar.barTintColor = fusumaBackgroundColor
         self.navigationController?.navigationBar.tintColor = fusumaTintColor
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: fusumaTintColor]
-
+        
+        magView.delegate = self
         
         createMagGlassAndSniper()
         createGetColorButton()
@@ -70,6 +72,12 @@ class ChosenImageVC: UIViewController {
         self.view.addSubview(magView)
         magView.addSubview(imageView)
         
+    }
+    
+   
+    func passColor(hexString: String) {
+        print(hexString)
+        getColorButton.backgroundColor = UIColor(hexString: hexString)
     }
     
     
