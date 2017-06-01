@@ -9,13 +9,14 @@
 import Foundation
 import UIKit
 import Fusuma
+import KDPulseButton
 
 class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     
     let magView = YPMagnifyingView()
     var imageView = UIImageView()
     var image = UIImage()
-    var getColorButton = UIButton()
+    var getColorButton = KDPulseButton()
     var paletteView = UIView()
     var customPalette = [UILabel]()
     let descriptionLabel = DescriptionLabel()
@@ -102,12 +103,13 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     }
     
     func passColor(hexString: String) {
-        getColorButton.backgroundColor = UIColor(hexString: hexString)
-        getColorButton.setTitle(hexString, for: .normal)
+        self.getColorButton.buttonColor = UIColor(hexString: hexString)
+        self.getColorButton.backgroundColor = UIColor(hexString: hexString)
+        self.getColorButton.setTitle(hexString, for: .normal)
         if UIColor(hexString: hexString).isLight() == true {
-            getColorButton.titleLabel?.textColor = UIColor.black
+            getColorButton.setTitleColor(UIColor.black, for: UIControlState.normal)
         }else{
-            getColorButton.titleLabel?.textColor = UIColor.white
+            getColorButton.setTitleColor(UIColor.white, for: UIControlState.normal)
         }
     }
     
@@ -120,8 +122,8 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
                                       y: self.view.bounds.size.height - buttonWidth - 7.5,
                                       width: buttonWidth,
                                       height: buttonWidth)
-//        getColorButton.backgroundColor = UIColor.black
-        getColorButton.layer.cornerRadius = buttonWidth/2
+        getColorButton.buttonColor = UIColor.black
+        getColorButton.cornerRadius = buttonWidth/2
         getColorButton.addTarget(self, action: #selector(getColor), for: .touchUpInside)
         self.view.addSubview(getColorButton)
     }
@@ -139,7 +141,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
                                     y: paletteView.frame.minY,
                                     width: paletteViewWidth/5,
                                     height: paletteViewHeight)
-            newColor.backgroundColor = getColorButton.backgroundColor
+            newColor.backgroundColor = getColorButton.buttonColor
             customPalette.append(newColor)
             self.view.addSubview(newColor)
             

@@ -7,74 +7,103 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		13FD4829C1935D33FF0B0E858B84482D /* FSVideoCameraView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4762C86774178F707DCE9F3ABA2DFDF5 /* FSVideoCameraView.xib */; };
-		1C82A350630273F914125DBDEA52F683 /* FSAlbumView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D85845D4FCEF0FBFACBA02ED26D78942 /* FSAlbumView.xib */; };
-		337EBB7E279C5D1697601D3C6A696A46 /* FusumaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868F65959F4ECC606C4AA1D8BAA253B /* FusumaViewController.swift */; };
-		37D4EF5938F8495CE32638F8BEB53550 /* FSAlbumViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CE3667932A9C65A8CB78A2C09DA7AB /* FSAlbumViewCell.swift */; };
-		484B8C39828B296D71146C51A0904FC7 /* Fusuma-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FFAE18599124DC703CCBF6577DE56716 /* Fusuma-dummy.m */; };
-		525F9DC4C4AC10C3098262F37CC8427E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		13FD4829C1935D33FF0B0E858B84482D /* FSVideoCameraView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A03758E1C61F372C3EF93617FB12F59 /* FSVideoCameraView.xib */; };
+		16AE6D42CE1AEB7BBA1B455339B66368 /* Pods-color-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BEF8DED38F1A8B897EFC5644E6802A55 /* Pods-color-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C82A350630273F914125DBDEA52F683 /* FSAlbumView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E78C8AEADA6F7F5AB332E63B46DAE2EA /* FSAlbumView.xib */; };
+		22813514C5C9E81F045C23D201D9EB7A /* KDPulseButton-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DD2735326CB20DB237BD77104005D462 /* KDPulseButton-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B50EFBE93D198EBC6CE06D27010E98C /* KDPulseButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C763C621809508981EE6A12C9C5ADF7 /* KDPulseButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		337EBB7E279C5D1697601D3C6A696A46 /* FusumaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447425ED9D866D9604C29476521C5218 /* FusumaViewController.swift */; };
+		35753FBDDED4571B6D575BFE73DB4ABF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		37D4EF5938F8495CE32638F8BEB53550 /* FSAlbumViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3595B7346D8448C76B43403FD3613F2B /* FSAlbumViewCell.swift */; };
+		3E9E4C9B5F61C14E7E5867A6EAF1CFEF /* KDPulseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF730B7AA0480DFAF973D18F478A0A7 /* KDPulseButton.swift */; };
+		484B8C39828B296D71146C51A0904FC7 /* Fusuma-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF7AD0103CC1848742050E62F997FD4 /* Fusuma-dummy.m */; };
+		4A383E39169CAFF83391E2070BE829BD /* Pods-color-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6194142A1112000C905476DB5B039AD2 /* Pods-color-dummy.m */; };
 		539BBDFC2BDD86B65E0C73CE86859D52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		5876F184D9754E4DFBAD67EEF32FCF9C /* FSVideoCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614C5C315C9F67A7A273F94BB4035A30 /* FSVideoCameraView.swift */; };
-		76C218BD1C4FED73A5D8DE0B44133A10 /* FSImageCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1B443A557971434C990E65B8A5AC33 /* FSImageCropView.swift */; };
-		97D850D3836A89967D5A350E84996568 /* FSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B749E25F5D04FB453503A7AB07DF99 /* FSConstants.swift */; };
-		98C0F05CF40E7E1C111B0599ABE5BCAD /* FSAlbumViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F9E400F4EBB40F53F48F01359FD2AAD /* FSAlbumViewCell.xib */; };
-		A72534597A2118504CDDB512D119CC09 /* Pods-color-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BEF8DED38F1A8B897EFC5644E6802A55 /* Pods-color-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AA87C8542F368CC301BCF815CACF5850 /* Fusuma-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C76C199A1A5705200C941C67310AF5E0 /* Fusuma-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C5C88F4AB62FA845795ACAE292A05E5B /* FusumaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB54CCB79E3F33C1BEE9C023741D3B8F /* FusumaViewController.xib */; };
-		DC8B2CD64AE5925518C1FD441C723E77 /* FSAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BD716438461F9C44A473E55C1BA39E /* FSAlbumView.swift */; };
-		E76B14332EA4BF464EBA72C31769A619 /* FSCameraView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABF778C0F45E2022CBE3AA9BFF36176C /* FSCameraView.xib */; };
-		E8CD91CC081DE8166DB3964B70DD91F3 /* FSCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DFC44AFE195F73155317D6DF9A1AB4 /* FSCameraView.swift */; };
-		EB4262F108386B8EC49449F041BB1339 /* Pods-color-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6194142A1112000C905476DB5B039AD2 /* Pods-color-dummy.m */; };
-		F8F2B8EF3A92B1E031FA17F874B40D98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 427FDC4E6130005591A94B287587AC3B /* Assets.xcassets */; };
+		5876F184D9754E4DFBAD67EEF32FCF9C /* FSVideoCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A429441063C6E7E9023D421BE7B41E6D /* FSVideoCameraView.swift */; };
+		723AFBED3BDC36B15DE9416FA165DA84 /* KDPulseButton-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BA2EE25ECD9ECBE16CE41F5F1C162BAA /* KDPulseButton-dummy.m */; };
+		76C218BD1C4FED73A5D8DE0B44133A10 /* FSImageCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3962B1737E41DBCA7691DE11CBF45010 /* FSImageCropView.swift */; };
+		83A539372C71A465CF9A9966B3481C4A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		97D850D3836A89967D5A350E84996568 /* FSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18042F4FF008D887E0C6C557E714AD1 /* FSConstants.swift */; };
+		98C0F05CF40E7E1C111B0599ABE5BCAD /* FSAlbumViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56BCAFE3B801BC610964A84CF7048935 /* FSAlbumViewCell.xib */; };
+		AA87C8542F368CC301BCF815CACF5850 /* Fusuma-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 315E87273DED7133CDA71C2E945439FC /* Fusuma-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5C88F4AB62FA845795ACAE292A05E5B /* FusumaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D37A471E249632CAABEEF52B93B75926 /* FusumaViewController.xib */; };
+		DC8B2CD64AE5925518C1FD441C723E77 /* FSAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030F6662A6C6A334EEBEAD33B4C278B6 /* FSAlbumView.swift */; };
+		E76B14332EA4BF464EBA72C31769A619 /* FSCameraView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDEAFB894CFFCE79268E1F8E613577E5 /* FSCameraView.xib */; };
+		E8CD91CC081DE8166DB3964B70DD91F3 /* FSCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C08877343D178B086EFCD94D2CB3A36 /* FSCameraView.swift */; };
+		F8F2B8EF3A92B1E031FA17F874B40D98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B6E280D698F666E513BCF22B9CF1B34 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		F5E4519C7F23717578BB9789A6B260DF /* PBXContainerItemProxy */ = {
+		6D1732485252A4319A2C112C36B61490 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 3E0D8640A124012AB6F0A9F775A38285;
 			remoteInfo = Fusuma;
 		};
+		FACC719C19D80BDC7124B020B4F90063 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B81759B9B0A70CC783A8AD7D24E22A49;
+			remoteInfo = KDPulseButton;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		030F6662A6C6A334EEBEAD33B4C278B6 /* FSAlbumView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FSAlbumView.swift; path = Sources/FSAlbumView.swift; sourceTree = "<group>"; };
+		08F24D065C29595BB381A487F4974B83 /* KDPulseButton.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = KDPulseButton.modulemap; sourceTree = "<group>"; };
+		0E895FA27E819FF6707C302F30875E2C /* Fusuma-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Fusuma-prefix.pch"; sourceTree = "<group>"; };
+		1F0C34F2063A7D3213EAD367133541EE /* Fusuma.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Fusuma.xcconfig; sourceTree = "<group>"; };
+		231012A316AF58F5BE4EDCAEA322C7E4 /* KDPulseButton.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = KDPulseButton.framework; path = KDPulseButton.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26A6E6CD09D8ABFB15F7403054840D53 /* Pods-color.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-color.modulemap"; sourceTree = "<group>"; };
-		2F9E400F4EBB40F53F48F01359FD2AAD /* FSAlbumViewCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = FSAlbumViewCell.xib; path = Sources/FSAlbumViewCell.xib; sourceTree = "<group>"; };
-		427FDC4E6130005591A94B287587AC3B /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Sources/Assets.xcassets; sourceTree = "<group>"; };
-		44CE3667932A9C65A8CB78A2C09DA7AB /* FSAlbumViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FSAlbumViewCell.swift; path = Sources/FSAlbumViewCell.swift; sourceTree = "<group>"; };
-		4762C86774178F707DCE9F3ABA2DFDF5 /* FSVideoCameraView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = FSVideoCameraView.xib; path = Sources/FSVideoCameraView.xib; sourceTree = "<group>"; };
+		2B6E280D698F666E513BCF22B9CF1B34 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Sources/Assets.xcassets; sourceTree = "<group>"; };
+		315E87273DED7133CDA71C2E945439FC /* Fusuma-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Fusuma-umbrella.h"; sourceTree = "<group>"; };
+		3595B7346D8448C76B43403FD3613F2B /* FSAlbumViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FSAlbumViewCell.swift; path = Sources/FSAlbumViewCell.swift; sourceTree = "<group>"; };
+		3962B1737E41DBCA7691DE11CBF45010 /* FSImageCropView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FSImageCropView.swift; path = Sources/FSImageCropView.swift; sourceTree = "<group>"; };
+		447425ED9D866D9604C29476521C5218 /* FusumaViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FusumaViewController.swift; path = Sources/FusumaViewController.swift; sourceTree = "<group>"; };
+		48FD9212135BE4DF20C6644CF09D449A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C763C621809508981EE6A12C9C5ADF7 /* KDPulseButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KDPulseButton.h; path = KDPulseButton/KDPulseButton.h; sourceTree = "<group>"; };
 		4D45BB8C085F3B6BD88E94935D56167B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		614C5C315C9F67A7A273F94BB4035A30 /* FSVideoCameraView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FSVideoCameraView.swift; path = Sources/FSVideoCameraView.swift; sourceTree = "<group>"; };
+		52EAF5FD84F69ABAD26FC4D50F3A4BCC /* Fusuma.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Fusuma.modulemap; sourceTree = "<group>"; };
+		54EAF887C2BC5A3D737905A22903FEC3 /* KDPulseButton.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = KDPulseButton.xcconfig; sourceTree = "<group>"; };
+		56BCAFE3B801BC610964A84CF7048935 /* FSAlbumViewCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = FSAlbumViewCell.xib; path = Sources/FSAlbumViewCell.xib; sourceTree = "<group>"; };
 		6194142A1112000C905476DB5B039AD2 /* Pods-color-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-color-dummy.m"; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		6868F65959F4ECC606C4AA1D8BAA253B /* FusumaViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FusumaViewController.swift; path = Sources/FusumaViewController.swift; sourceTree = "<group>"; };
-		6F1B443A557971434C990E65B8A5AC33 /* FSImageCropView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FSImageCropView.swift; path = Sources/FSImageCropView.swift; sourceTree = "<group>"; };
-		7253081D10D3D5883751DA0068EEE493 /* Fusuma.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Fusuma.xcconfig; sourceTree = "<group>"; };
-		79DFC44AFE195F73155317D6DF9A1AB4 /* FSCameraView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FSCameraView.swift; path = Sources/FSCameraView.swift; sourceTree = "<group>"; };
 		7A038B4CB853AE0118AD7BDA66671399 /* Pods-color-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-color-frameworks.sh"; sourceTree = "<group>"; };
 		7AF036579DDE48306389EDD42C5646EE /* Pods-color-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-color-acknowledgements.plist"; sourceTree = "<group>"; };
+		7C08877343D178B086EFCD94D2CB3A36 /* FSCameraView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FSCameraView.swift; path = Sources/FSCameraView.swift; sourceTree = "<group>"; };
 		7DADB64F6395E3F4812A4C7BAAE0F6E6 /* Pods-color-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-color-resources.sh"; sourceTree = "<group>"; };
+		81D40A1078627DA81C5548099C31325F /* Pods_color.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_color.framework; path = "Pods-color.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		92078C0A74746244E57B314E06C581C7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A2BF07432A167300220D1BB9EE7584E5 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A8BD716438461F9C44A473E55C1BA39E /* FSAlbumView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FSAlbumView.swift; path = Sources/FSAlbumView.swift; sourceTree = "<group>"; };
-		AB54CCB79E3F33C1BEE9C023741D3B8F /* FusumaViewController.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = FusumaViewController.xib; path = Sources/FusumaViewController.xib; sourceTree = "<group>"; };
-		ABF778C0F45E2022CBE3AA9BFF36176C /* FSCameraView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = FSCameraView.xib; path = Sources/FSCameraView.xib; sourceTree = "<group>"; };
+		9A03758E1C61F372C3EF93617FB12F59 /* FSVideoCameraView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = FSVideoCameraView.xib; path = Sources/FSVideoCameraView.xib; sourceTree = "<group>"; };
+		A429441063C6E7E9023D421BE7B41E6D /* FSVideoCameraView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FSVideoCameraView.swift; path = Sources/FSVideoCameraView.swift; sourceTree = "<group>"; };
+		ADF730B7AA0480DFAF973D18F478A0A7 /* KDPulseButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KDPulseButton.swift; path = KDPulseButton/KDPulseButton.swift; sourceTree = "<group>"; };
 		AFE9D531FED14A1E546E243BAD586913 /* Pods-color.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-color.debug.xcconfig"; sourceTree = "<group>"; };
-		B4B749E25F5D04FB453503A7AB07DF99 /* FSConstants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FSConstants.swift; path = Sources/FSConstants.swift; sourceTree = "<group>"; };
-		BA008F1C007E8807FF64BFC1362A4D6B /* Fusuma.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Fusuma.modulemap; sourceTree = "<group>"; };
+		BA2EE25ECD9ECBE16CE41F5F1C162BAA /* KDPulseButton-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "KDPulseButton-dummy.m"; sourceTree = "<group>"; };
 		BEF8DED38F1A8B897EFC5644E6802A55 /* Pods-color-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-color-umbrella.h"; sourceTree = "<group>"; };
-		C76C199A1A5705200C941C67310AF5E0 /* Fusuma-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Fusuma-umbrella.h"; sourceTree = "<group>"; };
-		D85845D4FCEF0FBFACBA02ED26D78942 /* FSAlbumView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = FSAlbumView.xib; path = Sources/FSAlbumView.xib; sourceTree = "<group>"; };
-		DBE969D11BD0179335064F8913320403 /* Pods_color.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_color.framework; path = "Pods-color.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		EFDB3638A2698B3CC455AB611140C05E /* Fusuma.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Fusuma.framework; path = Fusuma.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F5E36BDF310760D1E6624D1ADCA87583 /* Fusuma-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Fusuma-prefix.pch"; sourceTree = "<group>"; };
+		CBF7AD0103CC1848742050E62F997FD4 /* Fusuma-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Fusuma-dummy.m"; sourceTree = "<group>"; };
+		CDEAFB894CFFCE79268E1F8E613577E5 /* FSCameraView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = FSCameraView.xib; path = Sources/FSCameraView.xib; sourceTree = "<group>"; };
+		D18042F4FF008D887E0C6C557E714AD1 /* FSConstants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FSConstants.swift; path = Sources/FSConstants.swift; sourceTree = "<group>"; };
+		D37A471E249632CAABEEF52B93B75926 /* FusumaViewController.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = FusumaViewController.xib; path = Sources/FusumaViewController.xib; sourceTree = "<group>"; };
+		DCDD95DB78C0935012E2A552AADFE13A /* Fusuma.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Fusuma.framework; path = Fusuma.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD2735326CB20DB237BD77104005D462 /* KDPulseButton-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "KDPulseButton-umbrella.h"; sourceTree = "<group>"; };
+		E78C8AEADA6F7F5AB332E63B46DAE2EA /* FSAlbumView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = FSAlbumView.xib; path = Sources/FSAlbumView.xib; sourceTree = "<group>"; };
+		F30C06BE4D2F07AD2DB2D491E568A1C8 /* KDPulseButton-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "KDPulseButton-prefix.pch"; sourceTree = "<group>"; };
 		FD734E9C9874531451715715ADEAC908 /* Pods-color-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-color-acknowledgements.markdown"; sourceTree = "<group>"; };
 		FDF607C356AE46A4D7EB2E23CB4C486D /* Pods-color.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-color.release.xcconfig"; sourceTree = "<group>"; };
-		FFAE18599124DC703CCBF6577DE56716 /* Fusuma-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Fusuma-dummy.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		116597311724817930C04ED69CFA7DB1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35753FBDDED4571B6D575BFE73DB4ABF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		332AD6CBCD0253B6CE91DF555781F789 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -83,37 +112,88 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7F3513C6EA6755AFC64568C23A75BC91 /* Frameworks */ = {
+		880C05D3C111758F01F11F581259B85E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				525F9DC4C4AC10C3098262F37CC8427E /* Foundation.framework in Frameworks */,
+				83A539372C71A465CF9A9966B3481C4A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		144B07472E4CA593928CC03CA6A9B030 /* KDPulseButton */ = {
+			isa = PBXGroup;
+			children = (
+				4C763C621809508981EE6A12C9C5ADF7 /* KDPulseButton.h */,
+				ADF730B7AA0480DFAF973D18F478A0A7 /* KDPulseButton.swift */,
+				44D57EFA70E89032471ED70F406BE677 /* Support Files */,
+			);
+			name = KDPulseButton;
+			path = KDPulseButton;
+			sourceTree = "<group>";
+		};
+		196EC31DC1A477CFF92CD3EC0A482006 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				52EAF5FD84F69ABAD26FC4D50F3A4BCC /* Fusuma.modulemap */,
+				1F0C34F2063A7D3213EAD367133541EE /* Fusuma.xcconfig */,
+				CBF7AD0103CC1848742050E62F997FD4 /* Fusuma-dummy.m */,
+				0E895FA27E819FF6707C302F30875E2C /* Fusuma-prefix.pch */,
+				315E87273DED7133CDA71C2E945439FC /* Fusuma-umbrella.h */,
+				92078C0A74746244E57B314E06C581C7 /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Fusuma";
+			sourceTree = "<group>";
+		};
+		2A02AC6504D740E88EA9BD963FD1AAD6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3A72A80E81AC92AAE5016BBB202BEEBF /* Fusuma */,
+				144B07472E4CA593928CC03CA6A9B030 /* KDPulseButton */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		3A72A80E81AC92AAE5016BBB202BEEBF /* Fusuma */ = {
+			isa = PBXGroup;
+			children = (
+				030F6662A6C6A334EEBEAD33B4C278B6 /* FSAlbumView.swift */,
+				3595B7346D8448C76B43403FD3613F2B /* FSAlbumViewCell.swift */,
+				7C08877343D178B086EFCD94D2CB3A36 /* FSCameraView.swift */,
+				D18042F4FF008D887E0C6C557E714AD1 /* FSConstants.swift */,
+				3962B1737E41DBCA7691DE11CBF45010 /* FSImageCropView.swift */,
+				A429441063C6E7E9023D421BE7B41E6D /* FSVideoCameraView.swift */,
+				447425ED9D866D9604C29476521C5218 /* FusumaViewController.swift */,
+				E7739E5E6C76EAE4402D367B0D7AD766 /* Resources */,
+				196EC31DC1A477CFF92CD3EC0A482006 /* Support Files */,
+			);
+			name = Fusuma;
+			path = Fusuma;
+			sourceTree = "<group>";
+		};
+		44D57EFA70E89032471ED70F406BE677 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				48FD9212135BE4DF20C6644CF09D449A /* Info.plist */,
+				08F24D065C29595BB381A487F4974B83 /* KDPulseButton.modulemap */,
+				54EAF887C2BC5A3D737905A22903FEC3 /* KDPulseButton.xcconfig */,
+				BA2EE25ECD9ECBE16CE41F5F1C162BAA /* KDPulseButton-dummy.m */,
+				F30C06BE4D2F07AD2DB2D491E568A1C8 /* KDPulseButton-prefix.pch */,
+				DD2735326CB20DB237BD77104005D462 /* KDPulseButton-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/KDPulseButton";
+			sourceTree = "<group>";
+		};
 		4A4CA88F4D5DBAD4B1CF22E078C129B9 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
 				6350D162594BBB63C5BD6B36A49301EE /* Pods-color */,
 			);
 			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		634FD04952328062E50B021EEF2418AD /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				BA008F1C007E8807FF64BFC1362A4D6B /* Fusuma.modulemap */,
-				7253081D10D3D5883751DA0068EEE493 /* Fusuma.xcconfig */,
-				FFAE18599124DC703CCBF6577DE56716 /* Fusuma-dummy.m */,
-				F5E36BDF310760D1E6624D1ADCA87583 /* Fusuma-prefix.pch */,
-				C76C199A1A5705200C941C67310AF5E0 /* Fusuma-umbrella.h */,
-				A2BF07432A167300220D1BB9EE7584E5 /* Info.plist */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Fusuma";
 			sourceTree = "<group>";
 		};
 		6350D162594BBB63C5BD6B36A49301EE /* Pods-color */ = {
@@ -139,44 +219,10 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				A62EE4F72D50D6A341782D3EC05C8D3D /* Pods */,
-				A6FA3DA385278A73F458BA7BB9E03F5D /* Products */,
+				2A02AC6504D740E88EA9BD963FD1AAD6 /* Pods */,
+				E9FD1E8A4AE26EA00738CAA11286F802 /* Products */,
 				4A4CA88F4D5DBAD4B1CF22E078C129B9 /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		997FD9578DEB6F3AEBB0D2F43C5E1269 /* Fusuma */ = {
-			isa = PBXGroup;
-			children = (
-				A8BD716438461F9C44A473E55C1BA39E /* FSAlbumView.swift */,
-				44CE3667932A9C65A8CB78A2C09DA7AB /* FSAlbumViewCell.swift */,
-				79DFC44AFE195F73155317D6DF9A1AB4 /* FSCameraView.swift */,
-				B4B749E25F5D04FB453503A7AB07DF99 /* FSConstants.swift */,
-				6F1B443A557971434C990E65B8A5AC33 /* FSImageCropView.swift */,
-				614C5C315C9F67A7A273F94BB4035A30 /* FSVideoCameraView.swift */,
-				6868F65959F4ECC606C4AA1D8BAA253B /* FusumaViewController.swift */,
-				D3DC395A4647C206EF0800F672222A2C /* Resources */,
-				634FD04952328062E50B021EEF2418AD /* Support Files */,
-			);
-			name = Fusuma;
-			path = Fusuma;
-			sourceTree = "<group>";
-		};
-		A62EE4F72D50D6A341782D3EC05C8D3D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				997FD9578DEB6F3AEBB0D2F43C5E1269 /* Fusuma */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		A6FA3DA385278A73F458BA7BB9E03F5D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				EFDB3638A2698B3CC455AB611140C05E /* Fusuma.framework */,
-				DBE969D11BD0179335064F8913320403 /* Pods_color.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -195,17 +241,27 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		D3DC395A4647C206EF0800F672222A2C /* Resources */ = {
+		E7739E5E6C76EAE4402D367B0D7AD766 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				427FDC4E6130005591A94B287587AC3B /* Assets.xcassets */,
-				D85845D4FCEF0FBFACBA02ED26D78942 /* FSAlbumView.xib */,
-				2F9E400F4EBB40F53F48F01359FD2AAD /* FSAlbumViewCell.xib */,
-				ABF778C0F45E2022CBE3AA9BFF36176C /* FSCameraView.xib */,
-				4762C86774178F707DCE9F3ABA2DFDF5 /* FSVideoCameraView.xib */,
-				AB54CCB79E3F33C1BEE9C023741D3B8F /* FusumaViewController.xib */,
+				2B6E280D698F666E513BCF22B9CF1B34 /* Assets.xcassets */,
+				E78C8AEADA6F7F5AB332E63B46DAE2EA /* FSAlbumView.xib */,
+				56BCAFE3B801BC610964A84CF7048935 /* FSAlbumViewCell.xib */,
+				CDEAFB894CFFCE79268E1F8E613577E5 /* FSCameraView.xib */,
+				9A03758E1C61F372C3EF93617FB12F59 /* FSVideoCameraView.xib */,
+				D37A471E249632CAABEEF52B93B75926 /* FusumaViewController.xib */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		E9FD1E8A4AE26EA00738CAA11286F802 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DCDD95DB78C0935012E2A552AADFE13A /* Fusuma.framework */,
+				231012A316AF58F5BE4EDCAEA322C7E4 /* KDPulseButton.framework */,
+				81D40A1078627DA81C5548099C31325F /* Pods_color.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,33 +275,43 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		86D9189583971B2938D7F33687393F00 /* Headers */ = {
+		8A78729814E9CA7A95DA44F453D0AD4C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A72534597A2118504CDDB512D119CC09 /* Pods-color-umbrella.h in Headers */,
+				22813514C5C9E81F045C23D201D9EB7A /* KDPulseButton-umbrella.h in Headers */,
+				2B50EFBE93D198EBC6CE06D27010E98C /* KDPulseButton.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A530C5D9E0CBB9C4C72C1CB427BFFC7C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				16AE6D42CE1AEB7BBA1B455339B66368 /* Pods-color-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		0830BF67D5D03E78C5324D5582EAA221 /* Pods-color */ = {
+		32F2301DF67DA0A67B304A5799EB3617 /* Pods-color */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 72077D5EBF66EFCC31258DEDB7966B9A /* Build configuration list for PBXNativeTarget "Pods-color" */;
+			buildConfigurationList = C6E8108AA604BDFCECFA13445B833C9B /* Build configuration list for PBXNativeTarget "Pods-color" */;
 			buildPhases = (
-				68C4E012E4614EE8B7EFC485525AD0EB /* Sources */,
-				7F3513C6EA6755AFC64568C23A75BC91 /* Frameworks */,
-				86D9189583971B2938D7F33687393F00 /* Headers */,
+				322649F5FB2D9D0371FD435A1548F5B7 /* Sources */,
+				880C05D3C111758F01F11F581259B85E /* Frameworks */,
+				A530C5D9E0CBB9C4C72C1CB427BFFC7C /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				B689F7C2A03F30F355B5876FB58A9763 /* PBXTargetDependency */,
+				7BC5ABC21723A057511904DBEEB5A363 /* PBXTargetDependency */,
+				53E58953592E956BAAACECEF04466AA6 /* PBXTargetDependency */,
 			);
 			name = "Pods-color";
 			productName = "Pods-color";
-			productReference = DBE969D11BD0179335064F8913320403 /* Pods_color.framework */;
+			productReference = 81D40A1078627DA81C5548099C31325F /* Pods_color.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		3E0D8640A124012AB6F0A9F775A38285 /* Fusuma */ = {
@@ -263,7 +329,24 @@
 			);
 			name = Fusuma;
 			productName = Fusuma;
-			productReference = EFDB3638A2698B3CC455AB611140C05E /* Fusuma.framework */;
+			productReference = DCDD95DB78C0935012E2A552AADFE13A /* Fusuma.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		B81759B9B0A70CC783A8AD7D24E22A49 /* KDPulseButton */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B98F1B67103F25238DEE27670E2F4D6A /* Build configuration list for PBXNativeTarget "KDPulseButton" */;
+			buildPhases = (
+				16E32B4402F496FB68C0E360D27F3CD2 /* Sources */,
+				116597311724817930C04ED69CFA7DB1 /* Frameworks */,
+				8A78729814E9CA7A95DA44F453D0AD4C /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KDPulseButton;
+			productName = KDPulseButton;
+			productReference = 231012A316AF58F5BE4EDCAEA322C7E4 /* KDPulseButton.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -283,12 +366,13 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = A6FA3DA385278A73F458BA7BB9E03F5D /* Products */;
+			productRefGroup = E9FD1E8A4AE26EA00738CAA11286F802 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				3E0D8640A124012AB6F0A9F775A38285 /* Fusuma */,
-				0830BF67D5D03E78C5324D5582EAA221 /* Pods-color */,
+				B81759B9B0A70CC783A8AD7D24E22A49 /* KDPulseButton */,
+				32F2301DF67DA0A67B304A5799EB3617 /* Pods-color */,
 			);
 		};
 /* End PBXProject section */
@@ -310,11 +394,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		68C4E012E4614EE8B7EFC485525AD0EB /* Sources */ = {
+		16E32B4402F496FB68C0E360D27F3CD2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB4262F108386B8EC49449F041BB1339 /* Pods-color-dummy.m in Sources */,
+				723AFBED3BDC36B15DE9416FA165DA84 /* KDPulseButton-dummy.m in Sources */,
+				3E9E4C9B5F61C14E7E5867A6EAF1CFEF /* KDPulseButton.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		322649F5FB2D9D0371FD435A1548F5B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A383E39169CAFF83391E2070BE829BD /* Pods-color-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,18 +429,58 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		B689F7C2A03F30F355B5876FB58A9763 /* PBXTargetDependency */ = {
+		53E58953592E956BAAACECEF04466AA6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KDPulseButton;
+			target = B81759B9B0A70CC783A8AD7D24E22A49 /* KDPulseButton */;
+			targetProxy = FACC719C19D80BDC7124B020B4F90063 /* PBXContainerItemProxy */;
+		};
+		7BC5ABC21723A057511904DBEEB5A363 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Fusuma;
 			target = 3E0D8640A124012AB6F0A9F775A38285 /* Fusuma */;
-			targetProxy = F5E4519C7F23717578BB9789A6B260DF /* PBXContainerItemProxy */;
+			targetProxy = 6D1732485252A4319A2C112C36B61490 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		0ACF7451E998E0E2C5B57C44D34D0626 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 54EAF887C2BC5A3D737905A22903FEC3 /* KDPulseButton.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/KDPulseButton/KDPulseButton-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/KDPulseButton/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/KDPulseButton/KDPulseButton.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = KDPulseButton;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		15F0892A76CAA610C53AE470E2AB188C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7253081D10D3D5883751DA0068EEE493 /* Fusuma.xcconfig */;
+			baseConfigurationReference = 1F0C34F2063A7D3213EAD367133541EE /* Fusuma.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -428,7 +561,7 @@
 			};
 			name = Debug;
 		};
-		7B555044A1340791C50F97872A0E4016 /* Debug */ = {
+		7679569269E16168B42BE9A6E90C0C41 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AFE9D531FED14A1E546E243BAD586913 /* Pods-color.debug.xcconfig */;
 			buildSettings = {
@@ -513,7 +646,7 @@
 		};
 		CC27FB56DEF8B98076DBDD3BC3C94F84 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7253081D10D3D5883751DA0068EEE493 /* Fusuma.xcconfig */;
+			baseConfigurationReference = 1F0C34F2063A7D3213EAD367133541EE /* Fusuma.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -545,7 +678,42 @@
 			};
 			name = Release;
 		};
-		CD380415EB53B68D01888934C081D3AB /* Release */ = {
+		EEBBCFA77FA1159B1FFFA3FEE40BE119 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 54EAF887C2BC5A3D737905A22903FEC3 /* KDPulseButton.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/KDPulseButton/KDPulseButton-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/KDPulseButton/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/KDPulseButton/KDPulseButton.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = KDPulseButton;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F9DCCFF1146AF73E23DA4AE1AF735E6B /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FDF607C356AE46A4D7EB2E23CB4C486D /* Pods-color.release.xcconfig */;
 			buildSettings = {
@@ -604,11 +772,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		72077D5EBF66EFCC31258DEDB7966B9A /* Build configuration list for PBXNativeTarget "Pods-color" */ = {
+		B98F1B67103F25238DEE27670E2F4D6A /* Build configuration list for PBXNativeTarget "KDPulseButton" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7B555044A1340791C50F97872A0E4016 /* Debug */,
-				CD380415EB53B68D01888934C081D3AB /* Release */,
+				EEBBCFA77FA1159B1FFFA3FEE40BE119 /* Debug */,
+				0ACF7451E998E0E2C5B57C44D34D0626 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C6E8108AA604BDFCECFA13445B833C9B /* Build configuration list for PBXNativeTarget "Pods-color" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7679569269E16168B42BE9A6E90C0C41 /* Debug */,
+				F9DCCFF1146AF73E23DA4AE1AF735E6B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

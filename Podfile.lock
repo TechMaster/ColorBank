@@ -1,12 +1,24 @@
 PODS:
   - Fusuma (1.0.3)
+  - KDPulseButton (1.0.1)
 
 DEPENDENCIES:
   - Fusuma
+  - KDPulseButton (from `https://github.com/KaiqueDamato/KDPulseButton.git`)
+
+EXTERNAL SOURCES:
+  KDPulseButton:
+    :git: https://github.com/KaiqueDamato/KDPulseButton.git
+
+CHECKOUT OPTIONS:
+  KDPulseButton:
+    :commit: f5938d19f8a2e1c773b1f950d3fc0116d0eb9a13
+    :git: https://github.com/KaiqueDamato/KDPulseButton.git
 
 SPEC CHECKSUMS:
   Fusuma: 60ed1dd51a3b3610960219df9862c83f03304ce1
+  KDPulseButton: 5afd6a4c1f2e38bda26c55822f27c724f326077c
 
-PODFILE CHECKSUM: 8ed3ee1798e8e9dbe2336e63e1bbdfeb22402b20
+PODFILE CHECKSUM: 262dd7fb92ba35553fda044e9f359063660e3fa9
 
 COCOAPODS: 1.2.1
