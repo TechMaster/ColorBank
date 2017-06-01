@@ -16,11 +16,11 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     let magView = YPMagnifyingView()
     var imageView = UIImageView()
     var image = UIImage()
-    var getColorButton = KDPulseButton()
+    var getColorButton = UIButton()
     var paletteView = UIView()
     var customPalette = [UILabel]()
     let descriptionLabel = DescriptionLabel()
-    
+    var textField = UITextField()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +34,8 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         magView.delegate = self
         
         createMagGlassAndSniper()
-        createGetColorButton()
         createCustomPaletteView()
+        createGetColorButton()
     }
     
     func createImageView() {
@@ -81,56 +81,63 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     
     func createCustomPaletteView() {
         let paletteViewWidth = self.magView.bounds.size.width
-        let paletteViewHeight = self.view.bounds.size.height - 15 - self.getColorButton.bounds.size.height - self.magView.frame.maxY
+        let paletteViewHeight = self.view.bounds.size.height - 15 - self.magView.frame.maxY
         paletteView.frame = CGRect(x: self.magView.frame.minX,
                                    y: self.magView.frame.maxY,
                                    width: paletteViewWidth,
                                    height: paletteViewHeight)
-        
-        paletteView.layer.borderWidth = 1
-        paletteView.layer.borderColor = UIColor.black.cgColor
+        //        paletteView.layer.borderWidth = 1
+        //        paletteView.layer.borderColor = UIColor.black.cgColor
         self.view.addSubview(paletteView)
         
-        descriptionLabel.frame = self.paletteView.bounds
-        descriptionLabel.text = "Press the button below to pick color for your palette."
-        descriptionLabel.textAlignment = .center
-        descriptionLabel.adjustsFontSizeToFitWidth = true
-        descriptionLabel.layer.zPosition = -1
-        
-        self.paletteView.addSubview(descriptionLabel)
         
         
     }
     
     func passColor(hexString: String) {
-        self.getColorButton.buttonColor = UIColor(hexString: hexString)
+        self.getColorButton.backgroundColor = UIColor(hexString: hexString)
+        print(hexString)
         self.getColorButton.setTitle(hexString, for: .normal)
         if UIColor(hexString: hexString).isLight() == true {
             getColorButton.setTitleColor(UIColor.black, for: UIControlState.normal)
         }else{
             getColorButton.setTitleColor(UIColor.white, for: UIControlState.normal)
         }
+        if UIColor(hexString: hexString).isLight() == true {
+            getColorButton.layer.borderWidth = 2
+            getColorButton.layer.borderColor = UIColor.black.cgColor
+        }
+        else{
+            getColorButton.layer.borderWidth = 2
+            getColorButton.layer.borderColor = UIColor.white.cgColor
+        }
     }
     
+    func changeToTextField()
+    {
+        textField.frame = getColorButton.frame
+        textField.textAlignment = .center
+        textField.font = UIFont(name: "American Typewriter", size: 20)
+        textField.adjustsFontSizeToFitWidth = true
+        textField.backgroundColor = UIColor.black
+        textField.textColor = UIColor.white
+        self.view.addSubview(textField)
+        self.getColorButton.removeFromSuperview()
+    }
     
     func createGetColorButton(){
-        
-        let buttonWidth = (self.view.bounds.size.height - self.magView.frame.maxY)/2 - 15
-        getColorButton.frame = CGRect(x: self.view.bounds.size.width/2 - buttonWidth/2,
-                                      y: self.view.bounds.size.height - buttonWidth - 7.5,
-                                      width: buttonWidth,
-                                      height: buttonWidth)
-        getColorButton.layer.cornerRadius = getColorButton.frame.width/2
-        getColorButton.layer.backgroundColor = getColorButton.buttonColor.cgColor
-        getColorButton.pulseColor = getColorButton.buttonColor
-        getColorButton.pulseRadius = 3
+        getColorButton.frame = CGRect(x: 10, y: self.paletteView.frame.midY - 25, width: self.view.bounds.size.width - 20, height: 50)
+        getColorButton.setTitle("", for: .normal)
+        getColorButton.setTitleColor(UIColor.black, for: .normal)
+        getColorButton.layer.zPosition = CGFloat.greatestFiniteMagnitude
         getColorButton.addTarget(self, action: #selector(getColor), for: .touchUpInside)
+        
         self.view.addSubview(getColorButton)
     }
     
     func getColor() {
         
-        self.descriptionLabel.isHidden = true
+        getColorButton.titleLabel?.removeFromSuperview()
         
         if customPalette.count < 5 {
             let screenWidth = self.view.bounds.size.width
@@ -141,13 +148,20 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
                                     y: paletteView.frame.minY,
                                     width: paletteViewWidth/5,
                                     height: paletteViewHeight)
-            newColor.backgroundColor = getColorButton.buttonColor
+            newColor.backgroundColor = getColorButton.backgroundColor
+            newColor.layer.borderWidth = 1
+            newColor.layer.borderColor = getColorButton.backgroundColor?.cgColor
             customPalette.append(newColor)
             self.view.addSubview(newColor)
             
             UIView.animate(withDuration: 1, animations: {
                 newColor.center.x = self.magView.frame.minX + self.paletteView.bounds.size.width*(CGFloat(self.customPalette.count)/5) - (newColor.frame.size.width/2)
             })
+            
+            if customPalette.count == 5
+            {
+                changeToTextField()
+            }
         }
     }
     
