@@ -104,7 +104,6 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     
     func passColor(hexString: String) {
         self.getColorButton.buttonColor = UIColor(hexString: hexString)
-        self.getColorButton.backgroundColor = UIColor(hexString: hexString)
         self.getColorButton.setTitle(hexString, for: .normal)
         if UIColor(hexString: hexString).isLight() == true {
             getColorButton.setTitleColor(UIColor.black, for: UIControlState.normal)
@@ -117,13 +116,14 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     func createGetColorButton(){
         
         let buttonWidth = (self.view.bounds.size.height - self.magView.frame.maxY)/2 - 15
-        
         getColorButton.frame = CGRect(x: self.view.bounds.size.width/2 - buttonWidth/2,
                                       y: self.view.bounds.size.height - buttonWidth - 7.5,
                                       width: buttonWidth,
                                       height: buttonWidth)
-        getColorButton.buttonColor = UIColor.black
-        getColorButton.cornerRadius = buttonWidth/2
+        getColorButton.layer.cornerRadius = getColorButton.frame.width/2
+        getColorButton.layer.backgroundColor = getColorButton.buttonColor.cgColor
+        getColorButton.pulseColor = getColorButton.buttonColor
+        getColorButton.pulseRadius = 3
         getColorButton.addTarget(self, action: #selector(getColor), for: .touchUpInside)
         self.view.addSubview(getColorButton)
     }
