@@ -37,7 +37,8 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         createGetColorButton()
         createCustomPaletteView()
         createUndoButton()
-
+        createSaveButton()
+        
     }
     
     func createImageView() {
@@ -125,11 +126,11 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
                                       height: buttonWidth)
         getColorButton.backgroundColor = UIColor.black
         getColorButton.layer.cornerRadius = buttonWidth/2
-        getColorButton.addTarget(self, action: #selector(updateColorForPalette), for: .touchUpInside)
+        getColorButton.addTarget(self, action: #selector(getColor), for: .touchUpInside)
         self.view.addSubview(getColorButton)
     }
     
-    func updateColorForPalette() {
+    func getColor() {
         
         self.descriptionLabel.isHidden = true
         
@@ -158,19 +159,28 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     func createSaveButton(){
         
         let buttonWidth = (self.view.bounds.size.height - self.magView.frame.maxY)/2 - 15
-
+        
         let saveButton = UIButton()
         saveButton.frame = CGRect(x: self.view.bounds.size.width - buttonWidth - 10,
                                   y: self.view.bounds.size.height - buttonWidth - 7.5,
                                   width: buttonWidth,
                                   height: buttonWidth)
         saveButton.backgroundColor = UIColor.red
-        saveButton.addTarget(self, action: #selector(saveImageAction), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(save), for: .touchUpInside)
         self.view.addSubview(saveButton)
     }
     
-    func saveImageAction(){
+    func save(_ sender: UIButton){
+        var popoverContent = self.storyboard?.instantiateViewController(withIdentifier: "NewCategory") as! UIViewController
+        var nav = UINavigationController(rootViewController: popoverContent)
+        nav.modalPresentationStyle = UIModalPresentationStyle.popover
+        var popover = nav.popoverPresentationController
+        popoverContent.preferredContentSize = CGSize(width: 50, height: 50)
+        popover?.delegate = self as! UIPopoverPresentationControllerDelegate
+        popover?.sourceView = sender
+        popover?.sourceRect = sender.bounds
         
+        self.present(nav, animated: true, completion: nil)
     }
     
     func createUndoButton(){
@@ -189,7 +199,15 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     }
     
     func undo(){
-       
+        
+        if customPalette.count>0{
+            let lastColor = customPalette[(customPalette.count-1)]
+            
+            lastColor.removeFromSuperview()
+            self.customPalette.removeLast()
+            self.customPaletteHexArray.removeLast()
+            
+        }
     }
     
 }
@@ -223,7 +241,7 @@ extension UIColor {
             Int(b * 0xff)
         )
     }
-
+    
 }
 
 class DescriptionLabel: UILabel {
