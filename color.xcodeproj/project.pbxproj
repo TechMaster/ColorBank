@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1907ADE01EDFBAB9002EA68B /* SaveWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1907ADDF1EDFBAB9002EA68B /* SaveWindow.swift */; };
 		19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */; };
 		19E808B11EB18EE700EFEE50 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808B01EB18EE700EFEE50 /* ViewController.swift */; };
 		19E808CA1EB1937E00EFEE50 /* DetailColorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808C91EB1937E00EFEE50 /* DetailColorVC.swift */; };
@@ -30,7 +29,6 @@
 
 /* Begin PBXFileReference section */
 		09709D13FA795FE3CC57B389 /* Pods_color.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_color.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1907ADDF1EDFBAB9002EA68B /* SaveWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveWindow.swift; sourceTree = "<group>"; };
 		19E808AB1EB18EE700EFEE50 /* color.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = color.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		19E808B01EB18EE700EFEE50 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -132,7 +130,6 @@
 			isa = PBXGroup;
 			children = (
 				CFC2BEA21EB2F7BA00F22496 /* ChosenImageVC.swift */,
-				1907ADDF1EDFBAB9002EA68B /* SaveWindow.swift */,
 				19F9E8651EC30A9400FEA3D5 /* SRCopyableLabel.swift */,
 				CFC754731EC958B8004D8551 /* Sniper.swift */,
 				CFC888D41ECD49C8007972A7 /* YPMagnifyingGlass.swift */,
@@ -288,7 +285,6 @@
 				19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */,
 				19E808D21EB1AC1600EFEE50 /* ColorListTVC.swift in Sources */,
 				19E808CA1EB1937E00EFEE50 /* DetailColorVC.swift in Sources */,
-				1907ADE01EDFBAB9002EA68B /* SaveWindow.swift in Sources */,
 				CFC888D61ECD49C8007972A7 /* YPMagnifyingGlass.swift in Sources */,
 				CFB043E61EC17AD2009245EB /* ColorBar.swift in Sources */,
 			);

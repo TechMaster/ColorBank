@@ -20,7 +20,8 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     var customPalette = [UILabel]()
     var customPaletteHexArray = [String]()
     let descriptionLabel = DescriptionLabel()
-    
+    let saveButton = UIButton()
+    let undoButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,12 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         createCustomPaletteView()
         createUndoButton()
         createSaveButton()
+        
+        saveButton.isEnabled = false
+        saveButton.setTitleColor(UIColor.lightGray, for: .normal)
+        
+        undoButton.isEnabled = false
+        undoButton.setTitleColor(UIColor.lightGray, for: .normal)
         
     }
     
@@ -148,6 +155,26 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
             newColor.layer.borderColor = getColorButton.backgroundColor?.cgColor
             customPalette.append(newColor)
             customPaletteHexArray.append((newColor.backgroundColor?.toHexString)!)
+            
+            
+            if customPalette.count > 0{
+                undoButton.isEnabled = true
+                undoButton.setTitleColor(UIColor(hexString: "#F38181"), for: .normal)
+            }else{
+                undoButton.isEnabled = false
+                undoButton.setTitleColor(UIColor.lightGray, for: .normal)
+
+            }
+            
+            if customPalette.count == 5{
+                saveButton.isEnabled = true
+                saveButton.setTitleColor(UIColor(hexString: "#F38181"), for: .normal)
+            }else{
+                saveButton.isEnabled = false
+                saveButton.setTitleColor(UIColor.lightGray, for: .normal)
+
+            }
+            
             self.view.addSubview(newColor)
             
             UIView.animate(withDuration: 1, animations: {
@@ -160,12 +187,13 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         
         let buttonWidth = (self.view.bounds.size.height - self.magView.frame.maxY)/2 - 15
         
-        let saveButton = UIButton()
         saveButton.frame = CGRect(x: self.view.bounds.size.width - buttonWidth - 10,
                                   y: self.view.bounds.size.height - buttonWidth - 7.5,
                                   width: buttonWidth,
                                   height: buttonWidth)
-        saveButton.backgroundColor = UIColor.red
+        saveButton.setTitle("Save", for: .normal)
+        saveButton.titleLabel?.font = UIFont(name: "American Typewriter", size: 20)
+        saveButton.titleLabel?.textAlignment = .center
         saveButton.addTarget(self, action: #selector(save), for: .touchUpInside)
         self.view.addSubview(saveButton)
     }
@@ -193,6 +221,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         alertController.addTextField { (textField : UITextField!) -> Void in
             textField.placeholder = "Enter Palette Name"
             textField.textAlignment = .center
+            
         }
         
         alertController.addAction(saveAction)
@@ -201,18 +230,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func createSaveWindow(){
-        let saveWindow = SaveWindow()
-
-        saveWindow.frame = CGRect(x: self.view.bounds.size.width/6, y: self.view.bounds.size.height/2 - self.view.bounds.size.width/6, width: self.view.bounds.size.width*2/3, height: self.view.bounds.size.width/3)
-        
-        self.view.addSubview(saveWindow)
-        saveWindow.createDoneButton()
-        saveWindow.createTextField()
-    }
-    
     func createUndoButton(){
-        let undoButton = UIButton()
         
         let buttonWidth = (self.view.bounds.size.height - self.magView.frame.maxY)/2 - 15
         
@@ -220,20 +238,32 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
                                   y: self.view.bounds.size.height - buttonWidth - 7.5,
                                   width: buttonWidth,
                                   height: buttonWidth)
-        undoButton.backgroundColor = UIColor.blue
+        undoButton.setTitle("Undo", for: .normal)
+        undoButton.setTitleColor(UIColor(hexString: "#F38181"), for: .normal)
         undoButton.addTarget(self, action: #selector(undo), for: .touchUpInside)
+        undoButton.titleLabel?.font = UIFont(name: "American Typewriter", size: 20)
+        undoButton.titleLabel?.textAlignment = .center
         self.view.addSubview(undoButton)
         
     }
     
     func undo(){
         
+        saveButton.isEnabled = false
+        saveButton.setTitleColor(UIColor.lightGray, for: .normal)
+        
         if customPalette.count>0{
+            
             let lastColor = customPalette[(customPalette.count-1)]
             
             lastColor.removeFromSuperview()
             self.customPalette.removeLast()
             self.customPaletteHexArray.removeLast()
+            
+            if customPalette.count == 0{
+                undoButton.isEnabled = false
+                undoButton.setTitleColor(UIColor.lightGray, for: .normal)
+            }
             
         }
     }
