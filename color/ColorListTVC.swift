@@ -32,15 +32,20 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
         
-        searchController.searchBar.barTintColor = UIColor.clear
-        searchController.searchBar.placeholder = "E.g. #ffffff"
+        let cancelButtonAttributes: NSDictionary = [NSForegroundColorAttributeName:UIColor(hexString: "#F38181")]
+        UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes as? [String : AnyObject], for: UIControlState.normal)
+        
+        self.searchController.searchBar.placeholder = "E.g. #ffffff"
+        self.searchController.searchBar.setTextColor(color: UIColor(hexString: "#F38181"))
+        self.searchController.searchBar.setPlaceholderTextColor(color: UIColor(hexString: "#F38181"))
         
         self.view.backgroundColor = UIColor.white
+        
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         self.navigationController?.navigationBar.tintColor = UIColor(hexString: "#F38181")
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(hexString: "#F38181")]
-        
-        
+        self.navigationController?.navigationBar.titleTextAttributes =
+            [NSForegroundColorAttributeName: UIColor(hexString: "#F38181"),
+             NSFontAttributeName: UIFont(name: "American Typewriter", size: 20)!]
         self.navigationItem.title = "Palettes"
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
@@ -237,8 +242,8 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        header.textLabel?.textColor = UIColor.black
+        header.textLabel?.font = UIFont(name: "American Typewriter", size: 25)
+        header.textLabel?.textColor = UIColor(hexString: "#F38181")
         header.textLabel?.textAlignment = .center
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -291,6 +296,49 @@ extension ColorListTVC: UISearchResultsUpdating{
     }
 }
 
+//MARK: Customize Searchbar
+extension UISearchBar {
+    
+    private func getViewElement<T>(type: T.Type) -> T? {
+        
+        let svs = subviews.flatMap { $0.subviews }
+        guard let element = (svs.filter { $0 is T }).first as? T else { return nil }
+        return element
+    }
+    
+    func getSearchBarTextField() -> UITextField? {
+        
+        return getViewElement(type: UITextField.self)
+    }
+    
+    func setTextColor(color: UIColor) {
+        
+        if let textField = getSearchBarTextField() {
+            textField.textColor = color
+        }
+    }
+    
+    func setTextFieldColor(color: UIColor) {
+        
+        if let textField = getViewElement(type: UITextField.self) {
+            switch searchBarStyle {
+            case .minimal:
+                textField.layer.backgroundColor = color.cgColor
+                textField.layer.cornerRadius = 6
+                
+            case .prominent, .default:
+                textField.backgroundColor = color
+            }
+        }
+    }
+    
+    func setPlaceholderTextColor(color: UIColor) {
+        
+        if let textField = getSearchBarTextField() {
+            textField.attributedPlaceholder = NSAttributedString(string: self.placeholder != nil ? self.placeholder! : "", attributes: [NSForegroundColorAttributeName: color])
+        }
+    }
+}
 
 
 
