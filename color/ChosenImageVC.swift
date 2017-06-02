@@ -170,17 +170,45 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         self.view.addSubview(saveButton)
     }
     
-    func save(_ sender: UIButton){
-        var popoverContent = self.storyboard?.instantiateViewController(withIdentifier: "NewCategory") as! UIViewController
-        var nav = UINavigationController(rootViewController: popoverContent)
-        nav.modalPresentationStyle = UIModalPresentationStyle.popover
-        var popover = nav.popoverPresentationController
-        popoverContent.preferredContentSize = CGSize(width: 50, height: 50)
-        popover?.delegate = self as! UIPopoverPresentationControllerDelegate
-        popover?.sourceView = sender
-        popover?.sourceRect = sender.bounds
+    func save(){
         
-        self.present(nav, animated: true, completion: nil)
+        
+        let alertController = UIAlertController(title: "Add New Palette", message: "", preferredStyle: .alert)
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
+            alert -> Void in
+            
+            let textField = alertController.textFields![0] as UITextField
+            
+            print(textField.text)
+            print(self.customPaletteHexArray)
+            
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+            (action : UIAlertAction!) -> Void in
+            
+        })
+        
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Enter Palette Name"
+            textField.textAlignment = .center
+        }
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func createSaveWindow(){
+        let saveWindow = SaveWindow()
+
+        saveWindow.frame = CGRect(x: self.view.bounds.size.width/6, y: self.view.bounds.size.height/2 - self.view.bounds.size.width/6, width: self.view.bounds.size.width*2/3, height: self.view.bounds.size.width/3)
+        
+        self.view.addSubview(saveWindow)
+        saveWindow.createDoneButton()
+        saveWindow.createTextField()
     }
     
     func createUndoButton(){
