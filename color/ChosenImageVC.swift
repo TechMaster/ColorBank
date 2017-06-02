@@ -36,6 +36,8 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         createMagGlassAndSniper()
         createGetColorButton()
         createCustomPaletteView()
+        createUndoButton()
+
     }
     
     func createImageView() {
@@ -123,11 +125,11 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
                                       height: buttonWidth)
         getColorButton.backgroundColor = UIColor.black
         getColorButton.layer.cornerRadius = buttonWidth/2
-        getColorButton.addTarget(self, action: #selector(getColor), for: .touchUpInside)
+        getColorButton.addTarget(self, action: #selector(updateColorForPalette), for: .touchUpInside)
         self.view.addSubview(getColorButton)
     }
     
-    func getColor() {
+    func updateColorForPalette() {
         
         self.descriptionLabel.isHidden = true
         
@@ -141,6 +143,8 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
                                     width: paletteViewWidth/5,
                                     height: paletteViewHeight)
             newColor.backgroundColor = getColorButton.backgroundColor
+            newColor.layer.borderWidth = 2
+            newColor.layer.borderColor = getColorButton.backgroundColor?.cgColor
             customPalette.append(newColor)
             customPaletteHexArray.append((newColor.backgroundColor?.toHexString)!)
             self.view.addSubview(newColor)
@@ -170,7 +174,22 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     }
     
     func createUndoButton(){
-//        let undoButton =
+        let undoButton = UIButton()
+        
+        let buttonWidth = (self.view.bounds.size.height - self.magView.frame.maxY)/2 - 15
+        
+        undoButton.frame = CGRect(x: 10,
+                                  y: self.view.bounds.size.height - buttonWidth - 7.5,
+                                  width: buttonWidth,
+                                  height: buttonWidth)
+        undoButton.backgroundColor = UIColor.blue
+        undoButton.addTarget(self, action: #selector(undo), for: .touchUpInside)
+        self.view.addSubview(undoButton)
+        
+    }
+    
+    func undo(){
+       
     }
     
 }
