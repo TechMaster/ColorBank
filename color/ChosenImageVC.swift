@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import Fusuma
-import KDPulseButton
 
 class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     
@@ -19,8 +18,9 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     var getColorButton = UIButton()
     var paletteView = UIView()
     var customPalette = [UILabel]()
+    var customPaletteHexArray = [String]()
     let descriptionLabel = DescriptionLabel()
-    var textField = UITextField()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +34,8 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         magView.delegate = self
         
         createMagGlassAndSniper()
-        createCustomPaletteView()
         createGetColorButton()
+        createCustomPaletteView()
     }
     
     func createImageView() {
@@ -81,63 +81,55 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     
     func createCustomPaletteView() {
         let paletteViewWidth = self.magView.bounds.size.width
-        let paletteViewHeight = self.view.bounds.size.height - 15 - self.magView.frame.maxY
+        let paletteViewHeight = self.view.bounds.size.height - 15 - self.getColorButton.bounds.size.height - self.magView.frame.maxY
         paletteView.frame = CGRect(x: self.magView.frame.minX,
                                    y: self.magView.frame.maxY,
                                    width: paletteViewWidth,
                                    height: paletteViewHeight)
-        //        paletteView.layer.borderWidth = 1
-        //        paletteView.layer.borderColor = UIColor.black.cgColor
+        
+        paletteView.layer.borderWidth = 1
+        paletteView.layer.borderColor = UIColor.black.cgColor
         self.view.addSubview(paletteView)
         
+        descriptionLabel.frame = self.paletteView.bounds
+        descriptionLabel.text = "Press the button below to pick color for your palette."
+        descriptionLabel.textAlignment = .center
+        descriptionLabel.adjustsFontSizeToFitWidth = true
+        descriptionLabel.layer.zPosition = -1
+        
+        self.paletteView.addSubview(descriptionLabel)
         
         
     }
     
     func passColor(hexString: String) {
-        self.getColorButton.backgroundColor = UIColor(hexString: hexString)
-        print(hexString)
-        self.getColorButton.setTitle(hexString, for: .normal)
+        getColorButton.backgroundColor = UIColor(hexString: hexString)
+        getColorButton.setTitle(hexString, for: .normal)
         if UIColor(hexString: hexString).isLight() == true {
-            getColorButton.setTitleColor(UIColor.black, for: UIControlState.normal)
+            getColorButton.titleLabel?.textColor = UIColor.black
         }else{
-            getColorButton.setTitleColor(UIColor.white, for: UIControlState.normal)
-        }
-        if UIColor(hexString: hexString).isLight() == true {
-            getColorButton.layer.borderWidth = 2
-            getColorButton.layer.borderColor = UIColor.black.cgColor
-        }
-        else{
-            getColorButton.layer.borderWidth = 2
-            getColorButton.layer.borderColor = UIColor.white.cgColor
+            getColorButton.titleLabel?.textColor = UIColor.white
         }
     }
     
-    func changeToTextField()
-    {
-        textField.frame = getColorButton.frame
-        textField.textAlignment = .center
-        textField.font = UIFont(name: "American Typewriter", size: 20)
-        textField.adjustsFontSizeToFitWidth = true
-        textField.backgroundColor = UIColor.black
-        textField.textColor = UIColor.white
-        self.view.addSubview(textField)
-        self.getColorButton.removeFromSuperview()
-    }
     
     func createGetColorButton(){
-        getColorButton.frame = CGRect(x: 10, y: self.paletteView.frame.midY - 25, width: self.view.bounds.size.width - 20, height: 50)
-        getColorButton.setTitle("", for: .normal)
-        getColorButton.setTitleColor(UIColor.black, for: .normal)
-        getColorButton.layer.zPosition = CGFloat.greatestFiniteMagnitude
-        getColorButton.addTarget(self, action: #selector(getColor), for: .touchUpInside)
         
+        let buttonWidth = (self.view.bounds.size.height - self.magView.frame.maxY)/2 - 15
+        
+        getColorButton.frame = CGRect(x: self.view.bounds.size.width/2 - buttonWidth/2,
+                                      y: self.view.bounds.size.height - buttonWidth - 7.5,
+                                      width: buttonWidth,
+                                      height: buttonWidth)
+        getColorButton.backgroundColor = UIColor.black
+        getColorButton.layer.cornerRadius = buttonWidth/2
+        getColorButton.addTarget(self, action: #selector(getColor), for: .touchUpInside)
         self.view.addSubview(getColorButton)
     }
     
     func getColor() {
         
-        getColorButton.titleLabel?.removeFromSuperview()
+        self.descriptionLabel.isHidden = true
         
         if customPalette.count < 5 {
             let screenWidth = self.view.bounds.size.width
@@ -149,20 +141,36 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
                                     width: paletteViewWidth/5,
                                     height: paletteViewHeight)
             newColor.backgroundColor = getColorButton.backgroundColor
-            newColor.layer.borderWidth = 1
-            newColor.layer.borderColor = getColorButton.backgroundColor?.cgColor
             customPalette.append(newColor)
+            customPaletteHexArray.append((newColor.backgroundColor?.toHexString)!)
             self.view.addSubview(newColor)
             
             UIView.animate(withDuration: 1, animations: {
                 newColor.center.x = self.magView.frame.minX + self.paletteView.bounds.size.width*(CGFloat(self.customPalette.count)/5) - (newColor.frame.size.width/2)
             })
-            
-            if customPalette.count == 5
-            {
-                changeToTextField()
-            }
         }
+    }
+    
+    func createSaveButton(){
+        
+        let buttonWidth = (self.view.bounds.size.height - self.magView.frame.maxY)/2 - 15
+
+        let saveButton = UIButton()
+        saveButton.frame = CGRect(x: self.view.bounds.size.width - buttonWidth - 10,
+                                  y: self.view.bounds.size.height - buttonWidth - 7.5,
+                                  width: buttonWidth,
+                                  height: buttonWidth)
+        saveButton.backgroundColor = UIColor.red
+        saveButton.addTarget(self, action: #selector(saveImageAction), for: .touchUpInside)
+        self.view.addSubview(saveButton)
+    }
+    
+    func saveImageAction(){
+        
+    }
+    
+    func createUndoButton(){
+//        let undoButton =
     }
     
 }
@@ -180,6 +188,23 @@ extension UIColor {
             return true
         }
     }
+    
+    var toHexString: String {
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+        
+        self.getRed(&r, green: &g, blue: &b, alpha: &a)
+        
+        return String(
+            format: "%02X%02X%02X",
+            Int(r * 0xff),
+            Int(g * 0xff),
+            Int(b * 0xff)
+        )
+    }
+
 }
 
 class DescriptionLabel: UILabel {
