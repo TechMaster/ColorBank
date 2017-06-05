@@ -30,6 +30,7 @@ public class YPMagnifyingView: UIView {
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
+        
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -80,7 +81,7 @@ public class YPMagnifyingView: UIView {
     
     // MARK: - Private Functions
     
-    private func addSniperAtPoint(point: CGPoint){
+    public func addSniperAtPoint(point: CGPoint){
         self.sniper.viewToMagnify = self as UIView
         self.sniper.touchPoint = point
         

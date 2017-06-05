@@ -86,6 +86,16 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         
         self.view.addSubview(magView)
         magView.addSubview(imageView)
+        magView.addSniperAtPoint(point: imageView.center)
+        
+        let color = magView.getPixelColorAtPoint(point: imageView.center, sourceView: magView)
+        getColorButton.backgroundColor = UIColor(hexString: color)
+        getColorButton.setTitle(color, for: .normal)
+        if UIColor(hexString: color).isLight() == true {
+            getColorButton.titleLabel?.textColor = UIColor.black
+        }else{
+            getColorButton.titleLabel?.textColor = UIColor.white
+        }
         
     }
     
@@ -96,13 +106,12 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
                                    y: self.magView.frame.maxY,
                                    width: paletteViewWidth,
                                    height: paletteViewHeight)
-        
-        paletteView.layer.borderWidth = 1
-        paletteView.layer.borderColor = UIColor.black.cgColor
         self.view.addSubview(paletteView)
         
         descriptionLabel.frame = self.paletteView.bounds
-        descriptionLabel.text = "Press the button below to pick color for your palette."
+        descriptionLabel.text = "Press the circle button to pick a color"
+        descriptionLabel.textColor = UIColor(hexString: "#F38181")
+        descriptionLabel.font = UIFont(name: "American Typewriter", size: 20)
         descriptionLabel.textAlignment = .center
         descriptionLabel.adjustsFontSizeToFitWidth = true
         descriptionLabel.layer.zPosition = -1
@@ -131,7 +140,6 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
                                       y: self.view.bounds.size.height - buttonWidth - 7.5,
                                       width: buttonWidth,
                                       height: buttonWidth)
-        getColorButton.backgroundColor = UIColor.black
         getColorButton.layer.cornerRadius = buttonWidth/2
         getColorButton.addTarget(self, action: #selector(getColor), for: .touchUpInside)
         self.view.addSubview(getColorButton)
@@ -261,6 +269,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
             self.customPaletteHexArray.removeLast()
             
             if customPalette.count == 0{
+                self.descriptionLabel.isHidden = false
                 undoButton.isEnabled = false
                 undoButton.setTitleColor(UIColor.lightGray, for: .normal)
             }
