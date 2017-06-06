@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>KDPulseButton.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-color.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +17,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>32F2301DF67DA0A67B304A5799EB3617</key>
+		<key>0830BF67D5D03E78C5324D5582EAA221</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>3E0D8640A124012AB6F0A9F775A38285</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B81759B9B0A70CC783A8AD7D24E22A49</key>
 		<dict>
 			<key>primary</key>
 			<true/>
