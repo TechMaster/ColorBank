@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Fusuma
 
+
 class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     
     let magView = YPMagnifyingView()
@@ -48,6 +49,8 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         
     }
     
+
+    //MARK: ImageView & MagnifyingView
     func createImageView() {
         
         imageView.frame = self.magView.bounds
@@ -99,6 +102,8 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         
     }
     
+    
+    //MARK: CustomPaletteView
     func createCustomPaletteView() {
         let paletteViewWidth = self.magView.bounds.size.width
         let paletteViewHeight = self.view.bounds.size.height - 15 - self.getColorButton.bounds.size.height - self.magView.frame.maxY
@@ -121,6 +126,8 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         
     }
     
+    
+    //MARK: method to pass color via protocol-delegate
     func passColor(hexString: String) {
         getColorButton.color = UIColor(hexString: hexString)
         getColorButton.setTitle(hexString, for: .normal)
@@ -131,7 +138,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         }
     }
     
-    
+    //MARK: GetColor Button
     func createGetColorButton(){
         
         let buttonWidth = (self.view.bounds.size.height - self.magView.frame.maxY)/2 - 15
@@ -140,7 +147,6 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
                                       y: self.view.bounds.size.height - buttonWidth - 7.5,
                                       width: buttonWidth,
                                       height: buttonWidth)
-//        getColorButton.layer.cornerRadius = buttonWidth/2
         getColorButton.addTarget(self, action: #selector(getColor), for: .touchUpInside)
         self.view.addSubview(getColorButton)
     }
@@ -191,6 +197,8 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         }
     }
     
+    
+    //MARK: Save Button
     func createSaveButton(){
         
         let buttonWidth = (self.view.bounds.size.height - self.magView.frame.maxY)/2 - 15
@@ -207,8 +215,6 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     }
     
     func save(){
-        
-        
         let alertController = UIAlertController(title: "Add New Palette", message: "", preferredStyle: .alert)
         
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
@@ -216,8 +222,10 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
             
             let textField = alertController.textFields![0] as UITextField
             
-            print(textField.text)
-            print(self.customPaletteHexArray)
+//            print(textField.text)
+//            print(self.customPaletteHexArray)
+            
+            self.createNewPaletteRequest(name: textField.text!, color1: self.customPaletteHexArray[0], color2: self.customPaletteHexArray[1], color3: self.customPaletteHexArray[2], color4: self.customPaletteHexArray[3], color5: self.customPaletteHexArray[4])
             
         })
         
@@ -238,6 +246,42 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    func createNewPaletteRequest(name: String, color1: String, color2: String, color3: String, color4: String, color5: String){
+        
+        let baseURL : String! = "http://192.168.1.105:3001/addnewpallet"
+        
+        var param : [String:AnyObject] = ["name" : name as AnyObject, "color1" : color1 as AnyObject, "color2" : color2 as AnyObject, "color3" : color3 as AnyObject, "color4" : color4 as AnyObject, "color5" : color5 as AnyObject]
+        
+        let urlRequest = NSMutableURLRequest(url: URL(string: baseURL)!)
+        urlRequest.httpMethod = "POST"
+        
+        let configureSession = URLSessionConfiguration.default
+        configureSession.httpAdditionalHeaders = ["Content-Type":"application/json"]
+        
+        let createPaletteSession = URLSession(configuration: configureSession)
+        
+        let dataPassing = try! JSONSerialization.data(withJSONObject: param, options: JSONSerialization.WritingOptions.prettyPrinted)
+        createPaletteSession.uploadTask(with: urlRequest as URLRequest, from: dataPassing){
+            (data,response,error) in
+            if let error = error{
+                print(error.localizedDescription)
+            }else{
+                if let responseHTTP = response as? HTTPURLResponse{
+                    if responseHTTP.statusCode==200{
+                        print(data)
+//                        DispatchQueue.main.async {
+//                            self.de
+//                        }
+                    }else{
+                        print(responseHTTP.statusCode)
+                    }
+                }
+            }
+        }.resume()
+    }
+    
+    
+    //MARK: Undo Button
     func createUndoButton(){
         
         let buttonWidth = (self.view.bounds.size.height - self.magView.frame.maxY)/2 - 15
@@ -300,6 +344,7 @@ extension UIColor {
         var a: CGFloat = 0
         
         self.getRed(&r, green: &g, blue: &b, alpha: &a)
+        
         
         return String(
             format: "%02X%02X%02X",

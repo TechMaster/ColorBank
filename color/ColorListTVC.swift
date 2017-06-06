@@ -208,6 +208,8 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
         
                 let item = itemDict["data"] as! NSArray
         
+        
+        
                 cell.color0 = item[0] as! String
                 cell.color1 = item[1] as! String
                 cell.color2 = item[2] as! String
