@@ -51,9 +51,21 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
         self.navigationItem.title = "Palettes"
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-//        loadData()
         
-        getData()
+        
+        //Check internet connection
+        let status = Reach().connectionStatus()
+        switch status {
+        case .unknown, .offline:
+            print("Not connected")
+            loadData()
+        case .online(.wwan):
+            print("Connected via WWAN")
+            getData()
+        case .online(.wiFi):
+            print("Connected via WiFi")
+            getData()
+        }
     }
     
     //MARK: Lấy dữ liệu từ server truyền vào mảng itemArray
@@ -64,11 +76,10 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
             do {
                 let allData = try Data(contentsOf: url!)
                 let allColor = try JSONSerialization.jsonObject(with: allData, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject]
-                if let arrJSON = allColor["data"] {
+                if let arrJSON = allColor["data"] as? NSArray {
                     for index in 0..<arrJSON.count
                     {
                         let aObject = arrJSON[index] as! [String: AnyObject]
-                        
                         self.id.append(aObject["id"] as! String)
                     }
                 }
@@ -78,7 +89,7 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
                     do {
                         let colorData = try Data(contentsOf: url!)
                         let allColor = try JSONSerialization.jsonObject(with: colorData, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject]
-                        if let arrJSON = allColor["data"] {
+                        if let arrJSON = allColor["data"] as? NSArray {
                             for index in 0..<arrJSON.count
                             {
                                 let aObject = arrJSON[index] as! [String: AnyObject]
@@ -105,25 +116,25 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
     
     
     //MARK: Lấy dữ liệu từ file plist truyền vào mảng itemArray
-        func loadData(){
-    
-            var dictData = NSDictionary()
-            var path: String = ""
-    
-            path = Bundle.main.path(forResource:"colorData", ofType: "plist")!
-            dictData = NSDictionary(contentsOfFile: path)!
-            arrData = dictData["data"] as! NSArray
-            for index in 0..<arrData.count{
-    
-                let itemDict = arrData[index] as! NSDictionary
-    
-                let item = itemDict["data"] as! NSArray
-                let name = itemDict["name"] as! String
-    
-                itemArray.append(ColorItem(colorName: name, colorArray: item as! [String]))
-    
-            }
+    func loadData(){
+        
+        var dictData = NSDictionary()
+        var path: String = ""
+        
+        path = Bundle.main.path(forResource:"colorData", ofType: "plist")!
+        dictData = NSDictionary(contentsOfFile: path)!
+        arrData = dictData["data"] as! NSArray
+        for index in 0..<arrData.count{
+            
+            let itemDict = arrData[index] as! NSDictionary
+            
+            let item = itemDict["data"] as! NSArray
+            let name = itemDict["name"] as! String
+            
+            itemArray.append(ColorItem(colorName: name, colorArray: item as! [String]))
+            
         }
+    }
     
     //MARK: Lọc mã màu
     func filterColor(code: String){ // code là mã màu được viết ở searchBar
@@ -208,28 +219,7 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
                              color_4: cell.color4)
         cell.addSubview(cell.cell)
         cell.backgroundColor = UIColor.clear
-//                let itemDict = arrData[section] as! NSDictionary
-//        
-//                let item = itemDict["data"] as! NSArray
-//        
-//        
-//        
-//                cell.color0 = item[0] as! String
-//                cell.color1 = item[1] as! String
-//                cell.color2 = item[2] as! String
-//                cell.color3 = item[3] as! String
-//                cell.color4 = item[4] as! String
-//        
-//                cell.cell = ColorBar(frame: CGRect(x: 0, y: 0,
-//                                                   width: self.view.bounds.size.width,
-//                                                   height: self.view.bounds.size.width/5),
-//                                     color_0: cell.color0,
-//                                     color_1: cell.color1,
-//                                     color_2: cell.color2,
-//                                     color_3: cell.color3,
-//                                     color_4: cell.color4)
-//                cell.addSubview(cell.cell)
-//                cell.backgroundColor = UIColor.clear
+        
         return cell
     }
     
