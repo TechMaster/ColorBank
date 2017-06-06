@@ -17,6 +17,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var paletteButton = UIButton()
     var infoButton = UIButton()
     var mediaButton = UIButton()
+    var myPaletteButton = UIButton()
     var expanding: Bool = false
     
     
@@ -175,17 +176,5 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }))
         
         self.present(alert, animated: true, completion: nil)
-    }
-}
-
-extension UIView{
-    func addConstraintsWithFormat(format: String, views: UIView...){
-        var viewsDictionary = [String: UIView]()
-        for (index, view) in views.enumerated(){
-            let key = "v\(index)"
-            view.translatesAutoresizingMaskIntoConstraints = false
-            viewsDictionary[key] = view
-        }
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDictionary))
     }
 }

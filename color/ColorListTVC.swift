@@ -168,7 +168,7 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
         tableView.reloadData()
     }
     
-    //MARK: Tạo cell chứa palettes liên quan đến mã màu ở searchBar
+    //MARK: Tạo cell khi dùng đến searchBar
     func createCellFilter(section: Int) -> UITableViewCell {
         let cell = ColorListCell()
         for index in 0..<itemArray.count
@@ -290,55 +290,3 @@ extension ColorListTVC: UISearchResultsUpdating{
         filterColor(code: searchController.searchBar.text!)
     }
 }
-
-//MARK: Customize Searchbar
-extension UISearchBar {
-    
-    private func getViewElement<T>(type: T.Type) -> T? {
-        
-        let svs = subviews.flatMap { $0.subviews }
-        guard let element = (svs.filter { $0 is T }).first as? T else { return nil }
-        return element
-    }
-    
-    func getSearchBarTextField() -> UITextField? {
-        
-        return getViewElement(type: UITextField.self)
-    }
-    
-    func setTextColor(color: UIColor) {
-        
-        if let textField = getSearchBarTextField() {
-            textField.textColor = color
-        }
-    }
-    
-    func setTextFieldColor(color: UIColor) {
-        
-        if let textField = getViewElement(type: UITextField.self) {
-            switch searchBarStyle {
-            case .minimal:
-                textField.layer.backgroundColor = color.cgColor
-                textField.layer.cornerRadius = 6
-                
-            case .prominent, .default:
-                textField.backgroundColor = color
-            }
-        }
-    }
-    
-    func setPlaceholderTextColor(color: UIColor) {
-        
-        if let textField = getSearchBarTextField() {
-            textField.attributedPlaceholder = NSAttributedString(string: self.placeholder != nil ? self.placeholder! : "", attributes: [NSForegroundColorAttributeName: color])
-        }
-    }
-}
-
-
-
-
-
-
-
-

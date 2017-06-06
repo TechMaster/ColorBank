@@ -27,6 +27,7 @@
 		CFC754741EC958B8004D8551 /* Sniper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC754731EC958B8004D8551 /* Sniper.swift */; };
 		CFC888D61ECD49C8007972A7 /* YPMagnifyingGlass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC888D41ECD49C8007972A7 /* YPMagnifyingGlass.swift */; };
 		CFC888D71ECD49C8007972A7 /* YPMagnifyingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC888D51ECD49C8007972A7 /* YPMagnifyingView.swift */; };
+		CFFEF15D1EE690E000071D67 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFEF15C1EE690E000071D67 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		CFC754731EC958B8004D8551 /* Sniper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sniper.swift; sourceTree = "<group>"; };
 		CFC888D41ECD49C8007972A7 /* YPMagnifyingGlass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPMagnifyingGlass.swift; sourceTree = "<group>"; };
 		CFC888D51ECD49C8007972A7 /* YPMagnifyingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPMagnifyingView.swift; sourceTree = "<group>"; };
+		CFFEF15C1EE690E000071D67 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */,
+				CFFEF15C1EE690E000071D67 /* Extensions.swift */,
 				19E808B01EB18EE700EFEE50 /* ViewController.swift */,
 				CFC2BEA11EB2F74B00F22496 /* DetectColorView */,
 				CFC2BE9F1EB2F45F00F22496 /* ColorListView */,
@@ -291,6 +294,7 @@
 				CFC2BEA31EB2F7BA00F22496 /* ChosenImageVC.swift in Sources */,
 				19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */,
 				19E808D21EB1AC1600EFEE50 /* ColorListTVC.swift in Sources */,
+				CFFEF15D1EE690E000071D67 /* Extensions.swift in Sources */,
 				19E808CA1EB1937E00EFEE50 /* DetailColorVC.swift in Sources */,
 				1981987B1EE3BAA5009A7286 /* ShotButton.swift in Sources */,
 				CFC888D61ECD49C8007972A7 /* YPMagnifyingGlass.swift in Sources */,
