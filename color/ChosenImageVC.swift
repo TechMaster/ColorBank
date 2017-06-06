@@ -250,7 +250,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         
         let baseURL : String! = "http://192.168.1.105:3001/addnewpallet"
         
-        var param : [String:AnyObject] = ["name" : name as AnyObject, "color1" : color1 as AnyObject, "color2" : color2 as AnyObject, "color3" : color3 as AnyObject, "color4" : color4 as AnyObject, "color5" : color5 as AnyObject]
+        let param : [String:AnyObject] = ["name" : name as AnyObject, "color1" : color1 as AnyObject, "color2" : color2 as AnyObject, "color3" : color3 as AnyObject, "color4" : color4 as AnyObject, "color5" : color5 as AnyObject]
         
         let urlRequest = NSMutableURLRequest(url: URL(string: baseURL)!)
         urlRequest.httpMethod = "POST"
@@ -268,10 +268,8 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
             }else{
                 if let responseHTTP = response as? HTTPURLResponse{
                     if responseHTTP.statusCode==200{
-                        print(data)
-//                        DispatchQueue.main.async {
-//                            self.de
-//                        }
+                        print(data!)
+//                        __dispatch_async(DispatchQueue.main, {})
                     }else{
                         print(responseHTTP.statusCode)
                     }
