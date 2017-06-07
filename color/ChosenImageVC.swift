@@ -27,7 +27,6 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         self.view.backgroundColor = fusumaBackgroundColor
         self.navigationController?.navigationBar.barTintColor = fusumaBackgroundColor
         self.navigationController?.navigationBar.tintColor = fusumaTintColor
@@ -197,7 +196,6 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         }
     }
     
-    
     //MARK: Save Button
     func createSaveButton(){
         
@@ -222,14 +220,10 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
             
             let textField = alertController.textFields![0] as UITextField
             
-            //            print(textField.text)
-            //            print(self.customPaletteHexArray)
-            
+            //Post new palette to server
             self.createNewPaletteRequest(name: textField.text!, color1: self.customPaletteHexArray[0], color2: self.customPaletteHexArray[1], color3: self.customPaletteHexArray[2], color4: self.customPaletteHexArray[3], color5: self.customPaletteHexArray[4])
-//            self.dataModel.saveTrack.append(SavedTracks(name: textField.text!, color1: self.customPaletteHexArray[0], color2: self.customPaletteHexArray[1], color3: self.customPaletteHexArray[2], color4: self.customPaletteHexArray[3], color5: self.customPaletteHexArray[4]))
-//            self.dataModel.saveData()
-//            print("*******************************************")
-//            print(self.dataModel.saveTrack[0].name)
+            
+            //Save new palette to plist
             let dict = ["data" : [self.customPaletteHexArray[0],
                                   self.customPaletteHexArray[1],
                                   self.customPaletteHexArray[2],
