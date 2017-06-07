@@ -13,6 +13,8 @@ import Fusuma
 
 class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     
+    var customPaletteColors = [ColorItem]()
+    var notesArray = NSMutableArray()
     let magView = YPMagnifyingView()
     var imageView = UIImageView()
     var image = UIImage()
@@ -230,7 +232,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
                                   self.customPaletteHexArray[3],
                                   self.customPaletteHexArray[4]],
                         "name" : textField.text!] as [String : Any]
-            self.saveDataToPlist(dict: dict as NSDictionary)
+            self.saveDataToPlist(dict: dict as NSDictionary, customPaletteName: textField.text!)
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
@@ -250,7 +252,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func saveDataToPlist(dict: NSDictionary){
+    func saveDataToPlist(dict: NSDictionary, customPaletteName: String){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let pathForThePlistFile = appDelegate.plistPathInDocument
         
@@ -259,7 +261,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         let data:NSData =  FileManager.default.contents(atPath: pathForThePlistFile)! as NSData
         // Convert the NSData to mutable array
         do{
-            let notesArray = try PropertyListSerialization.propertyList(from: data as Data, options: PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves, format: nil) as! NSMutableArray
+            notesArray = try PropertyListSerialization.propertyList(from: data as Data, options: PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves, format: nil) as! NSMutableArray
             (notesArray[0] as AnyObject).add(dict)
             // Save to plist
             notesArray.write(toFile: pathForThePlistFile, atomically: true)
@@ -267,6 +269,11 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
             print("An error occurred while writing to plist")
         }
         AllPalettesTVC().tableView.reloadData()
+        let detailColorVC = DetailColorVC()
+            customPaletteColors.append(ColorItem(colorName: customPaletteName, colorArray: customPaletteHexArray))
+            detailColorVC.colorArr = customPaletteColors
+            detailColorVC.indexSection = 0
+        self.navigationController?.pushViewController(detailColorVC, animated: true)
     }
     
     func createNewPaletteRequest(name: String, color1: String, color2: String, color3: String, color4: String, color5: String){
