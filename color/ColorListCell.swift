@@ -20,7 +20,6 @@ class ColorListCell: UITableViewCell{
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //#2 Khai báo để truyền dữ liệu vào ColorBar
         
     }
     
@@ -29,6 +28,3 @@ class ColorListCell: UITableViewCell{
         
     }
 }
-
-
-//#3 Các anh xem thế nào để gọi vào cell ở trên. Em đặt breakpoint mà nó không chạy vào !!

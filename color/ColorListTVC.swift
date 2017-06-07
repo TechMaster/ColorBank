@@ -52,25 +52,26 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
-        
-        //Check internet connection
-        let status = Reach().connectionStatus()
-        switch status {
-        case .unknown, .offline:
-            print("Not connected")
-            loadData()
-        case .online(.wwan):
-            print("Connected via WWAN")
-            getData()
-        case .online(.wiFi):
-            print("Connected via WiFi")
-            getData()
-        }
+        loadDataFromPlist()
+        //
+        //        //Check internet connection
+        //        let status = Reach().connectionStatus()
+        //        switch status {
+        //        case .unknown, .offline:
+        //            print("Not connected")
+        //            loadData()
+        //        case .online(.wwan):
+        //            print("Connected via WWAN")
+        //            loadDataFromServer()
+        //        case .online(.wiFi):
+        //            print("Connected via WiFi")
+        //            loadDataFromServer()
+        //        }
     }
     
     //MARK: Lấy dữ liệu từ server truyền vào mảng itemArray
     
-    func getData() {
+    func loadDataFromServer() {
         __dispatch_async(DispatchQueue.global(), {
             let url = URL(string: "http://192.168.1.105:3001/all")
             do {
@@ -116,14 +117,25 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
     
     
     //MARK: Lấy dữ liệu từ file plist truyền vào mảng itemArray
-    func loadData(){
+    func loadDataFromPlist(){
         
-        var dictData = NSDictionary()
-        var path: String = ""
+        var notesArray = NSMutableArray()
+        var pathPlist: String = ""
         
-        path = Bundle.main.path(forResource:"colorData", ofType: "plist")!
-        dictData = NSDictionary(contentsOfFile: path)!
-        arrData = dictData["data"] as! NSArray
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        pathPlist = appDelegate.plistPathInDocument
+        
+        let data: Data = FileManager.default.contents(atPath: pathPlist)!
+        do {
+            notesArray = try PropertyListSerialization.propertyList(from: data, options: PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves, format: nil) as! NSMutableArray
+        }
+        catch
+        {
+            print("reading error")
+        }
+        
+        arrData = notesArray[0] as! NSArray
         for index in 0..<arrData.count{
             
             let itemDict = arrData[index] as! NSDictionary

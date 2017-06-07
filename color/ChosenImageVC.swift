@@ -13,7 +13,7 @@ import Fusuma
 
 class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     
-    var dataModel = DataModel()
+//    var dataModel = DataModel()
     let magView = YPMagnifyingView()
     var imageView = UIImageView()
     var image = UIImage()
@@ -227,10 +227,17 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
             //            print(self.customPaletteHexArray)
             
             self.createNewPaletteRequest(name: textField.text!, color1: self.customPaletteHexArray[0], color2: self.customPaletteHexArray[1], color3: self.customPaletteHexArray[2], color4: self.customPaletteHexArray[3], color5: self.customPaletteHexArray[4])
-            self.dataModel.saveTrack.append(SavedTracks(name: textField.text!, color1: self.customPaletteHexArray[0], color2: self.customPaletteHexArray[1], color3: self.customPaletteHexArray[2], color4: self.customPaletteHexArray[3], color5: self.customPaletteHexArray[4]))
-            self.dataModel.saveData()
-            print("*******************************************")
-            print(self.dataModel.saveTrack[0].name)
+//            self.dataModel.saveTrack.append(SavedTracks(name: textField.text!, color1: self.customPaletteHexArray[0], color2: self.customPaletteHexArray[1], color3: self.customPaletteHexArray[2], color4: self.customPaletteHexArray[3], color5: self.customPaletteHexArray[4]))
+//            self.dataModel.saveData()
+//            print("*******************************************")
+//            print(self.dataModel.saveTrack[0].name)
+            let dict = ["data" : [self.customPaletteHexArray[0],
+                                  self.customPaletteHexArray[1],
+                                  self.customPaletteHexArray[2],
+                                  self.customPaletteHexArray[3],
+                                  self.customPaletteHexArray[4]],
+                        "name" : textField.text!] as [String : Any]
+            self.saveDataToPlist(dict: dict as NSDictionary)
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
@@ -248,6 +255,25 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         alertController.addAction(cancelAction)
         
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func saveDataToPlist(dict: NSDictionary){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let pathForThePlistFile = appDelegate.plistPathInDocument
+        
+        // Extract the content of the file as NSData
+        print(pathForThePlistFile)
+        let data:NSData =  FileManager.default.contents(atPath: pathForThePlistFile)! as NSData
+        // Convert the NSData to mutable array
+        do{
+            let notesArray = try PropertyListSerialization.propertyList(from: data as Data, options: PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves, format: nil) as! NSMutableArray
+            (notesArray[0] as AnyObject).add(dict)
+            // Save to plist
+            notesArray.write(toFile: pathForThePlistFile, atomically: true)
+        }catch{
+            print("An error occurred while writing to plist")
+        }
+        ColorListTVC().tableView.reloadData()
     }
     
     func createNewPaletteRequest(name: String, color1: String, color2: String, color3: String, color4: String, color5: String){
@@ -273,7 +299,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
                 if let responseHTTP = response as? HTTPURLResponse{
                     if responseHTTP.statusCode==200{
                         print(data!)
-                        //                        __dispatch_async(DispatchQueue.main, {})
+
                     }else{
                         print(responseHTTP.statusCode)
                     }
@@ -281,7 +307,6 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
             }
             }.resume()
     }
-    
     
     //MARK: Undo Button
     func createUndoButton(){
@@ -322,7 +347,6 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
             
         }
     }
-    
 }
 
 class DescriptionLabel: UILabel {
@@ -330,67 +354,5 @@ class DescriptionLabel: UILabel {
         let  insets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         super.drawText(in: UIEdgeInsetsInsetRect(rect, insets))
         
-    }
-}
-class SavedTracks: NSObject,NSCoding {
-    var name: String
-    var data: [String]
-    
-    required init(name:String="", color1:String="", color2:String="", color3:String="", color4:String="", color5:String="") {
-        self.name = name
-        self.data = [color1,color2,color3,color4,color5]
-    }
-    
-    required init(coder decoder: NSCoder) {
-        self.name = decoder.decodeObject(forKey: "name") as? String ?? ""
-        self.data = decoder.decodeObject(forKey: "data") as? Array ?? [""]
-    }
-    
-    func encode(with coder: NSCoder) {
-        coder.encode(name, forKey:"name")
-        coder.encode(data, forKey:"data")
-    }
-}
-class DataModel: NSObject {
-    
-    var saveTrack = [SavedTracks]()
-    
-    override init(){
-        super.init()
-        print("document file path：\(documentsDirectory())")
-        print("Data file path：\(dataFilePath())")
-    }
-    
-    //save data
-    func saveData() {
-        let data = NSMutableData()
-        let archiver = NSKeyedArchiver(forWritingWith: data)
-        archiver.encode(saveTrack, forKey: "userList")
-        archiver.finishEncoding()
-        data.write(toFile: dataFilePath(), atomically: true)
-    }
-    
-    //read data
-    func loadData() {
-        let path = self.dataFilePath()
-        let defaultManager = FileManager()
-        if defaultManager.fileExists(atPath: path) {
-            let url = URL(fileURLWithPath: path)
-            let data = try! Data(contentsOf: url)
-            let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
-            saveTrack = unarchiver.decodeObject(forKey: "userList") as! Array
-            unarchiver.finishDecoding()
-        }
-    }
-    
-    func documentsDirectory()->String {
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory,
-                                                        .userDomainMask, true)
-        let documentsDirectory = paths.first!
-        return documentsDirectory
-    }
-    
-    func dataFilePath ()->String{
-        return self.documentsDirectory().appendingFormat("/userList.plist")
     }
 }

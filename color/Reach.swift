@@ -89,7 +89,7 @@ public class Reach {
                                             object: nil,
                                             userInfo: ["Status": status.description])
             
-            }, &context)
+        }, &context)
         
         SCNetworkReachabilityScheduleWithRunLoop(reachability, CFRunLoopGetMain(), RunLoopMode.commonModes as CFString)
     }

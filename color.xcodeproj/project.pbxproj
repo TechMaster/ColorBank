@@ -18,7 +18,6 @@
 		CFB043E21EC17AB3009245EB /* colorData.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFB043E11EC17AB3009245EB /* colorData.plist */; };
 		CFB043E41EC17AC6009245EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFB043E31EC17AC6009245EB /* Assets.xcassets */; };
 		CFB043E61EC17AD2009245EB /* ColorBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB043E51EC17AD2009245EB /* ColorBar.swift */; };
-		CFB043E81EC17AD6009245EB /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB043E71EC17AD6009245EB /* PieChart.swift */; };
 		CFB043EA1EC17ADE009245EB /* ColorListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB043E91EC17ADE009245EB /* ColorListCell.swift */; };
 		CFB043ED1EC17AF6009245EB /* color.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CFB043EB1EC17AF6009245EB /* color.xcdatamodeld */; };
 		CFB043EF1EC17B11009245EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFB043EE1EC17B11009245EB /* LaunchScreen.storyboard */; };
@@ -46,7 +45,6 @@
 		CFB043E11EC17AB3009245EB /* colorData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = colorData.plist; sourceTree = "<group>"; };
 		CFB043E31EC17AC6009245EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CFB043E51EC17AD2009245EB /* ColorBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorBar.swift; sourceTree = "<group>"; };
-		CFB043E71EC17AD6009245EB /* PieChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChart.swift; sourceTree = "<group>"; };
 		CFB043E91EC17ADE009245EB /* ColorListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorListCell.swift; sourceTree = "<group>"; };
 		CFB043EC1EC17AF6009245EB /* color.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = color.xcdatamodel; sourceTree = "<group>"; };
 		CFB043EE1EC17B11009245EB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 				19E808D11EB1AC1600EFEE50 /* ColorListTVC.swift */,
 				CFB043E91EC17ADE009245EB /* ColorListCell.swift */,
 				CFB043E51EC17AD2009245EB /* ColorBar.swift */,
-				CFB043E71EC17AD6009245EB /* PieChart.swift */,
 				19E808C91EB1937E00EFEE50 /* DetailColorVC.swift */,
 			);
 			name = ColorListView;
@@ -289,7 +286,6 @@
 				CFB043ED1EC17AF6009245EB /* color.xcdatamodeld in Sources */,
 				CFC888D71ECD49C8007972A7 /* YPMagnifyingView.swift in Sources */,
 				CFB043EA1EC17ADE009245EB /* ColorListCell.swift in Sources */,
-				CFB043E81EC17AD6009245EB /* PieChart.swift in Sources */,
 				19F7CEBA1EE66551008E5E3B /* Reach.swift in Sources */,
 				CFC2BEA31EB2F7BA00F22496 /* ChosenImageVC.swift in Sources */,
 				19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */,

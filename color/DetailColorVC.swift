@@ -156,17 +156,9 @@ class DetailColorVC: UIViewController {
         let shareView = UIView()
         shareView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.width)
         
-        let nameLabel = UILabel()
+        let nameLabel = TextLabel()
         nameLabel.frame = CGRect(x: 0, y: 0, width: shareView.bounds.size.width, height: shareView.bounds.size.width/6)
         nameLabel.text = colorArr[indexSection].colorName
-        nameLabel.textAlignment = .center
-        nameLabel.textColor = UIColor.white
-        nameLabel.backgroundColor = UIColor.black
-        nameLabel.adjustsFontSizeToFitWidth = true
-        nameLabel.layer.borderWidth = 1
-        nameLabel.layer.borderColor = UIColor.white.cgColor
-        nameLabel.layer.masksToBounds = true
-        
         shareView.addSubview(nameLabel)
         
         for i in 0..<5
@@ -181,20 +173,12 @@ class DetailColorVC: UIViewController {
             colorLabel.layer.borderColor = UIColor.white.cgColor
             colorLabel.layer.masksToBounds = true
             
-            let hexLabel = HexLabel()
+            let hexLabel = TextLabel()
             hexLabel.frame = CGRect(x:CGFloat(i)*(shareView.bounds.size.width/5),
                                       y: shareView.bounds.size.width*5/6,
                                       width: shareView.bounds.size.width/5,
                                       height: shareView.bounds.size.width/6)
-            
             hexLabel.text = arr[i]
-            hexLabel.textAlignment = .center
-            hexLabel.backgroundColor = UIColor.black
-            hexLabel.textColor = UIColor.white
-            hexLabel.layer.borderWidth = 1
-            hexLabel.layer.borderColor = UIColor.white.cgColor
-            hexLabel.layer.masksToBounds = true
-            hexLabel.adjustsFontSizeToFitWidth = true
             
             shareView.addSubview(colorLabel)
             shareView.addSubview(hexLabel)
@@ -203,10 +187,7 @@ class DetailColorVC: UIViewController {
         shareImg = UIImage(view: shareView)
         
     }
-    
-    
-    
-    
+
     func share(){
         createShareView()
         
@@ -228,7 +209,21 @@ class DetailColorVC: UIViewController {
     
 }
 
-class HexLabel: UILabel {
+class TextLabel: UILabel {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.textAlignment = .center
+        self.backgroundColor = UIColor.black
+        self.textColor = UIColor.white
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.white.cgColor
+        self.layer.masksToBounds = true
+        self.adjustsFontSizeToFitWidth = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func draw(_ rect: CGRect) {
         let  insets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
         super.drawText(in: UIEdgeInsetsInsetRect(rect, insets))

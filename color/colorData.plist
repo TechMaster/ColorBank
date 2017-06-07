@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>data</key>
+<array>
 	<array>
 		<dict>
 			<key>data</key>
@@ -3245,5 +3244,5 @@
 			<string>Trapped In A Dream</string>
 		</dict>
 	</array>
-</dict>
+</array>
 </plist>
