@@ -15,7 +15,7 @@ struct ColorItem {
     var colorArray: [String]
 }
 
-class ColorListTVC: UITableViewController, UISearchBarDelegate {
+class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
     var filterItemArray = [ColorItem]()
     var itemArray = [ColorItem]()
     var sectionCount: Int = 0
@@ -26,8 +26,11 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "All"
+        
         tableView.delegate = self
         tableView.dataSource = self
+        
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
@@ -52,21 +55,21 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
-        loadDataFromPlist()
-        //
-        //        //Check internet connection
-        //        let status = Reach().connectionStatus()
-        //        switch status {
-        //        case .unknown, .offline:
-        //            print("Not connected")
-        //            loadData()
-        //        case .online(.wwan):
-        //            print("Connected via WWAN")
-        //            loadDataFromServer()
-        //        case .online(.wiFi):
-        //            print("Connected via WiFi")
-        //            loadDataFromServer()
-        //        }
+        //        loadDataFromPlist()
+        
+        //Check internet connection
+        let status = Reach().connectionStatus()
+        switch status {
+        case .unknown, .offline:
+            print("Not connected")
+            loadDataFromPlist()
+        case .online(.wwan):
+            print("Connected via WWAN")
+            loadDataFromServer()
+        case .online(.wiFi):
+            print("Connected via WiFi")
+            loadDataFromServer()
+        }
     }
     
     //MARK: Lấy dữ liệu từ server truyền vào mảng itemArray
@@ -297,7 +300,7 @@ class ColorListTVC: UITableViewController, UISearchBarDelegate {
     
 }
 //MARK: Update SearchBar
-extension ColorListTVC: UISearchResultsUpdating{
+extension AllPalettesTVC: UISearchResultsUpdating{
     func updateSearchResults(for searchController: UISearchController) {
         filterColor(code: searchController.searchBar.text!)
     }

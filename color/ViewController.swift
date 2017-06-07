@@ -105,7 +105,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     //MARK: Color List
     func pushToColorListView() {
-        let newViewController = ColorListTVC()
+        let newViewController = PalettesTabBar()
         self.navigationController?.pushViewController(newViewController, animated: true)
     }
     

@@ -13,7 +13,6 @@ import Fusuma
 
 class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     
-//    var dataModel = DataModel()
     let magView = YPMagnifyingView()
     var imageView = UIImageView()
     var image = UIImage()
@@ -273,7 +272,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         }catch{
             print("An error occurred while writing to plist")
         }
-        ColorListTVC().tableView.reloadData()
+        AllPalettesTVC().tableView.reloadData()
     }
     
     func createNewPaletteRequest(name: String, color1: String, color2: String, color3: String, color4: String, color5: String){
