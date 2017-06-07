@@ -44,7 +44,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
         self.navigationController?.navigationBar.titleTextAttributes =
             [NSForegroundColorAttributeName: UIColor(hexString: "#F38181"),
              NSFontAttributeName: UIFont(name: "American Typewriter", size: 20)!]
-        self.navigationItem.title = "Palettes"
+        self.navigationItem.title = "Your Palettes"
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         

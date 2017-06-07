@@ -33,6 +33,7 @@ class DetailColorVC: UIViewController {
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         self.navigationController?.navigationBar.tintColor = UIColor(hexString: "#F38181")
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(hexString: "#F38181")]
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         
         arr = colorArr[indexSection].colorArray
         

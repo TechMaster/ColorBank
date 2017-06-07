@@ -42,7 +42,6 @@ public class Sniper: UIView {
         self.layer.masksToBounds = true
         self.viewToMagnify = nil
         
-        
         let spacing = self.circleLineWidth/2 + self.singleLineWidth*2
         let halfSize: CGFloat = min(bounds.size.width/2, bounds.size.height/2)
         

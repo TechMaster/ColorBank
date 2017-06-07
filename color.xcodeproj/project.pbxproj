@@ -127,8 +127,8 @@
 			isa = PBXGroup;
 			children = (
 				19BE343A1EE7F7C3008DCBE9 /* PalettesTabBar.swift */,
-				19BE343C1EE7F8BD008DCBE9 /* YourPalettesTVC.swift */,
 				19E808D11EB1AC1600EFEE50 /* AllPalettesTVC.swift */,
+				19BE343C1EE7F8BD008DCBE9 /* YourPalettesTVC.swift */,
 				19F7CEB91EE66551008E5E3B /* Reach.swift */,
 				CFB043E91EC17ADE009245EB /* ColorListCell.swift */,
 				CFB043E51EC17AD2009245EB /* ColorBar.swift */,

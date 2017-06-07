@@ -26,7 +26,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "All"
+        self.title = "Palettes"
         
         tableView.delegate = self
         tableView.dataSource = self
