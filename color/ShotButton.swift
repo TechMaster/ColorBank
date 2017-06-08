@@ -1,3 +1,11 @@
+//
+//  ShotButton
+//  color
+//
+//  Created by Loc Tran on 4/27/17.
+//  Copyright © 2017 LocTran. All rights reserved.
+//
+
 import UIKit
 
 

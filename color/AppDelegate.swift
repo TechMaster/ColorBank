@@ -13,13 +13,11 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var plistPathInDocument:String = String()
     func preparePlistForUse(){
-        // 1
         let rootPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, .userDomainMask, true)[0]
-        // 2
+        
         plistPathInDocument = rootPath+"/colorData.plist"
         if !FileManager.default.fileExists(atPath: plistPathInDocument){
             let plistPathInBundle = Bundle.main.path(forResource: "colorData", ofType: "plist") as String!
-            // 3
             do {
                 try FileManager.default.copyItem(atPath: plistPathInBundle!, toPath: plistPathInDocument)
             }catch{

@@ -23,7 +23,7 @@ public class YPMagnifyingGlass: UIView {
     public var scaleAtTouchPoint: Bool!
     
     public var YPMagnifyingGlassDefaultRadius: CGFloat = 40.0
-    public var YPMagnifyingGlassDefaultOffset: CGFloat = -55.0
+    public var YPMagnifyingGlassDefaultOffset: CGFloat = -65.0
     public var YPMagnifyingGlassDefaultScale: CGFloat = 2.0
     
     public func initViewToMagnify(viewToMagnify: UIView, touchPoint: CGPoint, touchPointOffset: CGPoint, scale: CGFloat, scaleAtTouchPoint: Bool) {

@@ -75,7 +75,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         createImageView()
         
         
-        let magGlass = YPMagnifyingGlass(frame: CGRect(x: magView.frame.origin.x, y: magView.frame.origin.y, width: 55, height: 55))
+        let magGlass = YPMagnifyingGlass(frame: CGRect(x: magView.frame.origin.x, y: magView.frame.origin.y, width: 80, height: 80))
         magGlass.layer.cornerRadius = 8
         magGlass.scale = 4
         magView.magnifyingGlass = magGlass

@@ -142,10 +142,10 @@
 			children = (
 				CFC2BEA21EB2F7BA00F22496 /* ChosenImageVC.swift */,
 				19F9E8651EC30A9400FEA3D5 /* SRCopyableLabel.swift */,
-				CFC754731EC958B8004D8551 /* Sniper.swift */,
 				1981987A1EE3BAA5009A7286 /* ShotButton.swift */,
-				CFC888D41ECD49C8007972A7 /* YPMagnifyingGlass.swift */,
 				CFC888D51ECD49C8007972A7 /* YPMagnifyingView.swift */,
+				CFC888D41ECD49C8007972A7 /* YPMagnifyingGlass.swift */,
+				CFC754731EC958B8004D8551 /* Sniper.swift */,
 			);
 			name = DetectColorView;
 			sourceTree = "<group>";
@@ -415,13 +415,13 @@
 				DEVELOPMENT_TEAM = D6F4345AL3;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = color/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/color",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Loc-Tran";
+				PRODUCT_BUNDLE_IDENTIFIER = LocTran;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -442,13 +442,13 @@
 				DEVELOPMENT_TEAM = D6F4345AL3;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = color/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/color",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Loc-Tran";
+				PRODUCT_BUNDLE_IDENTIFIER = LocTran;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";

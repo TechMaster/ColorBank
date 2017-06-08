@@ -160,13 +160,10 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
                 if itemArray[i].colorArray[j].lowercased().contains(code.lowercased()) == true || itemArray[i].colorName.lowercased().contains(code.lowercased()) == true {
                     
                     //Nếu mảng filterColorName chưa chứa tên màu đó thì append tên màu đó vào
-                    if filterColorName.contains(itemArray[i].colorName) == false
-                    {
+                    if filterColorName.contains(itemArray[i].colorName) == false{
                         filterColorName.append(itemArray[i].colorName)
                         filterItemArray.append(itemArray[i])
-                    }
-                    else
-                    {
+                    }else {
                         break
                     }
                 }
@@ -179,8 +176,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
     //MARK: Tạo cell khi dùng đến searchBar
     func createCellFilter(section: Int) -> UITableViewCell {
         let cell = ColorListCell()
-        for index in 0..<itemArray.count
-        {
+        for index in 0..<itemArray.count{
             let name = itemArray[index].colorName
             let item = itemArray[index].colorArray
             if filterColorName[section] == name {
@@ -270,9 +266,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if searchController.isActive == true && searchController.searchBar.text != "" {
             return createCellFilter(section: indexPath.section)
-        }
-        else
-        {
+        }else {
             return createCell(section: indexPath.section)
         }
     }
@@ -283,8 +277,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
         if searchController.isActive == true && searchController.searchBar.text != "" {
             detailColorVC.colorArr = filterItemArray
             detailColorVC.indexSection = indexPath.section
-        }else
-        {
+        }else {
             detailColorVC.colorArr = itemArray
             detailColorVC.indexSection = indexPath.section
             
