@@ -40,11 +40,9 @@ public class YPMagnifyingView: UIView {
     // MARK: - Touch Events
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch: UITouch = touches.first {
-            
+            self.addSniperAtPoint(point: touch.location(in: self))
             
             self.touchTimer = Timer.scheduledTimer(timeInterval: magnifyingGlassShowDelay, target: self, selector: #selector(YPMagnifyingView.addMagnifyingGlassTimer(timer:)), userInfo: NSValue(cgPoint: touch.location(in: self)), repeats: false)
-            
-//            self.addSniperAtPoint(point: touch.location(in: self))
             
             self.pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
             delegate?.passColor(hexString: pickedColor)
@@ -56,12 +54,10 @@ public class YPMagnifyingView: UIView {
         
         if let touch: UITouch = touches.first {
             
-            self.removeSniper()
-
+            self.sniper.isHidden = true
+            
             self.updateMagnifyingGlassAtPoint(point: touch.location(in: self))
             
-//            self.updateSinperAtPoint(point: touch.location(in: self))
-
             pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
             delegate?.passColor(hexString: pickedColor)
             
@@ -89,6 +85,8 @@ public class YPMagnifyingView: UIView {
         self.sniper.touchPoint = point
         
         let selfView: UIView = self as UIView
+        
+        self.sniper.isHidden = false
         
         selfView.addSubview(self.sniper)
         self.sniper.setNeedsDisplay()
@@ -124,7 +122,7 @@ public class YPMagnifyingView: UIView {
     
     private func updateSinperAtPoint(point: CGPoint){
         self.sniper.touchPoint = point
-//        self.sniper.setNeedsDisplay()
+        self.sniper.setNeedsDisplay()
     }
     
     private func updateMagnifyingGlassAtPoint(point: CGPoint) {
@@ -135,17 +133,15 @@ public class YPMagnifyingView: UIView {
         self.focusPoint.touchPoint = point
         self.focusPoint.setNeedsDisplay()
         
-//        self.sniper.removeFromSuperview()
-        
     }
     
     public func addMagnifyingGlassTimer(timer: Timer) {
         let value: AnyObject? = timer.userInfo as AnyObject?
         if let point = value?.cgPointValue {
-//            self.addSniperAtPoint(point: point)
-
+            
+            self.sniper.isHidden = true
             self.addMagnifyingGlassAtPoint(point: point)
-//            self.removeSniper()
+            
         }
     }
 }
