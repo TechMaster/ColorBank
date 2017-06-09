@@ -48,21 +48,21 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         undoButton.isEnabled = false
         undoButton.setTitleColor(UIColor.lightGray, for: .normal)
         
+//        print(magView.frame)
+        
     }
     
     
     //MARK: ImageView & MagnifyingView
     func createImageView() {
-        
-        imageView.frame = self.magView.bounds
-        imageView.contentMode = .scaleAspectFill
-        
+        imageView.contentMode = .scaleAspectFit
+        imageView.frame = CGRect(x: 0, y: 0, width: self.magView.frame.size.width, height: self.magView.frame.size.height)
         imageView.image = image
-        imageView.isUserInteractionEnabled = true
         
     }
     
     func createMagGlassAndSniper(){
+
         
         let navHeight = self.navigationController?.navigationBar.bounds.size.height
         let screenWidth = self.view.bounds.size.width
@@ -71,36 +71,31 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         magView.frame = CGRect(x: 10, y: navHeight! + statusHeight + 10, width: screenWidth - 20, height: screenWidth - 20)
         magView.layer.borderWidth = 1
         magView.layer.borderColor = UIColor.black.cgColor
+        magView.layer.masksToBounds = true
+        self.view.addSubview(magView)
         
         createImageView()
         
+        magView.addSubview(imageView)
         
-        let magGlass = YPMagnifyingGlass(frame: CGRect(x: magView.frame.origin.x, y: magView.frame.origin.y, width: 80, height: 80))
+        let magGlass = YPMagnifyingGlass(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
         magGlass.layer.cornerRadius = 8
         magGlass.scale = 4
         magView.magnifyingGlass = magGlass
         
-        let focusPoint = YPMagnifyingGlass(frame: CGRect(x: magView.frame.origin.x, y: magView.frame.origin.y, width: 20, height: 20))
+        let focusPoint = YPMagnifyingGlass(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         focusPoint.layer.cornerRadius = focusPoint.frame.width/2
-        focusPoint.scale = 8
+        focusPoint.scale = 20
         magView.focusPoint = focusPoint
         
-        let sniper = Sniper(frame: CGRect(x: magView.frame.origin.x, y: magView.frame.origin.y, width: 30, height: 30))
+        let sniper = Sniper(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         magView.sniper = sniper
         
-        self.view.addSubview(magView)
-        magView.addSubview(imageView)
-        magView.addSniperAtPoint(point: imageView.center)
+        magView.addSniperAtPoint(point: magView.center)
         
         let color = magView.getPixelColorAtPoint(point: imageView.center, sourceView: magView)
         getColorButton.color = UIColor(hexString: color)
         getColorButton.setTitle(color, for: .normal)
-        if UIColor(hexString: color).isLight() == true {
-            getColorButton.titleLabel?.textColor = UIColor.black
-        }else{
-            getColorButton.titleLabel?.textColor = UIColor.white
-        }
-        
     }
     
     
@@ -132,11 +127,6 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     func passColor(hexString: String) {
         getColorButton.color = UIColor(hexString: hexString)
         getColorButton.setTitle(hexString, for: .normal)
-        if UIColor(hexString: hexString).isLight() == true {
-            getColorButton.titleLabel?.textColor = UIColor.black
-        }else{
-            getColorButton.titleLabel?.textColor = UIColor.white
-        }
     }
     
     //MARK: GetColor Button
@@ -153,7 +143,6 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     }
     
     func getColor() {
-        
         self.descriptionLabel.isHidden = true
         
         if customPalette.count < 5 {
@@ -278,7 +267,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     
     func createNewPaletteRequest(name: String, color1: String, color2: String, color3: String, color4: String, color5: String){
         
-        let baseURL : String! = "http://192.168.1.105:3001/addnewpallet"
+        let baseURL : String! = "http://192.168.1.103:3001/addnewpalette"
         
         let param : [String:AnyObject] = ["name" : name as AnyObject, "color1" : color1 as AnyObject, "color2" : color2 as AnyObject, "color3" : color3 as AnyObject, "color4" : color4 as AnyObject, "color5" : color5 as AnyObject]
         
@@ -289,7 +278,6 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         configureSession.httpAdditionalHeaders = ["Content-Type":"application/json"]
         
         let createPaletteSession = URLSession(configuration: configureSession)
-        
         let dataPassing = try! JSONSerialization.data(withJSONObject: param, options: JSONSerialization.WritingOptions.prettyPrinted)
         createPaletteSession.uploadTask(with: urlRequest as URLRequest, from: dataPassing){
             (data,response,error) in

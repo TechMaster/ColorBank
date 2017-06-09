@@ -13,11 +13,10 @@ import Fusuma
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FusumaDelegate {
     
     var baseImage = UIImage()
-    var menuButton = UIButton()
     var paletteButton = UIButton()
     var infoButton = UIButton()
     var mediaButton = UIButton()
-    var myPaletteButton = UIButton()
+    var yourPaletteButton = UIButton()
     var expanding: Bool = false
     
     
@@ -27,24 +26,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.view.backgroundColor = fusumaBackgroundColor
         self.navigationController?.navigationBar.barTintColor = fusumaBackgroundColor
         
+        let screenHeight = self.view.bounds.size.height
         
-        let X = self.view.bounds.size.width/2
-        let Y = self.view.bounds.size.height/2
-        let buttonWidth = self.view.bounds.size.width/7
+        let titleColor = UIColor(hexString: "#E0E4CC")
         
-        paletteButton = createButton(image: #imageLiteral(resourceName: "Palette"), posX: X - buttonWidth/2, posY: Y - buttonWidth/2)
-        infoButton = createButton(image: #imageLiteral(resourceName: "Info"), posX: X - buttonWidth/2, posY: Y - buttonWidth/2)
-        mediaButton = createButton(image: #imageLiteral(resourceName: "Album"), posX: X - buttonWidth/2, posY: Y - buttonWidth/2)
-        menuButton = createButton(image: #imageLiteral(resourceName: "Menu"), posX: X - buttonWidth/2, posY: Y - buttonWidth/2)
         
-        paletteButton.alpha = 0
-        infoButton.alpha = 0
-        mediaButton.alpha = 0
-        
-        menuButton.addTarget(self, action: #selector(animateButtons), for: .touchUpInside)
+        paletteButton = createButton(posY: 0, hexString: "#69D2E7", title: "Color Palettes", titleColor: titleColor)
         paletteButton.addTarget(self, action: #selector(pushToColorListView), for: .touchUpInside)
-        infoButton.addTarget(self, action: #selector(pushToInfoView), for: .touchUpInside)
+        
+        yourPaletteButton = createButton(posY: screenHeight/4, hexString: "#A7DBD8", title: "Your Palettes", titleColor: titleColor)
+        yourPaletteButton.addTarget(self, action: #selector(pushToYourPalettesView), for: .touchUpInside)
+        
+        
+        mediaButton = createButton(posY: screenHeight/2, hexString: "#F38630", title: "Create Your Own", titleColor: titleColor)
         mediaButton.addTarget(self, action: #selector(pushToMediaView), for: .touchUpInside)
+        
+        infoButton = createButton(posY: screenHeight*3/4, hexString: "#FA6900", title: "About Us", titleColor: titleColor)
+        infoButton.addTarget(self, action: #selector(pushToInfoView), for: .touchUpInside)
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,56 +57,31 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    //MARK:
-    func animateButtons() {
-        let center = menuButton.center
-        let spacing = self.view.bounds.size.width/4
-        
-        if expanding == false
-        {
-            UIView.animate(withDuration: 0.5, animations: {
-                
-                self.paletteButton.center = CGPoint(x: center.x, y: center.y - spacing)
-                self.paletteButton.alpha = 1
-                
-                self.infoButton.center = CGPoint(x: center.x/2, y: center.y)
-                self.infoButton.alpha = 1
-                
-                self.mediaButton.center = CGPoint(x: center.x*3/2, y: center.y)
-                self.mediaButton.alpha = 1
-            })
-            expanding = true
-        }
-        else
-        {
-            UIView.animate(withDuration: 0.5, animations: {
-                self.paletteButton.center = self.menuButton.center
-                self.paletteButton.alpha = 0
-                
-                self.infoButton.center = self.menuButton.center
-                self.infoButton.alpha = 0
-                
-                self.mediaButton.center = self.menuButton.center
-                self.mediaButton.alpha = 0
-            })
-            expanding = false
-        }
-    }
-    
     //MARK: Tạo nút
-    func createButton(image: UIImage,posX: CGFloat, posY: CGFloat) -> UIButton {
+    func createButton(posY: CGFloat, hexString: String, title: String, titleColor: UIColor) -> UIButton {
         let Button = UIButton()
-        Button.frame = CGRect(x: posX, y: posY, width: self.view.bounds.size.width/6, height: self.view.bounds.size.width/6)
-        Button.setBackgroundImage(image, for: .normal)
-        Button.layer.cornerRadius = Button.frame.width/2
+        Button.frame = CGRect(x: 0, y: posY, width: self.view.bounds.size.width, height: self.view.bounds.size.height/4)
+        Button.backgroundColor = UIColor(hexString: hexString)
+        Button.setTitle(title, for: .normal)
+        Button.setTitleColor(titleColor, for: .normal)
         self.view.addSubview(Button)
         return Button
     }
     
     //MARK: Color List
     func pushToColorListView() {
+        
         let newViewController = PalettesTabBar()
         self.navigationController?.pushViewController(newViewController, animated: true)
+    
+    }
+    
+    //MARK: Your Palettes
+    func pushToYourPalettesView() {
+        
+        let newViewController = YourPalettesTVC()
+        self.navigationController?.pushViewController(newViewController, animated: true)
+    
     }
     
     //MARK: Info

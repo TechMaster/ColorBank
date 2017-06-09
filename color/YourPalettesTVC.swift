@@ -69,7 +69,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
     
     func loadDataFromServer() {
         __dispatch_async(DispatchQueue.global(), {
-            let url = URL(string: "http://192.168.1.105:3001/all")
+            let url = URL(string: "http://192.168.1.103:3001/all")
             do {
                 let allData = try Data(contentsOf: url!)
                 let allColor = try JSONSerialization.jsonObject(with: allData, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject]
@@ -82,7 +82,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
                 }
                 for i in 0..<self.id.count
                 {
-                    let url = URL(string: "http://192.168.1.105:3001/detailios/\(self.id[i])")
+                    let url = URL(string: "http://192.168.1.103:3001/detailios/\(self.id[i])")
                     do {
                         let colorData = try Data(contentsOf: url!)
                         let allColor = try JSONSerialization.jsonObject(with: colorData, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject]

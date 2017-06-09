@@ -47,6 +47,8 @@ public class YPMagnifyingView: UIView {
             self.pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
             delegate?.passColor(hexString: pickedColor)
             
+            
+            
         }
     }
     
@@ -61,26 +63,46 @@ public class YPMagnifyingView: UIView {
             pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
             delegate?.passColor(hexString: pickedColor)
             
+            switch (touch.location(in: self).x, touch.location(in: self).y) {
+            case (self.frame.minX - self.frame.origin.x...self.frame.maxX - self.frame.origin.x, self.frame.minY - self.frame.origin.y...self.frame.maxY - self.frame.origin.y):
+                magnifyingGlass.isHidden = false
+                focusPoint.isHidden = false
+            default:
+                magnifyingGlass.isHidden = true
+                focusPoint.isHidden = true
+                
+            }
         }
     }
     
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
         self.touchTimer.invalidate()
         self.touchTimer = nil
         self.removeMagnifyingGlass()
         
         if let touch: UITouch = touches.first {
+            switch (touch.location(in: self).x, touch.location(in: self).y) {
+            case (self.frame.minX - self.frame.origin.x...self.frame.maxX - self.frame.origin.x, self.frame.minY - self.frame.origin.y...self.frame.maxY - self.frame.origin.y):
+                sniper.isHidden = false
+                
+            default:
+                sniper.isHidden = true
+            }
             self.addSniperAtPoint(point: touch.location(in: self))
             pickedColor = self.getPixelColorAtPoint(point: touch.location(in: self), sourceView: self)
             
             delegate?.passColor(hexString: pickedColor)
             
+            
         }
+        
     }
     
     // MARK: - Private Functions
     
     public func addSniperAtPoint(point: CGPoint){
+        
         self.sniper.viewToMagnify = self as UIView
         self.sniper.touchPoint = point
         

@@ -95,6 +95,12 @@ public class ShotButton: UIButton {
         innerCircleLayer.strokeColor = UIColor.clear.cgColor
         layer.addSublayer(innerCircleLayer)
         
+        if color.isLight() == true {
+            self.setTitleColor(UIColor.black, for: .normal)
+        }else{
+            self.setTitleColor(UIColor.white, for: .normal)
+        }
+        
     }
     
     private func setCircleLayouts() {
