@@ -26,6 +26,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    var plistPathYourPalettes:String = String()
+    func preparePlistYourPalettesForUse(){
+        let rootPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, .userDomainMask, true)[0]
+        
+        plistPathYourPalettes = rootPath+"/yourPalettes.plist"
+        if !FileManager.default.fileExists(atPath: plistPathYourPalettes){
+            let plistPathInBundle = Bundle.main.path(forResource: "yourPalettes", ofType: "plist") as String!
+            do {
+                try FileManager.default.copyItem(atPath: plistPathInBundle!, toPath: plistPathYourPalettes)
+            }catch{
+                print("Error occurred while copying file to document \(error)")
+            }
+        }
+    }
+    
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -36,6 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.rootViewController = navi
         self.window?.makeKeyAndVisible()
         self.preparePlistForUse()
+        self.preparePlistYourPalettesForUse()
+
         return true
     }
     
@@ -56,6 +73,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         self.preparePlistForUse()
+        self.preparePlistYourPalettesForUse()
+
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

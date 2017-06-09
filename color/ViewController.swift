@@ -64,6 +64,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         Button.backgroundColor = UIColor(hexString: hexString)
         Button.setTitle(title, for: .normal)
         Button.setTitleColor(titleColor, for: .normal)
+        Button.setTitleShadowColor(UIColor.black, for: .normal)
         self.view.addSubview(Button)
         return Button
     }
@@ -71,7 +72,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     //MARK: Color List
     func pushToColorListView() {
         
-        let newViewController = PalettesTabBar()
+        let newViewController = AllPalettesTVC()
         self.navigationController?.pushViewController(newViewController, animated: true)
     
     }

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1981987B1EE3BAA5009A7286 /* ShotButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1981987A1EE3BAA5009A7286 /* ShotButton.swift */; };
-		19BE343B1EE7F7C3008DCBE9 /* PalettesTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BE343A1EE7F7C3008DCBE9 /* PalettesTabBar.swift */; };
 		19BE343D1EE7F8BD008DCBE9 /* YourPalettesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BE343C1EE7F8BD008DCBE9 /* YourPalettesTVC.swift */; };
 		19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */; };
 		19E808B11EB18EE700EFEE50 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808B01EB18EE700EFEE50 /* ViewController.swift */; };
@@ -28,13 +27,13 @@
 		CFC754741EC958B8004D8551 /* Sniper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC754731EC958B8004D8551 /* Sniper.swift */; };
 		CFC888D61ECD49C8007972A7 /* YPMagnifyingGlass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC888D41ECD49C8007972A7 /* YPMagnifyingGlass.swift */; };
 		CFC888D71ECD49C8007972A7 /* YPMagnifyingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC888D51ECD49C8007972A7 /* YPMagnifyingView.swift */; };
+		CFEAB5281EEA5D6500F96B95 /* yourPalettes.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFEAB5271EEA5D6500F96B95 /* yourPalettes.plist */; };
 		CFFEF15D1EE690E000071D67 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFEF15C1EE690E000071D67 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		09709D13FA795FE3CC57B389 /* Pods_color.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_color.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1981987A1EE3BAA5009A7286 /* ShotButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShotButton.swift; sourceTree = "<group>"; };
-		19BE343A1EE7F7C3008DCBE9 /* PalettesTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PalettesTabBar.swift; sourceTree = "<group>"; };
 		19BE343C1EE7F8BD008DCBE9 /* YourPalettesTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourPalettesTVC.swift; sourceTree = "<group>"; };
 		19E808AB1EB18EE700EFEE50 /* color.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = color.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +56,7 @@
 		CFC754731EC958B8004D8551 /* Sniper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sniper.swift; sourceTree = "<group>"; };
 		CFC888D41ECD49C8007972A7 /* YPMagnifyingGlass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPMagnifyingGlass.swift; sourceTree = "<group>"; };
 		CFC888D51ECD49C8007972A7 /* YPMagnifyingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPMagnifyingView.swift; sourceTree = "<group>"; };
+		CFEAB5271EEA5D6500F96B95 /* yourPalettes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = yourPalettes.plist; sourceTree = "<group>"; };
 		CFFEF15C1EE690E000071D67 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,7 +126,6 @@
 		CFC2BE9F1EB2F45F00F22496 /* ColorListView */ = {
 			isa = PBXGroup;
 			children = (
-				19BE343A1EE7F7C3008DCBE9 /* PalettesTabBar.swift */,
 				19E808D11EB1AC1600EFEE50 /* AllPalettesTVC.swift */,
 				19BE343C1EE7F8BD008DCBE9 /* YourPalettesTVC.swift */,
 				19F7CEB91EE66551008E5E3B /* Reach.swift */,
@@ -155,6 +154,7 @@
 			children = (
 				19E808BD1EB18EE700EFEE50 /* Info.plist */,
 				CFB043E11EC17AB3009245EB /* colorData.plist */,
+				CFEAB5271EEA5D6500F96B95 /* yourPalettes.plist */,
 				CFB043EB1EC17AF6009245EB /* color.xcdatamodeld */,
 			);
 			name = Support;
@@ -223,6 +223,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFEAB5281EEA5D6500F96B95 /* yourPalettes.plist in Resources */,
 				CFB043EF1EC17B11009245EB /* LaunchScreen.storyboard in Resources */,
 				CFB043E21EC17AB3009245EB /* colorData.plist in Resources */,
 				CFB043E41EC17AC6009245EB /* Assets.xcassets in Resources */,
@@ -296,7 +297,6 @@
 				19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */,
 				19E808D21EB1AC1600EFEE50 /* AllPalettesTVC.swift in Sources */,
 				CFFEF15D1EE690E000071D67 /* Extensions.swift in Sources */,
-				19BE343B1EE7F7C3008DCBE9 /* PalettesTabBar.swift in Sources */,
 				19E808CA1EB1937E00EFEE50 /* DetailColorVC.swift in Sources */,
 				1981987B1EE3BAA5009A7286 /* ShotButton.swift in Sources */,
 				19BE343D1EE7F8BD008DCBE9 /* YourPalettesTVC.swift in Sources */,

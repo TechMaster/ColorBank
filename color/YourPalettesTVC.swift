@@ -48,21 +48,21 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
-        //        loadDataFromPlist()
+                loadDataFromPlist()
         
         //Check internet connection
-        let status = Reach().connectionStatus()
-        switch status {
-        case .unknown, .offline:
-            print("Not connected")
-            loadDataFromPlist()
-        case .online(.wwan):
-            print("Connected via WWAN")
-            loadDataFromServer()
-        case .online(.wiFi):
-            print("Connected via WiFi")
-            loadDataFromServer()
-        }
+//        let status = Reach().connectionStatus()
+//        switch status {
+//        case .unknown, .offline:
+//            print("Not connected")
+//            loadDataFromPlist()
+//        case .online(.wwan):
+//            print("Connected via WWAN")
+//            loadDataFromServer()
+//        case .online(.wiFi):
+//            print("Connected via WiFi")
+//            loadDataFromServer()
+//        }
     }
     
     //MARK: Lấy dữ liệu từ server truyền vào mảng itemArray
@@ -120,7 +120,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
         
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        pathPlist = appDelegate.plistPathInDocument
+        pathPlist = appDelegate.plistPathYourPalettes
         
         let data: Data = FileManager.default.contents(atPath: pathPlist)!
         do {

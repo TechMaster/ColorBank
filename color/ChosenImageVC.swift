@@ -243,7 +243,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     
     func saveDataToPlist(dict: NSDictionary, customPaletteName: String){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let pathForThePlistFile = appDelegate.plistPathInDocument
+        let pathForThePlistFile = appDelegate.plistPathYourPalettes
         
         // Extract the content of the file as NSData
         print(pathForThePlistFile)
