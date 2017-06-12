@@ -13,7 +13,7 @@ import Fusuma
 
 class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     
-    var customPaletteColors = [ColorItem]()
+    var customPaletteColors = [ColorPalette]()
     var notesArray = NSMutableArray()
     let magView = YPMagnifyingView()
     var imageView = UIImageView()
@@ -258,11 +258,9 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
             print("An error occurred while writing to plist")
         }
         AllPalettesTVC().tableView.reloadData()
-        let detailColorVC = DetailColorVC()
-            customPaletteColors.append(ColorItem(colorName: customPaletteName, colorArray: customPaletteHexArray))
-            detailColorVC.colorArr = customPaletteColors
-            detailColorVC.indexSection = 0
-        self.navigationController?.pushViewController(detailColorVC, animated: true)
+        let yourPalettesTVC = YourPalettesTVC()
+        yourPalettesTVC.scrollToBottom = true
+        self.navigationController?.pushViewController(yourPalettesTVC, animated: true)
     }
     
     func createNewPaletteRequest(name: String, color1: String, color2: String, color3: String, color4: String, color5: String){

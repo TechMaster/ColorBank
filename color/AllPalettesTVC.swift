@@ -10,16 +10,14 @@ import UIKit
 import Foundation
 import Fusuma
 
-struct ColorItem {
+struct ColorPalette {
     var colorName: String
     var colorArray: [String]
 }
 
 class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
-    var filterItemArray = [ColorItem]()
-    var itemArray = [ColorItem]()
-    var sectionCount: Int = 0
-    var arrData = NSArray()
+    var filterItemArray = [ColorPalette]()
+    var palettesArray = [ColorPalette]()
     var filterColorName = [String]()
     var searchController = UISearchController()
     var id: [String] = []
@@ -55,14 +53,18 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
-        //        loadDataFromPlist()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        loadDataFromPlist()
         
         //Check internet connection
 //        let status = Reach().connectionStatus()
 //        switch status {
 //        case .unknown, .offline:
 //            print("Not connected")
-            loadDataFromPlist()
+//            loadDataFromPlist()
 //        case .online(.wwan):
 //            print("Connected via WWAN")
 //            loadDataFromServer()
@@ -103,7 +105,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
                                 item.append(aObject["color3"]! as! String)
                                 item.append(aObject["color4"]! as! String)
                                 item.append(aObject["color5"]! as! String)
-                                self.itemArray.append(ColorItem(colorName: aObject["name"]! as! String, colorArray: item ))
+                                self.palettesArray.append(ColorPalette(colorName: aObject["name"]! as! String, colorArray: item ))
                                 __dispatch_async(DispatchQueue.main, {
                                     self.tableView.reloadData()
                                 })
@@ -122,23 +124,20 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
     //MARK: Lấy dữ liệu từ file plist truyền vào mảng itemArray
     func loadDataFromPlist(){
         
-        var notesArray = NSMutableArray()
+        var arrayPalettesFromPlist = NSMutableArray()
         var pathPlist: String = ""
-        
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         pathPlist = appDelegate.plistPathInDocument
         
         let data: Data = FileManager.default.contents(atPath: pathPlist)!
         do {
-            notesArray = try PropertyListSerialization.propertyList(from: data, options: PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves, format: nil) as! NSMutableArray
-        }
-        catch
-        {
+            arrayPalettesFromPlist = try PropertyListSerialization.propertyList(from: data, options: PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves, format: nil) as! NSMutableArray
+        }catch{
             print("reading error")
         }
         
-        arrData = notesArray[0] as! NSArray
+        let arrData = arrayPalettesFromPlist[0] as! NSArray
         for index in 0..<arrData.count{
             
             let itemDict = arrData[index] as! NSDictionary
@@ -146,7 +145,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
             let item = itemDict["data"] as! NSArray
             let name = itemDict["name"] as! String
             
-            itemArray.append(ColorItem(colorName: name, colorArray: item as! [String]))
+            palettesArray.append(ColorPalette(colorName: name, colorArray: item as! [String]))
             
         }
     }
@@ -158,19 +157,19 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         filterItemArray.removeAll()
         
         //Vào trong mảng itemArray
-        for i in 0..<itemArray.count{
+        for i in 0..<palettesArray.count{
             
             //Vào trong mảng colorArray
-            for j in 0..<itemArray[i].colorArray.count{
+            for j in 0..<palettesArray[i].colorArray.count{
                 
                 //Kiểm tra nếu mảng colorArray chứa code
-                if itemArray[i].colorArray[j].lowercased().contains(code.lowercased()) == true || itemArray[i].colorName.lowercased().contains(code.lowercased()) == true {
+                if palettesArray[i].colorArray[j].lowercased().contains(code.lowercased()) == true || palettesArray[i].colorName.lowercased().contains(code.lowercased()) == true {
                     
                     //Nếu mảng filterColorName chưa chứa tên màu đó thì append tên màu đó vào
-                    if filterColorName.contains(itemArray[i].colorName) == false
+                    if filterColorName.contains(palettesArray[i].colorName) == false
                     {
-                        filterColorName.append(itemArray[i].colorName)
-                        filterItemArray.append(itemArray[i])
+                        filterColorName.append(palettesArray[i].colorName)
+                        filterItemArray.append(palettesArray[i])
                     }
                     else
                     {
@@ -186,10 +185,10 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
     //MARK: Tạo cell khi dùng đến searchBar
     func createCellFilter(section: Int) -> UITableViewCell {
         let cell = ColorListCell()
-        for index in 0..<itemArray.count
+        for index in 0..<palettesArray.count
         {
-            let name = itemArray[index].colorName
-            let item = itemArray[index].colorArray
+            let name = palettesArray[index].colorName
+            let item = palettesArray[index].colorArray
             if filterColorName[section] == name {
                 cell.color0 = item[0]
                 cell.color1 = item[1]
@@ -216,7 +215,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
     //MARK: Tạo cell
     func createCell(section: Int) -> UITableViewCell {
         let cell = ColorListCell()
-        let item = itemArray[section].colorArray
+        let item = palettesArray[section].colorArray
         
         cell.color0 = item[0]
         cell.color1 = item[1]
@@ -261,14 +260,14 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         if searchController.isActive == true && searchController.searchBar.text != "" {
             return filterColorName[section]
         }
-        return itemArray[section].colorName
+        return palettesArray[section].colorName
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         if searchController.isActive == true && searchController.searchBar.text != "" {
             return filterColorName.count
         }
-        return itemArray.count
+        return palettesArray.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -292,7 +291,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
             detailColorVC.indexSection = indexPath.section
         }else
         {
-            detailColorVC.colorArr = itemArray
+            detailColorVC.colorArr = palettesArray
             detailColorVC.indexSection = indexPath.section
             
         }

@@ -11,13 +11,16 @@ import Foundation
 import Fusuma
 
 class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
-    var filterItemArray = [ColorItem]()
-    var itemArray = [ColorItem]()
-    var sectionCount: Int = 0
-    var arrData = NSArray()
+    var filterItemArray = [ColorPalette]()
+    var palettesArray = [ColorPalette]()
     var filterColorName = [String]()
     var searchController = UISearchController()
+    var arrayPalettesFromPlist = NSMutableArray()
+    var pathPlist: String = ""
     var id: [String] = []
+    var deletePlanetIndexPath: NSIndexPath? = nil
+    var scrollToBottom = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,90 +51,37 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
-                loadDataFromPlist()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
         
-        //Check internet connection
-//        let status = Reach().connectionStatus()
-//        switch status {
-//        case .unknown, .offline:
-//            print("Not connected")
-//            loadDataFromPlist()
-//        case .online(.wwan):
-//            print("Connected via WWAN")
-//            loadDataFromServer()
-//        case .online(.wiFi):
-//            print("Connected via WiFi")
-//            loadDataFromServer()
-//        }
+        self.loadDataFromPlist()
+        self.tableView.reloadData()
+        
+        if scrollToBottom == true{
+            let scrollToPath = IndexPath(row: 0, section: palettesArray.count-1)
+            self.tableView.scrollToRow(at: scrollToPath, at: .none, animated: false)
+            scrollToBottom = false
+        }
     }
-    
-    //MARK: Lấy dữ liệu từ server truyền vào mảng itemArray
-    
-    func loadDataFromServer() {
-        __dispatch_async(DispatchQueue.global(), {
-            let url = URL(string: "http://192.168.1.103:3001/all")
-            do {
-                let allData = try Data(contentsOf: url!)
-                let allColor = try JSONSerialization.jsonObject(with: allData, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject]
-                if let arrJSON = allColor["data"] as? NSArray {
-                    for index in 0..<arrJSON.count
-                    {
-                        let aObject = arrJSON[index] as! [String: AnyObject]
-                        self.id.append(aObject["id"] as! String)
-                    }
-                }
-                for i in 0..<self.id.count
-                {
-                    let url = URL(string: "http://192.168.1.103:3001/detailios/\(self.id[i])")
-                    do {
-                        let colorData = try Data(contentsOf: url!)
-                        let allColor = try JSONSerialization.jsonObject(with: colorData, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject]
-                        if let arrJSON = allColor["data"] as? NSArray {
-                            for index in 0..<arrJSON.count
-                            {
-                                let aObject = arrJSON[index] as! [String: AnyObject]
-                                var item = [String]()
-                                item.append(aObject["color1"]! as! String)
-                                item.append(aObject["color2"]! as! String)
-                                item.append(aObject["color3"]! as! String)
-                                item.append(aObject["color4"]! as! String)
-                                item.append(aObject["color5"]! as! String)
-                                self.itemArray.append(ColorItem(colorName: aObject["name"]! as! String, colorArray: item ))
-                                __dispatch_async(DispatchQueue.main, {
-                                    self.tableView.reloadData()
-                                })
-                            }
-                        }
-                    }
-                }
-            }
-            catch
-            {
-            }
-        })
-    }
-    
     
     //MARK: Lấy dữ liệu từ file plist truyền vào mảng itemArray
     func loadDataFromPlist(){
-        
-        var notesArray = NSMutableArray()
-        var pathPlist: String = ""
-        
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         pathPlist = appDelegate.plistPathYourPalettes
         
         let data: Data = FileManager.default.contents(atPath: pathPlist)!
         do {
-            notesArray = try PropertyListSerialization.propertyList(from: data, options: PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves, format: nil) as! NSMutableArray
+            arrayPalettesFromPlist = try PropertyListSerialization.propertyList(from: data, options: PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves, format: nil) as! NSMutableArray
         }
         catch
         {
             print("reading error")
         }
         
-        arrData = notesArray[0] as! NSArray
+        let arrData = arrayPalettesFromPlist[0] as! NSArray
         for index in 0..<arrData.count{
             
             let itemDict = arrData[index] as! NSDictionary
@@ -139,9 +89,22 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
             let item = itemDict["data"] as! NSArray
             let name = itemDict["name"] as! String
             
-            itemArray.append(ColorItem(colorName: name, colorArray: item as! [String]))
+            palettesArray.append(ColorPalette(colorName: name, colorArray: item as! [String]))
             
         }
+        
+        for i in arrData {
+            print(i)
+        }
+        
+        print("-----------------")
+        
+        for i in palettesArray {
+            print(i)
+        }
+        
+        print("------------------")
+        print("arrData: \(arrData.count) - palettesArray: \(palettesArray.count)")
     }
     
     //MARK: Lọc mã màu
@@ -151,18 +114,18 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
         filterItemArray.removeAll()
         
         //Vào trong mảng itemArray
-        for i in 0..<itemArray.count{
+        for i in 0..<palettesArray.count{
             
             //Vào trong mảng colorArray
-            for j in 0..<itemArray[i].colorArray.count{
+            for j in 0..<palettesArray[i].colorArray.count{
                 
                 //Kiểm tra nếu mảng colorArray chứa code
-                if itemArray[i].colorArray[j].lowercased().contains(code.lowercased()) == true || itemArray[i].colorName.lowercased().contains(code.lowercased()) == true {
+                if palettesArray[i].colorArray[j].lowercased().contains(code.lowercased()) == true || palettesArray[i].colorName.lowercased().contains(code.lowercased()) == true {
                     
                     //Nếu mảng filterColorName chưa chứa tên màu đó thì append tên màu đó vào
-                    if filterColorName.contains(itemArray[i].colorName) == false{
-                        filterColorName.append(itemArray[i].colorName)
-                        filterItemArray.append(itemArray[i])
+                    if filterColorName.contains(palettesArray[i].colorName) == false{
+                        filterColorName.append(palettesArray[i].colorName)
+                        filterItemArray.append(palettesArray[i])
                     }else {
                         break
                     }
@@ -176,9 +139,9 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
     //MARK: Tạo cell khi dùng đến searchBar
     func createCellFilter(section: Int) -> UITableViewCell {
         let cell = ColorListCell()
-        for index in 0..<itemArray.count{
-            let name = itemArray[index].colorName
-            let item = itemArray[index].colorArray
+        for index in 0..<palettesArray.count{
+            let name = palettesArray[index].colorName
+            let item = palettesArray[index].colorArray
             if filterColorName[section] == name {
                 cell.color0 = item[0]
                 cell.color1 = item[1]
@@ -205,7 +168,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
     //MARK: Tạo cell
     func createCell(section: Int) -> UITableViewCell {
         let cell = ColorListCell()
-        let item = itemArray[section].colorArray
+        let item = palettesArray[section].colorArray
         
         cell.color0 = item[0]
         cell.color1 = item[1]
@@ -227,7 +190,55 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
         return cell
     }
     
-    // MARK: - Table view data source
+    //MARK: Delete Palette
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            deletePlanetIndexPath = indexPath as NSIndexPath
+            let planetToDelete = palettesArray[indexPath.row].colorName
+            confirmDelete(palette: planetToDelete)
+        }
+    }
+    
+    func confirmDelete(palette: String) {
+        let alert = UIAlertController(title: "Delete Planet", message: "Are you sure you want to permanently delete \(palette)?", preferredStyle: .actionSheet)
+        
+        let DeleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: handleDeletePlanet)
+        let CancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: cancelDeletePlanet)
+        
+        alert.addAction(DeleteAction)
+        alert.addAction(CancelAction)
+        
+        // Support presentation in iPad
+        alert.popoverPresentationController?.sourceView = self.view
+        alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.size.width / 2.0, y: self.view.bounds.size.height / 2.0, width: 1.0, height: 1.0)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func handleDeletePlanet(alertAction: UIAlertAction!) -> Void {
+        if let indexPath = deletePlanetIndexPath {
+            tableView.beginUpdates()
+            
+            (arrayPalettesFromPlist[0] as AnyObject).removeObject(at: indexPath.row)
+            palettesArray.remove(at: indexPath.row)
+
+            // Note that indexPath is wrapped in an array:  [indexPath]
+            tableView.deleteRows(at: [indexPath as IndexPath], with: .automatic)
+            
+            arrayPalettesFromPlist.write(toFile: pathPlist, atomically: true)
+            
+            deletePlanetIndexPath = nil
+            self.tableView.reloadData()
+            tableView.endUpdates()
+        }
+    }
+    
+    func cancelDeletePlanet(alertAction: UIAlertAction!) {
+        deletePlanetIndexPath = nil
+    }
+    
+    
+    //MARK: - Table view data source
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.view.bounds.size.width/5
     }
@@ -250,14 +261,14 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
         if searchController.isActive == true && searchController.searchBar.text != "" {
             return filterColorName[section]
         }
-        return itemArray[section].colorName
+        return palettesArray[section].colorName
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         if searchController.isActive == true && searchController.searchBar.text != "" {
             return filterColorName.count
         }
-        return itemArray.count
+        return palettesArray.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -278,7 +289,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
             detailColorVC.colorArr = filterItemArray
             detailColorVC.indexSection = indexPath.section
         }else {
-            detailColorVC.colorArr = itemArray
+            detailColorVC.colorArr = palettesArray
             detailColorVC.indexSection = indexPath.section
             
         }

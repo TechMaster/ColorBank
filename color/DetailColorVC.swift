@@ -12,7 +12,7 @@ import QuartzCore
 
 class DetailColorVC: UIViewController {
     
-    var colorArr: [ColorItem]!
+    var colorArr: [ColorPalette]!
     var indexSection: Int!
     var rotateCount: Int = 1
     var arr = [String]()
