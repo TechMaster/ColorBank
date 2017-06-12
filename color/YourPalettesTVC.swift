@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import Fusuma
 
-class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
+class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegate {
     var filterItemArray = [ColorPalette]()
     var palettesArray = [ColorPalette]()
     var filterColorName = [String]()
@@ -36,7 +36,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
-        
+       
         let cancelButtonAttributes: NSDictionary = [NSForegroundColorAttributeName:UIColor(hexString: "#F38181")]
         UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes as? [String : AnyObject], for: UIControlState.normal)
         
@@ -52,26 +52,117 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
             [NSForegroundColorAttributeName: UIColor(hexString: "#F38181"),
              NSFontAttributeName: UIFont(name: "American Typewriter", size: 20)!]
         self.navigationItem.title = "Your Palettes"
+        
+        createBackButton()
+        createAddNewPaletteButton()
+        
+    }
+    
+    func createBackButton(){
+        
         //Create back button of type custom
         
         let myBackButton:UIButton = UIButton.init(type: .custom)
-        myBackButton.addTarget(self, action: #selector(popToView(sender:)), for: .touchUpInside)
-        myBackButton.setTitle("\u{3031}", for: .normal)
+        myBackButton.addTarget(self, action: #selector(popToRootView(sender:)), for: .touchUpInside)
+        myBackButton.setTitle("Back", for: .normal)
         myBackButton.setTitleColor(UIColor(hexString: "#F38181"), for: .normal)
         myBackButton.sizeToFit()
         
-        //        Add back button to navigationBar as left Button
+        //Add back button to navigationBar as left Button
         
         let myCustomBackButtonItem:UIBarButtonItem = UIBarButtonItem(customView: myBackButton)
-        self.navigationItem.leftBarButtonItem  = myCustomBackButtonItem
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        
+        self.navigationItem.leftBarButtonItem = myCustomBackButtonItem
+
+    }
+    
+    
+    func popToRootView(sender:UIBarButtonItem){
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    func createAddNewPaletteButton(){
+        //Create back button of type custom
+        
+        let myAddButton:UIButton = UIButton.init(type: .custom)
+        myAddButton.addTarget(self, action: #selector(pushToMediaView(sender:)), for: .touchUpInside)
+        myAddButton.setTitle("\u{002B}", for: .normal)
+        myAddButton.setTitleColor(UIColor(hexString: "#F38181"), for: .normal)
+        myAddButton.titleLabel?.font = UIFont(name: "American Typewriter", size: 40)
+        myAddButton.sizeToFit()
+        
+        //        Add back button to navigationBar as left Button
+        
+        let myCustomBackButtonItem:UIBarButtonItem = UIBarButtonItem(customView: myAddButton)
+        self.navigationItem.rightBarButtonItem  = myCustomBackButtonItem
+//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+    }
+    
+    
+    //MARK: Media
+    func pushToMediaView(sender: UIBarButtonItem) {
+        
+        let fusuma = FusumaViewController()
+        fusuma.delegate = self as FusumaDelegate
+        fusuma.hasVideo = false // If you want to let the users allow to use video.
+        self.navigationController?.pushViewController(fusuma, animated: true)
         
     }
     
-    
-    func popToView(sender:UIBarButtonItem){
-        self.navigationController?.popToRootViewController(animated: true)
+    //MARK:  select image delegate
+    func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
+        switch source {
+        case .camera:
+            print("Image captured from Camera")
+        case .library:
+            print("Image selected from Camera Roll")
+        default:
+            print("Image selected")
+        }
+        
+        let newViewController = ChosenImageVC()
+        newViewController.image = image
+        self.navigationController?.pushViewController(newViewController, animated: true)
+        dismiss(animated: true, completion: nil)
     }
+    
+    func fusumaWillClosed() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    // Return the image but called after is dismissed.
+    func fusumaDismissedWithImage(image: UIImage) {
+        
+        print("Called just after FusumaViewController is dismissed.")
+    }
+    
+    func fusumaVideoCompleted(withFileURL fileURL: URL) {
+        
+        print("Called just after a video has been selected.")
+    }
+    
+    // When camera roll is not authorized, this method is called.
+    func fusumaCameraRollUnauthorized() {
+        
+        print("Camera roll unauthorized")
+        
+        let alert = UIAlertController(title: "Access Requested", message: "Saving image needs to access your photo album", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { (action) -> Void in
+            
+            if let url = URL(string:UIApplicationOpenSettingsURLString) {
+                UIApplication.shared.openURL(url)
+            }
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+
     
     //MARK: Lấy dữ liệu từ file plist truyền vào mảng itemArray
     func loadDataFromPlist(){

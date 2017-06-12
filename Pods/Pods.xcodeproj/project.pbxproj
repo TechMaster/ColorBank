@@ -39,7 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		26A6E6CD09D8ABFB15F7403054840D53 /* Pods-color.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-color.modulemap"; sourceTree = "<group>"; };
+		26A6E6CD09D8ABFB15F7403054840D53 /* Pods-color.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-color.modulemap"; sourceTree = "<group>"; };
 		2F9E400F4EBB40F53F48F01359FD2AAD /* FSAlbumViewCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = FSAlbumViewCell.xib; path = Sources/FSAlbumViewCell.xib; sourceTree = "<group>"; };
 		427FDC4E6130005591A94B287587AC3B /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Sources/Assets.xcassets; sourceTree = "<group>"; };
 		44CE3667932A9C65A8CB78A2C09DA7AB /* FSAlbumViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FSAlbumViewCell.swift; path = Sources/FSAlbumViewCell.swift; sourceTree = "<group>"; };
@@ -55,19 +55,19 @@
 		7A038B4CB853AE0118AD7BDA66671399 /* Pods-color-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-color-frameworks.sh"; sourceTree = "<group>"; };
 		7AF036579DDE48306389EDD42C5646EE /* Pods-color-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-color-acknowledgements.plist"; sourceTree = "<group>"; };
 		7DADB64F6395E3F4812A4C7BAAE0F6E6 /* Pods-color-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-color-resources.sh"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A2BF07432A167300220D1BB9EE7584E5 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A8BD716438461F9C44A473E55C1BA39E /* FSAlbumView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FSAlbumView.swift; path = Sources/FSAlbumView.swift; sourceTree = "<group>"; };
 		AB54CCB79E3F33C1BEE9C023741D3B8F /* FusumaViewController.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = FusumaViewController.xib; path = Sources/FusumaViewController.xib; sourceTree = "<group>"; };
 		ABF778C0F45E2022CBE3AA9BFF36176C /* FSCameraView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = FSCameraView.xib; path = Sources/FSCameraView.xib; sourceTree = "<group>"; };
 		AFE9D531FED14A1E546E243BAD586913 /* Pods-color.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-color.debug.xcconfig"; sourceTree = "<group>"; };
 		B4B749E25F5D04FB453503A7AB07DF99 /* FSConstants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FSConstants.swift; path = Sources/FSConstants.swift; sourceTree = "<group>"; };
-		BA008F1C007E8807FF64BFC1362A4D6B /* Fusuma.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Fusuma.modulemap; sourceTree = "<group>"; };
+		BA008F1C007E8807FF64BFC1362A4D6B /* Fusuma.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Fusuma.modulemap; sourceTree = "<group>"; };
 		BEF8DED38F1A8B897EFC5644E6802A55 /* Pods-color-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-color-umbrella.h"; sourceTree = "<group>"; };
 		C76C199A1A5705200C941C67310AF5E0 /* Fusuma-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Fusuma-umbrella.h"; sourceTree = "<group>"; };
 		D85845D4FCEF0FBFACBA02ED26D78942 /* FSAlbumView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = FSAlbumView.xib; path = Sources/FSAlbumView.xib; sourceTree = "<group>"; };
-		DBE969D11BD0179335064F8913320403 /* Pods_color.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_color.framework; path = "Pods-color.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		EFDB3638A2698B3CC455AB611140C05E /* Fusuma.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Fusuma.framework; path = Fusuma.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBE969D11BD0179335064F8913320403 /* Pods_color.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_color.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFDB3638A2698B3CC455AB611140C05E /* Fusuma.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Fusuma.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E36BDF310760D1E6624D1ADCA87583 /* Fusuma-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Fusuma-prefix.pch"; sourceTree = "<group>"; };
 		FD734E9C9874531451715715ADEAC908 /* Pods-color-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-color-acknowledgements.markdown"; sourceTree = "<group>"; };
 		FDF607C356AE46A4D7EB2E23CB4C486D /* Pods-color.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-color.release.xcconfig"; sourceTree = "<group>"; };
@@ -158,7 +158,6 @@
 				D3DC395A4647C206EF0800F672222A2C /* Resources */,
 				634FD04952328062E50B021EEF2418AD /* Support Files */,
 			);
-			name = Fusuma;
 			path = Fusuma;
 			sourceTree = "<group>";
 		};

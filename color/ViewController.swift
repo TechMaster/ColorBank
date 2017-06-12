@@ -31,17 +31,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let titleColor = UIColor(hexString: "#E0E4CC")
         
         
-        paletteButton = createButton(posY: 0, hexString: "#69D2E7", title: "Color Palettes", titleColor: titleColor)
+        paletteButton = createButton(posY: 0, hexString: "#FA6900", title: "Color Palettes", titleColor: titleColor)
         paletteButton.addTarget(self, action: #selector(pushToColorListView), for: .touchUpInside)
         
         yourPaletteButton = createButton(posY: screenHeight/4, hexString: "#F38630", title: "Your Palettes", titleColor: titleColor)
         yourPaletteButton.addTarget(self, action: #selector(pushToYourPalettesView), for: .touchUpInside)
         
         
-        mediaButton = createButton(posY: screenHeight/2, hexString: "#A7DBD8", title: "Create Your Own", titleColor: titleColor)
+        mediaButton = createButton(posY: screenHeight/2, hexString: "#69D2E7", title: "Create Your Own", titleColor: titleColor)
         mediaButton.addTarget(self, action: #selector(pushToMediaView), for: .touchUpInside)
         
-        infoButton = createButton(posY: screenHeight*3/4, hexString: "#FA6900", title: "About Us", titleColor: titleColor)
+        infoButton = createButton(posY: screenHeight*3/4, hexString: "#A7DBD8", title: "About Us", titleColor: titleColor)
         infoButton.addTarget(self, action: #selector(pushToInfoView), for: .touchUpInside)
         
         
