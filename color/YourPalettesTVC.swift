@@ -18,12 +18,16 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
     var arrayPalettesFromPlist = NSMutableArray()
     var pathPlist: String = ""
     var id: [String] = []
-    var deletePlanetIndexPath: NSIndexPath? = nil
+    var deletePalettetIndexPath: NSIndexPath? = nil
     var scrollToBottom = false
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.loadDataFromPlist()
+        self.tableView.reloadData()
+
         self.title = "Your Palettes"
         tableView.delegate = self
         tableView.dataSource = self
@@ -53,58 +57,47 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
         
     }
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-        self.loadDataFromPlist()
-        self.tableView.reloadData()
-        
-        if scrollToBottom == true{
-            let scrollToPath = IndexPath(row: 0, section: palettesArray.count-1)
-            self.tableView.scrollToRow(at: scrollToPath, at: .none, animated: false)
-            scrollToBottom = false
-        }
-    }
-    
     //MARK: Lấy dữ liệu từ file plist truyền vào mảng itemArray
     func loadDataFromPlist(){
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        pathPlist = appDelegate.plistPathYourPalettes
-        
-        let data: Data = FileManager.default.contents(atPath: pathPlist)!
-        do {
-            arrayPalettesFromPlist = try PropertyListSerialization.propertyList(from: data, options: PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves, format: nil) as! NSMutableArray
-        }
-        catch
-        {
-            print("reading error")
-        }
-        
-        let arrData = arrayPalettesFromPlist[0] as! NSArray
-        for index in 0..<arrData.count{
+        __dispatch_async(DispatchQueue.global(), {
             
-            let itemDict = arrData[index] as! NSDictionary
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            self.pathPlist = appDelegate.plistPathYourPalettes
             
-            let item = itemDict["data"] as! NSArray
-            let name = itemDict["name"] as! String
+            let data: Data = FileManager.default.contents(atPath: self.pathPlist)!
+            do {
+                self.arrayPalettesFromPlist = try PropertyListSerialization.propertyList(from: data, options: PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves, format: nil) as! NSMutableArray
+            }
+            catch
+            {
+                print("reading error")
+            }
             
-            palettesArray.append(ColorPalette(colorName: name, colorArray: item as! [String]))
+            let arrData = self.arrayPalettesFromPlist[0] as! NSArray
+            for index in 0..<arrData.count{
+                
+                let itemDict = arrData[index] as! NSDictionary
+                
+                let item = itemDict["data"] as! NSArray
+                let name = itemDict["name"] as! String
+                
+                self.palettesArray.append(ColorPalette(colorName: name, colorArray: item as! [String]))
+                
+            }
             
-        }
-        
-        for i in arrData {
-            print(i)
-        }
-        
-        print("-----------------")
-        
-        for i in palettesArray {
-            print(i)
-        }
-        
-        print("------------------")
-        print("arrData: \(arrData.count) - palettesArray: \(palettesArray.count)")
+            for i in arrData {
+                print(i)
+            }
+            
+            print("-----------------")
+            
+            for i in self.palettesArray {
+                print(i)
+            }
+            
+            print("------------------")
+            print("arrData: \(arrData.count) - palettesArray: \(self.palettesArray.count)")})
+       
     }
     
     //MARK: Lọc mã màu
@@ -193,9 +186,9 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
     //MARK: Delete Palette
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            deletePlanetIndexPath = indexPath as NSIndexPath
-            let planetToDelete = palettesArray[indexPath.row].colorName
-            confirmDelete(palette: planetToDelete)
+            deletePalettetIndexPath = indexPath as NSIndexPath
+            let paletteToDelete = palettesArray[indexPath.row].colorName
+            confirmDelete(palette: paletteToDelete)
         }
     }
     
@@ -216,25 +209,25 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
     }
     
     func handleDeletePlanet(alertAction: UIAlertAction!) -> Void {
-        if let indexPath = deletePlanetIndexPath {
+        if let indexPath = deletePalettetIndexPath {
             tableView.beginUpdates()
             
             (arrayPalettesFromPlist[0] as AnyObject).removeObject(at: indexPath.row)
             palettesArray.remove(at: indexPath.row)
 
             // Note that indexPath is wrapped in an array:  [indexPath]
-            tableView.deleteRows(at: [indexPath as IndexPath], with: .automatic)
-            
+            self.tableView.deleteRows(at: [indexPath as IndexPath], with: .automatic)
+            self.tableView.deleteSections([indexPath.section], with: .automatic)
             arrayPalettesFromPlist.write(toFile: pathPlist, atomically: true)
             
-            deletePlanetIndexPath = nil
+            deletePalettetIndexPath = nil
             self.tableView.reloadData()
             tableView.endUpdates()
         }
     }
     
     func cancelDeletePlanet(alertAction: UIAlertAction!) {
-        deletePlanetIndexPath = nil
+        deletePalettetIndexPath = nil
     }
     
     

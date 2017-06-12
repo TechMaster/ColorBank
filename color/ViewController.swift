@@ -34,11 +34,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         paletteButton = createButton(posY: 0, hexString: "#69D2E7", title: "Color Palettes", titleColor: titleColor)
         paletteButton.addTarget(self, action: #selector(pushToColorListView), for: .touchUpInside)
         
-        yourPaletteButton = createButton(posY: screenHeight/4, hexString: "#A7DBD8", title: "Your Palettes", titleColor: titleColor)
+        yourPaletteButton = createButton(posY: screenHeight/4, hexString: "#F38630", title: "Your Palettes", titleColor: titleColor)
         yourPaletteButton.addTarget(self, action: #selector(pushToYourPalettesView), for: .touchUpInside)
         
         
-        mediaButton = createButton(posY: screenHeight/2, hexString: "#F38630", title: "Create Your Own", titleColor: titleColor)
+        mediaButton = createButton(posY: screenHeight/2, hexString: "#A7DBD8", title: "Create Your Own", titleColor: titleColor)
         mediaButton.addTarget(self, action: #selector(pushToMediaView), for: .touchUpInside)
         
         infoButton = createButton(posY: screenHeight*3/4, hexString: "#FA6900", title: "About Us", titleColor: titleColor)
@@ -64,7 +64,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         Button.backgroundColor = UIColor(hexString: hexString)
         Button.setTitle(title, for: .normal)
         Button.setTitleColor(titleColor, for: .normal)
-        Button.setTitleShadowColor(UIColor.black, for: .normal)
+        Button.titleLabel?.font = UIFont(name: "American Typewriter", size: 30)
+        Button.titleLabel?.adjustsFontSizeToFitWidth = true
         self.view.addSubview(Button)
         return Button
     }
