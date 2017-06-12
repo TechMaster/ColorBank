@@ -27,7 +27,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
         
         self.loadDataFromPlist()
         self.tableView.reloadData()
-
+        
         self.title = "Your Palettes"
         tableView.delegate = self
         tableView.dataSource = self
@@ -52,9 +52,25 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
             [NSForegroundColorAttributeName: UIColor(hexString: "#F38181"),
              NSFontAttributeName: UIFont(name: "American Typewriter", size: 20)!]
         self.navigationItem.title = "Your Palettes"
+        //Create back button of type custom
         
+        let myBackButton:UIButton = UIButton.init(type: .custom)
+        myBackButton.addTarget(self, action: #selector(popToView(sender:)), for: .touchUpInside)
+        myBackButton.setTitle("\u{3031}", for: .normal)
+        myBackButton.setTitleColor(UIColor(hexString: "#F38181"), for: .normal)
+        myBackButton.sizeToFit()
+        
+        //        Add back button to navigationBar as left Button
+        
+        let myCustomBackButtonItem:UIBarButtonItem = UIBarButtonItem(customView: myBackButton)
+        self.navigationItem.leftBarButtonItem  = myCustomBackButtonItem
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
+    }
+    
+    
+    func popToView(sender:UIBarButtonItem){
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     //MARK: Lấy dữ liệu từ file plist truyền vào mảng itemArray
@@ -97,7 +113,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
             
             print("------------------")
             print("arrData: \(arrData.count) - palettesArray: \(self.palettesArray.count)")})
-       
+        
     }
     
     //MARK: Lọc mã màu
@@ -211,10 +227,10 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate {
     func handleDeletePlanet(alertAction: UIAlertAction!) -> Void {
         if let indexPath = deletePalettetIndexPath {
             tableView.beginUpdates()
-            
+            DetailColorVC().check = 0
             (arrayPalettesFromPlist[0] as AnyObject).removeObject(at: indexPath.row)
             palettesArray.remove(at: indexPath.row)
-
+            
             // Note that indexPath is wrapped in an array:  [indexPath]
             self.tableView.deleteRows(at: [indexPath as IndexPath], with: .automatic)
             self.tableView.deleteSections([indexPath.section], with: .automatic)

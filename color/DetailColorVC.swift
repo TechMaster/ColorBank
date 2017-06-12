@@ -26,6 +26,7 @@ class DetailColorVC: UIViewController {
     let backView = UIView()
     var lastBtnIndex = 0
     var intro = true
+    var check = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,7 @@ class DetailColorVC: UIViewController {
         self.navigationController?.navigationBar.tintColor = UIColor(hexString: "#F38181")
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(hexString: "#F38181")]
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        
         
         arr = colorArr[indexSection].colorArray
         
@@ -207,6 +209,7 @@ class DetailColorVC: UIViewController {
         
         return rgbColor
     }
+    
     
 }
 

@@ -286,6 +286,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.reloadData()
         let detailColorVC = DetailColorVC()
+        detailColorVC.check = 1
         if searchController.isActive == true && searchController.searchBar.text != "" {
             detailColorVC.colorArr = filterItemArray
             detailColorVC.indexSection = indexPath.section
