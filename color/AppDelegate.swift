@@ -53,6 +53,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
         self.preparePlistForUse()
         self.preparePlistYourPalettesForUse()
+        
+        UINavigationBar.appearance().backIndicatorImage = UIImage()
+        UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage()
 
         return true
     }

@@ -65,6 +65,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
         let myBackButton:UIButton = UIButton.init(type: .custom)
         myBackButton.addTarget(self, action: #selector(popToRootView(sender:)), for: .touchUpInside)
         myBackButton.setTitle("Back", for: .normal)
+        myBackButton.titleLabel?.textAlignment = .right
         myBackButton.setTitleColor(UIColor(hexString: "#F38181"), for: .normal)
         myBackButton.sizeToFit()
         
