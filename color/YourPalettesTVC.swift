@@ -18,7 +18,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
     var arrayPalettesFromPlist = NSMutableArray()
     var pathPlist: String = ""
     var id: [String] = []
-    var deletePalettetIndexPath: NSIndexPath? = nil
+    var deletePalettetIndexPath: IndexPath? = nil
     var scrollToBottom = false
     
     
@@ -294,14 +294,14 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
     //MARK: Delete Palette
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            deletePalettetIndexPath = indexPath as NSIndexPath
+            deletePalettetIndexPath = indexPath
             let paletteToDelete = palettesArray[indexPath.row].colorName
             confirmDelete(palette: paletteToDelete)
         }
     }
     
     func confirmDelete(palette: String) {
-        let alert = UIAlertController(title: "Delete Planet", message: "Are you sure you want to permanently delete \(palette)?", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Delete Palette", message: "Are you sure you want to permanently delete \(palette)?", preferredStyle: .actionSheet)
         
         let DeleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: handleDeletePlanet)
         let CancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: cancelDeletePlanet)
@@ -320,11 +320,12 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
         if let indexPath = deletePalettetIndexPath {
             tableView.beginUpdates()
             DetailColorVC().check = 0
-            (arrayPalettesFromPlist[0] as AnyObject).removeObject(at: indexPath.row)
-            palettesArray.remove(at: indexPath.row)
+            (arrayPalettesFromPlist[0] as AnyObject).removeObject(at: indexPath.section)
+            palettesArray.remove(at: indexPath.section)
             
             // Note that indexPath is wrapped in an array:  [indexPath]
-            self.tableView.deleteRows(at: [indexPath as IndexPath], with: .automatic)
+            print(indexPath.section)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
             self.tableView.deleteSections([indexPath.section], with: .automatic)
             arrayPalettesFromPlist.write(toFile: pathPlist, atomically: true)
             

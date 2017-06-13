@@ -8,14 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		1981987B1EE3BAA5009A7286 /* ShotButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1981987A1EE3BAA5009A7286 /* ShotButton.swift */; };
-		19BE343D1EE7F8BD008DCBE9 /* YourPalettesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BE343C1EE7F8BD008DCBE9 /* YourPalettesTVC.swift */; };
 		19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */; };
 		19E808B11EB18EE700EFEE50 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808B01EB18EE700EFEE50 /* ViewController.swift */; };
 		19E808CA1EB1937E00EFEE50 /* DetailColorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808C91EB1937E00EFEE50 /* DetailColorVC.swift */; };
-		19E808D21EB1AC1600EFEE50 /* AllPalettesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808D11EB1AC1600EFEE50 /* AllPalettesTVC.swift */; };
 		19F7CEBA1EE66551008E5E3B /* Reach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F7CEB91EE66551008E5E3B /* Reach.swift */; };
 		19F9E8661EC30A9400FEA3D5 /* SRCopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F9E8651EC30A9400FEA3D5 /* SRCopyableLabel.swift */; };
 		2399C8B5CDA73651DBBAF367 /* Pods_color.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09709D13FA795FE3CC57B389 /* Pods_color.framework */; };
+		CF7A87241EEFCE30003ED855 /* AllPalettesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7A87231EEFCE30003ED855 /* AllPalettesTVC.swift */; };
+		CF7A87271EEFCE51003ED855 /* AboutUsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7A87261EEFCE51003ED855 /* AboutUsVC.swift */; };
+		CF7A87291EEFCE73003ED855 /* YourPalettesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7A87281EEFCE73003ED855 /* YourPalettesTVC.swift */; };
 		CFB043E21EC17AB3009245EB /* colorData.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFB043E11EC17AB3009245EB /* colorData.plist */; };
 		CFB043E41EC17AC6009245EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFB043E31EC17AC6009245EB /* Assets.xcassets */; };
 		CFB043E61EC17AD2009245EB /* ColorBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB043E51EC17AD2009245EB /* ColorBar.swift */; };
@@ -34,17 +35,18 @@
 /* Begin PBXFileReference section */
 		09709D13FA795FE3CC57B389 /* Pods_color.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_color.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1981987A1EE3BAA5009A7286 /* ShotButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShotButton.swift; sourceTree = "<group>"; };
-		19BE343C1EE7F8BD008DCBE9 /* YourPalettesTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourPalettesTVC.swift; sourceTree = "<group>"; };
 		19E808AB1EB18EE700EFEE50 /* color.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = color.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		19E808B01EB18EE700EFEE50 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		19E808BD1EB18EE700EFEE50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		19E808C91EB1937E00EFEE50 /* DetailColorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailColorVC.swift; sourceTree = "<group>"; };
-		19E808D11EB1AC1600EFEE50 /* AllPalettesTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllPalettesTVC.swift; sourceTree = "<group>"; };
 		19F7CEB91EE66551008E5E3B /* Reach.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reach.swift; sourceTree = "<group>"; };
 		19F9E8651EC30A9400FEA3D5 /* SRCopyableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRCopyableLabel.swift; sourceTree = "<group>"; };
 		A3193649A9C9C4686D6DBEF6 /* Pods-color.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-color.debug.xcconfig"; path = "Pods/Target Support Files/Pods-color/Pods-color.debug.xcconfig"; sourceTree = "<group>"; };
 		A8581122575E74F689CA31E9 /* Pods-color.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-color.release.xcconfig"; path = "Pods/Target Support Files/Pods-color/Pods-color.release.xcconfig"; sourceTree = "<group>"; };
+		CF7A87231EEFCE30003ED855 /* AllPalettesTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllPalettesTVC.swift; sourceTree = "<group>"; };
+		CF7A87261EEFCE51003ED855 /* AboutUsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsVC.swift; sourceTree = "<group>"; };
+		CF7A87281EEFCE73003ED855 /* YourPalettesTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourPalettesTVC.swift; sourceTree = "<group>"; };
 		CFB043E11EC17AB3009245EB /* colorData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = colorData.plist; sourceTree = "<group>"; };
 		CFB043E31EC17AC6009245EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CFB043E51EC17AD2009245EB /* ColorBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorBar.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				19E808B01EB18EE700EFEE50 /* ViewController.swift */,
 				CFC2BEA11EB2F74B00F22496 /* DetectColorView */,
 				CFC2BE9F1EB2F45F00F22496 /* ColorListView */,
+				CF7A87251EEFCE36003ED855 /* AboutUsView */,
 				CFB043E31EC17AC6009245EB /* Assets.xcassets */,
 				CFB043F01EC17B14009245EB /* Main.storyboard */,
 				CFB043EE1EC17B11009245EB /* LaunchScreen.storyboard */,
@@ -123,11 +126,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CF7A87251EEFCE36003ED855 /* AboutUsView */ = {
+			isa = PBXGroup;
+			children = (
+				CF7A87261EEFCE51003ED855 /* AboutUsVC.swift */,
+			);
+			name = AboutUsView;
+			sourceTree = "<group>";
+		};
 		CFC2BE9F1EB2F45F00F22496 /* ColorListView */ = {
 			isa = PBXGroup;
 			children = (
-				19E808D11EB1AC1600EFEE50 /* AllPalettesTVC.swift */,
-				19BE343C1EE7F8BD008DCBE9 /* YourPalettesTVC.swift */,
+				CF7A87231EEFCE30003ED855 /* AllPalettesTVC.swift */,
+				CF7A87281EEFCE73003ED855 /* YourPalettesTVC.swift */,
 				19F7CEB91EE66551008E5E3B /* Reach.swift */,
 				CFB043E91EC17ADE009245EB /* ColorListCell.swift */,
 				CFB043E51EC17AD2009245EB /* ColorBar.swift */,
@@ -287,6 +298,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF7A87271EEFCE51003ED855 /* AboutUsVC.swift in Sources */,
 				19F9E8661EC30A9400FEA3D5 /* SRCopyableLabel.swift in Sources */,
 				19E808B11EB18EE700EFEE50 /* ViewController.swift in Sources */,
 				CFC754741EC958B8004D8551 /* Sniper.swift in Sources */,
@@ -294,13 +306,13 @@
 				CFC888D71ECD49C8007972A7 /* YPMagnifyingView.swift in Sources */,
 				CFB043EA1EC17ADE009245EB /* ColorListCell.swift in Sources */,
 				19F7CEBA1EE66551008E5E3B /* Reach.swift in Sources */,
+				CF7A87241EEFCE30003ED855 /* AllPalettesTVC.swift in Sources */,
 				CFC2BEA31EB2F7BA00F22496 /* ChosenImageVC.swift in Sources */,
+				CF7A87291EEFCE73003ED855 /* YourPalettesTVC.swift in Sources */,
 				19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */,
-				19E808D21EB1AC1600EFEE50 /* AllPalettesTVC.swift in Sources */,
 				CFFEF15D1EE690E000071D67 /* Extensions.swift in Sources */,
 				19E808CA1EB1937E00EFEE50 /* DetailColorVC.swift in Sources */,
 				1981987B1EE3BAA5009A7286 /* ShotButton.swift in Sources */,
-				19BE343D1EE7F8BD008DCBE9 /* YourPalettesTVC.swift in Sources */,
 				CFC888D61ECD49C8007972A7 /* YPMagnifyingGlass.swift in Sources */,
 				CFB043E61EC17AD2009245EB /* ColorBar.swift in Sources */,
 			);
