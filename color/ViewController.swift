@@ -88,7 +88,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     //MARK: Info
     func pushToInfoView() {
-        
+        let newViewController = AboutUsVC()
+        self.navigationController?.pushViewController(newViewController, animated: true)
     }
     
     //MARK: Media
