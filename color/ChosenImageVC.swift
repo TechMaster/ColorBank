@@ -48,7 +48,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         undoButton.isEnabled = false
         undoButton.setTitleColor(UIColor.lightGray, for: .normal)
         
-//        print(magView.frame)
+        //        print(magView.frame)
         
     }
     
@@ -62,7 +62,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     }
     
     func createMagGlassAndSniper(){
-
+        
         
         let navHeight = self.navigationController?.navigationBar.bounds.size.height
         let screenWidth = self.view.bounds.size.width
@@ -285,7 +285,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
                 if let responseHTTP = response as? HTTPURLResponse{
                     if responseHTTP.statusCode==200{
                         print(data!)
-
+                        
                     }else{
                         print(responseHTTP.statusCode)
                     }

@@ -178,9 +178,9 @@ class DetailColorVC: UIViewController {
             
             let hexLabel = TextLabel()
             hexLabel.frame = CGRect(x:CGFloat(i)*(shareView.bounds.size.width/5),
-                                      y: shareView.bounds.size.width*5/6,
-                                      width: shareView.bounds.size.width/5,
-                                      height: shareView.bounds.size.width/6)
+                                    y: shareView.bounds.size.width*5/6,
+                                    width: shareView.bounds.size.width/5,
+                                    height: shareView.bounds.size.width/6)
             hexLabel.text = arr[i]
             
             shareView.addSubview(colorLabel)
@@ -190,7 +190,7 @@ class DetailColorVC: UIViewController {
         shareImg = UIImage(view: shareView)
         
     }
-
+    
     func share(){
         createShareView()
         

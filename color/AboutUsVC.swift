@@ -57,7 +57,7 @@ class AboutUsVC: UIViewController {
         authorImageView.layer.borderColor = UIColor.black.cgColor
         authorImageView.image = UIImage(named: authorImageName)
         authorView.addSubview(authorImageView)
-     
+        
         let nameLabel = UILabel()
         nameLabel.frame = CGRect(x: authorImageView.frame.maxX + 10, y: 10, width: authorView.frame.size.width - authorImageView.frame.size.width - 30, height: authorImageView.frame.size.height/3)
         nameLabel.text = "Name: \(authorImageName)"

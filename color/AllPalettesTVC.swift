@@ -60,18 +60,18 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         loadDataFromPlist()
         
         //Check internet connection
-//        let status = Reach().connectionStatus()
-//        switch status {
-//        case .unknown, .offline:
-//            print("Not connected")
-//            loadDataFromPlist()
-//        case .online(.wwan):
-//            print("Connected via WWAN")
-//            loadDataFromServer()
-//        case .online(.wiFi):
-//            print("Connected via WiFi")
-//            loadDataFromServer()
-//        }
+        //        let status = Reach().connectionStatus()
+        //        switch status {
+        //        case .unknown, .offline:
+        //            print("Not connected")
+        //            loadDataFromPlist()
+        //        case .online(.wwan):
+        //            print("Connected via WWAN")
+        //            loadDataFromServer()
+        //        case .online(.wiFi):
+        //            print("Connected via WiFi")
+        //            loadDataFromServer()
+        //        }
     }
     
     //MARK: Lấy dữ liệu từ server truyền vào mảng itemArray

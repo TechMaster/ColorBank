@@ -75,7 +75,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         let newViewController = AllPalettesTVC()
         self.navigationController?.pushViewController(newViewController, animated: true)
-    
+        
     }
     
     //MARK: Your Palettes
@@ -83,7 +83,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         let newViewController = YourPalettesTVC()
         self.navigationController?.pushViewController(newViewController, animated: true)
-    
+        
     }
     
     //MARK: Info

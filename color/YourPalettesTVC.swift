@@ -36,7 +36,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
-       
+        
         let cancelButtonAttributes: NSDictionary = [NSForegroundColorAttributeName:UIColor(hexString: "#F38181")]
         UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes as? [String : AnyObject], for: UIControlState.normal)
         
@@ -72,7 +72,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
         
         let myCustomBackButtonItem:UIBarButtonItem = UIBarButtonItem(customView: myBackButton)
         self.navigationItem.leftBarButtonItem = myCustomBackButtonItem
-
+        
     }
     
     
@@ -90,11 +90,10 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
         myAddButton.titleLabel?.font = UIFont(name: "American Typewriter", size: 40)
         myAddButton.sizeToFit()
         
-        //        Add back button to navigationBar as left Button
+        //Add + button to navigationBar as right Button
         
         let myCustomBackButtonItem:UIBarButtonItem = UIBarButtonItem(customView: myAddButton)
-        self.navigationItem.rightBarButtonItem  = myCustomBackButtonItem
-//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        self.navigationItem.rightBarButtonItem = myCustomBackButtonItem
     }
     
     
@@ -161,7 +160,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
         
         self.present(alert, animated: true, completion: nil)
     }
-
+    
     
     //MARK: Lấy dữ liệu từ file plist truyền vào mảng itemArray
     func loadDataFromPlist(){
