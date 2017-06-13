@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import GoogleMobileAds
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -51,11 +52,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navi.viewControllers = [mainView]
         self.window!.rootViewController = navi
         self.window?.makeKeyAndVisible()
+        
+        //Prepare pList file for write and read
         self.preparePlistForUse()
         self.preparePlistYourPalettesForUse()
         
+        // Initialize the Google Mobile Ads SDK.
+        // Sample AdMob app ID: ca-app-pub-1059572031766108~6237642472
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-1059572031766108~6237642472")
+        //Hide backIndicatorImage for NavigationBar in all ViewController
         UINavigationBar.appearance().backIndicatorImage = UIImage()
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage()
+        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffsetMake(-10, 0), for: UIBarMetrics.default)
 
         return true
     }

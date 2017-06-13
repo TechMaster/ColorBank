@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 class AboutUsVC: UIViewController {
     let minhView = UIView()
     let locView = UIView()
     let tungView = UIView()
+    var bannerView: GADBannerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +38,16 @@ class AboutUsVC: UIViewController {
         tungView.frame = CGRect(x: 0, y: locView.frame.maxY, width: screenWidth, height: screenHeight/4)
         self.view.addSubview(tungView)
         createAuthorsInfo(authorView: tungView, authorImageName: "Nguyễn Thanh Tùng", emailAddress: "ttungb2410@gmail.com")
+        
+        //Add Advertisement
+        bannerView = GADBannerView(frame: CGRect(x: 0, y: tungView.frame.maxY, width: screenWidth, height: screenHeight-tungView.frame.maxY))
+        self.view.addSubview(bannerView)
+        bannerView.adUnitID = "ca-app-pub-1059572031766108/6780869278"
+        bannerView.rootViewController = self
+        let request = GADRequest()
+        request.testDevices = [ kGADSimulatorID,                       // All simulators
+            "2077ef9a63d2b398840261c8221a0c9b" ]
+        bannerView.load(request)
     }
     
     func createAuthorsInfo(authorView: UIView, authorImageName: String, emailAddress: String) {
