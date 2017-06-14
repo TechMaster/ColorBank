@@ -35,6 +35,8 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
         
+        let navAndStatusHeight = (self.navigationController?.navigationBar.bounds.size.height)! + UIApplication.shared.statusBarFrame.size.height
+    
         let cancelButtonAttributes: NSDictionary = [NSForegroundColorAttributeName:UIColor(hexString: "#F38181")]
         UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes as? [String : AnyObject], for: UIControlState.normal)
         

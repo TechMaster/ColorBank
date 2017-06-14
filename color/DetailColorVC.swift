@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import QuartzCore
+import GoogleMobileAds
 
 class DetailColorVC: UIViewController {
     
@@ -27,6 +28,8 @@ class DetailColorVC: UIViewController {
     var lastBtnIndex = 0
     var intro = true
     var check = 0
+    
+    var bannerView: GADBannerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,9 +56,15 @@ class DetailColorVC: UIViewController {
         self.navigationItem.rightBarButtonItem = shareButton
         
         createAnimateView()
+        
+        
     }
     
     func createAnimateView() {
+        if bannerView != nil
+        {
+            bannerView.removeFromSuperview()
+        }
         container.frame = CGRect(x: 0, y: self.view.bounds.size.height/2, width: self.view.bounds.size.width, height: self.view.bounds.size.height/2)
         self.view.addSubview(container)
         
@@ -67,6 +76,20 @@ class DetailColorVC: UIViewController {
         self.backView.frame = frontView.frame
         
         self.container.addSubview(frontView)
+        
+        let screenWidth = UIScreen.main.bounds.size.width
+        let screenHeight = UIScreen.main.bounds.size.height
+        
+        //Add Advertisement
+        bannerView = GADBannerView(frame: CGRect(x: screenWidth/8, y: self.view.bounds.size.height*7/8 + 10 , width: screenWidth*3/4, height: screenHeight/8 - 20))
+        self.view.addSubview(bannerView)
+        bannerView.adUnitID = "ca-app-pub-1059572031766108/6780869278"
+        bannerView.rootViewController = self
+        let request = GADRequest()
+        request.testDevices = [ kGADSimulatorID,                       // All simulators
+            "2077ef9a63d2b398840261c8221a0c9b" ]
+        bannerView.load(request)
+
     }
     
     func creatBtn(index: Int) -> UIButton{
@@ -89,7 +112,8 @@ class DetailColorVC: UIViewController {
         if sender.tag - 300 != lastBtnIndex {
             creatBtn(index: lastBtnIndex).addTarget(self, action: #selector(animate), for: .touchUpInside)
             createAnimateView()
-        }
+            
+                    }
         sender.layer.borderWidth = 2
         sender.layer.borderColor = UIColor.white.cgColor
         if self.frontView.superview != nil{
