@@ -28,9 +28,9 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
         self.loadDataFromPlist()
         self.tableView.reloadData()
         
-        self.title = "Your Palettes"
         tableView.delegate = self
         tableView.dataSource = self
+        
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false

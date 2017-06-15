@@ -34,13 +34,13 @@ class AboutUsVC: UIViewController {
         createInfoView()
         
         //Add Advertisement
-        bannerView = GADBannerView(frame: CGRect(x: 0, y: screenHeight - screenWidth/6, width: screenWidth, height: screenWidth/6))
+        bannerView = GADBannerView(frame: CGRect(x: screenWidth/8, y: self.view.bounds.size.height*7/8 + 10 , width: screenWidth*3/4, height: screenHeight/8 - 20))
         self.view.addSubview(bannerView)
         bannerView.adUnitID = "ca-app-pub-1059572031766108/6780869278"
         bannerView.rootViewController = self
         let request = GADRequest()
-        request.testDevices = [kGADSimulatorID,
-                               "2077ef9a63d2b398840261c8221a0c9b"]
+        request.testDevices = [ kGADSimulatorID,                       // All simulators
+            "2077ef9a63d2b398840261c8221a0c9b" ]
         bannerView.load(request)
         
         print(infoView.frame.maxY)

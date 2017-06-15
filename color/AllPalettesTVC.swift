@@ -24,7 +24,6 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Palettes"
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -34,9 +33,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
-        
-        let navAndStatusHeight = (self.navigationController?.navigationBar.bounds.size.height)! + UIApplication.shared.statusBarFrame.size.height
-    
+
         let cancelButtonAttributes: NSDictionary = [NSForegroundColorAttributeName:UIColor(hexString: "#F38181")]
         UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes as? [String : AnyObject], for: UIControlState.normal)
         
@@ -52,6 +49,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
             [NSForegroundColorAttributeName: UIColor(hexString: "#F38181"),
              NSFontAttributeName: UIFont(name: "American Typewriter", size: 20)!]
         self.navigationItem.title = "Palettes"
+        
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
