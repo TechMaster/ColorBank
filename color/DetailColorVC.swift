@@ -40,7 +40,9 @@ class DetailColorVC: UIViewController {
         
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         self.navigationController?.navigationBar.tintColor = UIColor(hexString: "#F38181")
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(hexString: "#F38181")]
+        self.navigationController?.navigationBar.titleTextAttributes =
+            [NSForegroundColorAttributeName: UIColor(hexString: "#F38181"),
+             NSFontAttributeName: UIFont(name: "American Typewriter", size: 20)!]
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         
         navAndStatusHeight = (self.navigationController?.navigationBar.bounds.size.height)! + UIApplication.shared.statusBarFrame.size.height
