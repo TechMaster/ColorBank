@@ -38,10 +38,7 @@ class AboutUsVC: UIViewController {
         self.view.addSubview(bannerView)
         bannerView.adUnitID = "ca-app-pub-1059572031766108/6780869278"
         bannerView.rootViewController = self
-        let request = GADRequest()
-        request.testDevices = [ kGADSimulatorID,                       // All simulators
-            "2077ef9a63d2b398840261c8221a0c9b" ]
-        bannerView.load(request)
+        bannerView.load(GADRequest())
         
         print(infoView.frame.maxY)
         print(bannerView.frame.minY)

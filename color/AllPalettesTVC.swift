@@ -21,6 +21,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
     var filterColorName = [String]()
     var searchController = UISearchController()
     var id: [String] = []
+    var indicator = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +53,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        
+        activityIndicator()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,9 +72,21 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         }
     }
     
+    //MARK: Indicator
+    
+    func activityIndicator()
+    {
+        indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        indicator.activityIndicatorViewStyle = .gray
+        indicator.center = self.view.center
+        self.view.addSubview(indicator)
+    }
+    
     //MARK: Lấy dữ liệu từ server truyền vào mảng itemArray
     
     func loadDataFromServer() {
+        indicator.startAnimating()
+        indicator.backgroundColor = UIColor.white
         __dispatch_async(DispatchQueue.global(), {
             let url = URL(string: "http://colornd.com/ios/all")
             do {
@@ -105,7 +118,12 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
                                 self.palettesArray.append(ColorPalette(colorName: aObject["name"]! as! String, colorArray: item ))
                                 __dispatch_async(DispatchQueue.main, {
                                     self.tableView.reloadData()
+                                    if index == (arrJSON.count-1){
+                                        self.indicator.stopAnimating()
+                                        self.indicator.hidesWhenStopped = true
+                                    }
                                 })
+                                
                             }
                         }
                     }
@@ -114,10 +132,38 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
             }
             catch
             {
+                self.createAlertView()
             }
         })
     }
     
+    //MARK: Connection fail alert
+    func createAlertView() {
+        let alertController = UIAlertController(title: "Cannot connect to server", message: "Press OK to use offline palettes.", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: {
+            (action : UIAlertAction!) -> Void in
+            
+            self.palettesArray.removeAll()
+            self.loadDataFromPlist()
+            self.tableView.reloadData()
+            self.indicator.stopAnimating()
+            self.indicator.hidesWhenStopped = true
+            
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+            (action : UIAlertAction!) -> Void in
+            
+            self.navigationController?.popToRootViewController(animated: true)
+            
+        })
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
     
     //MARK: Lấy dữ liệu từ file plist truyền vào mảng itemArray
     func loadDataFromPlist(){
