@@ -30,7 +30,7 @@ class AboutUsVC: UIViewController {
             [NSForegroundColorAttributeName: UIColor(hexString: "#F38181"),
              NSFontAttributeName: UIFont(name: "American Typewriter", size: 20)!]
         
-        createImageView(appIconName: "appIcon")
+        createImageView(appIconName: "icon")
         createInfoView()
         
         //Add Advertisement
@@ -50,10 +50,12 @@ class AboutUsVC: UIViewController {
         let screenHeight = self.view.bounds.size.height
         let navAndStatusHeight = UIApplication.shared.statusBarFrame.size.height + (self.navigationController?.navigationBar.frame.size.height)!
         
+        
         appIconView.frame = CGRect(x: screenWidth/3, y: navAndStatusHeight+screenWidth/6, width:screenWidth/3, height: screenWidth/3)
         appIconView.layer.borderWidth = 1
-        appIconView.layer.cornerRadius = screenWidth/6
+        appIconView.layer.cornerRadius = 8
         appIconView.layer.borderColor = UIColor.black.cgColor
+        appIconView.layer.masksToBounds = true
         appIconView.image = UIImage(named: appIconName)
         self.view.addSubview(appIconView)
     }

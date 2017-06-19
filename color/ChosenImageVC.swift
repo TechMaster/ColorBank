@@ -47,9 +47,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         
         undoButton.isEnabled = false
         undoButton.setTitleColor(UIColor.lightGray, for: .normal)
-        
-        //        print(magView.frame)
-        
+                
     }
     
     
