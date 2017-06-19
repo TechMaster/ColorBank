@@ -71,11 +71,11 @@ class AboutUsVC: UIViewController {
                                          width: infoView.frame.size.width, height: screenWidth/6),
                            name: "Hoang Nhat Minh",
                            email: "nhatminh291297@gmail.com")
-        createNameAndEmail(frame: CGRect(x: 0, y: screenWidth/6,
+        createNameAndEmail(frame: CGRect(x: 0, y: screenWidth/6 + 20,
                                          width: infoView.frame.size.width, height: screenWidth/6),
                            name: "Tran Thien Loc",
                            email: "tomtran43@gmail.com")
-        createNameAndEmail(frame: CGRect(x: 0, y: screenWidth*2/6,
+        createNameAndEmail(frame: CGRect(x: 0, y: screenWidth*2/6 + 40 ,
                                          width: infoView.frame.size.width, height: screenWidth/6),
                            name: "Nguyen Thanh Tung",
                            email: "ttungb2410@gmail.com")

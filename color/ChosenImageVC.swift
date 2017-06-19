@@ -139,6 +139,9 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
                                       width: buttonWidth,
                                       height: buttonWidth)
         getColorButton.addTarget(self, action: #selector(getColor), for: .touchUpInside)
+        getColorButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        getColorButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        
         self.view.addSubview(getColorButton)
     }
     
