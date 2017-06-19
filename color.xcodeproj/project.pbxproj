@@ -153,9 +153,9 @@
 				CFC2BEA21EB2F7BA00F22496 /* ChosenImageVC.swift */,
 				19F9E8651EC30A9400FEA3D5 /* SRCopyableLabel.swift */,
 				1981987A1EE3BAA5009A7286 /* ShotButton.swift */,
+				CFC754731EC958B8004D8551 /* Sniper.swift */,
 				CFC888D51ECD49C8007972A7 /* YPMagnifyingView.swift */,
 				CFC888D41ECD49C8007972A7 /* YPMagnifyingGlass.swift */,
-				CFC754731EC958B8004D8551 /* Sniper.swift */,
 			);
 			name = DetectColorView;
 			sourceTree = "<group>";
@@ -206,7 +206,6 @@
 				TargetAttributes = {
 					19E808AA1EB18EE700EFEE50 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = D6F4345AL3;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -424,7 +423,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = D6F4345AL3;
+				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = color/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
@@ -451,7 +450,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = D6F4345AL3;
+				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = color/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;

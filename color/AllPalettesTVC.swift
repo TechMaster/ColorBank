@@ -33,7 +33,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
-
+        
         let cancelButtonAttributes: NSDictionary = [NSForegroundColorAttributeName:UIColor(hexString: "#F38181")]
         UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes as? [String : AnyObject], for: UIControlState.normal)
         
@@ -56,29 +56,26 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        loadDataFromPlist()
-        
-        //Check internet connection
-        //        let status = Reach().connectionStatus()
-        //        switch status {
-        //        case .unknown, .offline:
-        //            print("Not connected")
-        //            loadDataFromPlist()
-        //        case .online(.wwan):
-        //            print("Connected via WWAN")
-        //            loadDataFromServer()
-        //        case .online(.wiFi):
-        //            print("Connected via WiFi")
-        //            loadDataFromServer()
-        //        }
+        //      Check internet connection
+        let status = Reach().connectionStatus()
+        switch status {
+        case .unknown, .offline:
+            print("Not connected")
+            loadDataFromPlist()
+        case .online(.wwan):
+            print("Connected via WWAN")
+            loadDataFromServer()
+        case .online(.wiFi):
+            print("Connected via WiFi")
+            loadDataFromServer()
+        }
     }
     
     //MARK: Lấy dữ liệu từ server truyền vào mảng itemArray
     
     func loadDataFromServer() {
         __dispatch_async(DispatchQueue.global(), {
-            let url = URL(string: "http://192.168.1.124:3001/all")
+            let url = URL(string: "http://colornd.com/ios/all")
             do {
                 let allData = try Data(contentsOf: url!)
                 let allColor = try JSONSerialization.jsonObject(with: allData, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject]
@@ -91,7 +88,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
                 }
                 for i in 0..<self.id.count
                 {
-                    let url = URL(string: "http://192.168.1.124:3001/detailios/\(self.id[i])")
+                    let url = URL(string: "http://colornd.com/ios/detailios/\(self.id[i])")
                     do {
                         let colorData = try Data(contentsOf: url!)
                         let allColor = try JSONSerialization.jsonObject(with: colorData, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject]
@@ -113,6 +110,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
                         }
                     }
                 }
+                
             }
             catch
             {
