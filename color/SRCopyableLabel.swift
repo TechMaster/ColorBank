@@ -6,6 +6,7 @@
 //
 import UIKit
 
+//MARK: Let users to be able copy label title by holding the label
 class SRCopyableLabel: UILabel {
     
     override init(frame: CGRect) {

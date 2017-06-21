@@ -20,9 +20,8 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
     var palettesArray = [ColorPalette]()
     var filterColorName = [String]()
     var searchController = UISearchController()
-    var id: [String] = []
     var indicator = UIActivityIndicatorView()
-    var notesArray = NSMutableArray()
+    var arrayFromPlist = NSMutableArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,12 +53,12 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        activityIndicator()
+        loadingIndicator()
         gidaydi()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //      Check internet connection
+        //MARK: Check internet connection
         let status = Reach().connectionStatus()
         switch status {
         case .unknown, .offline:
@@ -74,17 +73,16 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    //MARK: Indicator
+    //MARK: Loading Indicator
     
-    func activityIndicator()
-    {
-        indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+    func loadingIndicator(){
+        indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         indicator.activityIndicatorViewStyle = .gray
         indicator.center = self.view.center
         self.view.addSubview(indicator)
     }
     
-    //MARK: Luu du lieu vao plist
+    //MARK: Luu du lieu vao plist YourPalettes
     
     func saveDataToPlist(dict: NSDictionary, customPaletteName: String){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -95,10 +93,10 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         let data:NSData =  FileManager.default.contents(atPath: pathForThePlistFile)! as NSData
         // Convert the NSData to mutable array
         do{
-            notesArray = try PropertyListSerialization.propertyList(from: data as Data, options: PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves, format: nil) as! NSMutableArray
-            (notesArray[0] as AnyObject).add(dict)
+            arrayFromPlist = try PropertyListSerialization.propertyList(from: data as Data, options: PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves, format: nil) as! NSMutableArray
+            (arrayFromPlist[0] as AnyObject).add(dict)
             // Save to plist
-            notesArray.write(toFile: pathForThePlistFile, atomically: true)
+            arrayFromPlist.write(toFile: pathForThePlistFile, atomically: true)
         }catch{
             print("An error occurred while writing to plist")
         }

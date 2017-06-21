@@ -14,7 +14,7 @@ import Fusuma
 class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     
     var customPaletteColors = [ColorPalette]()
-    var notesArray = NSMutableArray()
+    var arrayFromPlist = NSMutableArray()
     let magView = YPMagnifyingView()
     var imageView = UIImageView()
     var image = UIImage()
@@ -60,7 +60,6 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     }
     
     func createMagGlassAndSniper(){
-        
         
         let navHeight = self.navigationController?.navigationBar.bounds.size.height
         let screenWidth = self.view.bounds.size.width
@@ -212,9 +211,6 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
             
             let textField = alertController.textFields![0] as UITextField
             
-            //Post new palette to server
-            self.createNewPaletteRequest(name: textField.text!, color1: self.customPaletteHexArray[0], color2: self.customPaletteHexArray[1], color3: self.customPaletteHexArray[2], color4: self.customPaletteHexArray[3], color5: self.customPaletteHexArray[4])
-            
             //Save new palette to plist
             let dict = ["data" : [self.customPaletteHexArray[0],
                                   self.customPaletteHexArray[1],
@@ -251,48 +247,17 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         let data:NSData =  FileManager.default.contents(atPath: pathForThePlistFile)! as NSData
         // Convert the NSData to mutable array
         do{
-            notesArray = try PropertyListSerialization.propertyList(from: data as Data, options: PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves, format: nil) as! NSMutableArray
-            (notesArray[0] as AnyObject).add(dict)
+            arrayFromPlist = try PropertyListSerialization.propertyList(from: data as Data, options: PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves, format: nil) as! NSMutableArray
+            (arrayFromPlist[0] as AnyObject).add(dict)
             // Save to plist
-            notesArray.write(toFile: pathForThePlistFile, atomically: true)
+            arrayFromPlist.write(toFile: pathForThePlistFile, atomically: true)
         }catch{
             print("An error occurred while writing to plist")
         }
-        AllPalettesTVC().tableView.reloadData()
+        YourPalettesTVC().tableView.reloadData()
         let yourPalettesTVC = YourPalettesTVC()
         yourPalettesTVC.scrollToBottom = true
         self.navigationController?.pushViewController(yourPalettesTVC, animated: true)
-    }
-    
-    func createNewPaletteRequest(name: String, color1: String, color2: String, color3: String, color4: String, color5: String){
-        
-        let baseURL : String! = "http://colornd.com/ios/addnewpalette"
-        
-        let param : [String:AnyObject] = ["name" : name as AnyObject, "color1" : color1 as AnyObject, "color2" : color2 as AnyObject, "color3" : color3 as AnyObject, "color4" : color4 as AnyObject, "color5" : color5 as AnyObject]
-        
-        let urlRequest = NSMutableURLRequest(url: URL(string: baseURL)!)
-        urlRequest.httpMethod = "POST"
-        
-        let configureSession = URLSessionConfiguration.default
-        configureSession.httpAdditionalHeaders = ["Content-Type":"application/json"]
-        
-        let createPaletteSession = URLSession(configuration: configureSession)
-        let dataPassing = try! JSONSerialization.data(withJSONObject: param, options: JSONSerialization.WritingOptions.prettyPrinted)
-        createPaletteSession.uploadTask(with: urlRequest as URLRequest, from: dataPassing){
-            (data,response,error) in
-            if let error = error{
-                print(error.localizedDescription)
-            }else{
-                if let responseHTTP = response as? HTTPURLResponse{
-                    if responseHTTP.statusCode==200{
-                        print(data!)
-                        
-                    }else{
-                        print(responseHTTP.statusCode)
-                    }
-                }
-            }
-            }.resume()
     }
     
     //MARK: Undo Button

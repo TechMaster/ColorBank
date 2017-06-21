@@ -14,7 +14,6 @@
 		19F7CEBA1EE66551008E5E3B /* Reach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F7CEB91EE66551008E5E3B /* Reach.swift */; };
 		19F9E8661EC30A9400FEA3D5 /* SRCopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F9E8651EC30A9400FEA3D5 /* SRCopyableLabel.swift */; };
 		2399C8B5CDA73651DBBAF367 /* Pods_color.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09709D13FA795FE3CC57B389 /* Pods_color.framework */; };
-		CF057FE21EF8D4DE0029BC7E /* testPalettes.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF057FE11EF8D4DE0029BC7E /* testPalettes.plist */; };
 		CF057FE41EF8E1260029BC7E /* colorData.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF057FE31EF8E1260029BC7E /* colorData.plist */; };
 		CF7A87241EEFCE30003ED855 /* AllPalettesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7A87231EEFCE30003ED855 /* AllPalettesTVC.swift */; };
 		CF7A87271EEFCE51003ED855 /* AboutUsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7A87261EEFCE51003ED855 /* AboutUsVC.swift */; };
@@ -45,7 +44,6 @@
 		19F9E8651EC30A9400FEA3D5 /* SRCopyableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRCopyableLabel.swift; sourceTree = "<group>"; };
 		A3193649A9C9C4686D6DBEF6 /* Pods-color.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-color.debug.xcconfig"; path = "Pods/Target Support Files/Pods-color/Pods-color.debug.xcconfig"; sourceTree = "<group>"; };
 		A8581122575E74F689CA31E9 /* Pods-color.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-color.release.xcconfig"; path = "Pods/Target Support Files/Pods-color/Pods-color.release.xcconfig"; sourceTree = "<group>"; };
-		CF057FE11EF8D4DE0029BC7E /* testPalettes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = testPalettes.plist; sourceTree = "<group>"; };
 		CF057FE31EF8E1260029BC7E /* colorData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = colorData.plist; sourceTree = "<group>"; };
 		CF7A87231EEFCE30003ED855 /* AllPalettesTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllPalettesTVC.swift; sourceTree = "<group>"; };
 		CF7A87261EEFCE51003ED855 /* AboutUsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsVC.swift; sourceTree = "<group>"; };
@@ -168,7 +166,6 @@
 				19E808BD1EB18EE700EFEE50 /* Info.plist */,
 				CF057FE31EF8E1260029BC7E /* colorData.plist */,
 				CFEAB5271EEA5D6500F96B95 /* yourPalettes.plist */,
-				CF057FE11EF8D4DE0029BC7E /* testPalettes.plist */,
 				CFB043EB1EC17AF6009245EB /* color.xcdatamodeld */,
 			);
 			name = Support;
@@ -242,7 +239,6 @@
 				CFEAB5281EEA5D6500F96B95 /* yourPalettes.plist in Resources */,
 				CFB043EF1EC17B11009245EB /* LaunchScreen.storyboard in Resources */,
 				CFB043E41EC17AC6009245EB /* Assets.xcassets in Resources */,
-				CF057FE21EF8D4DE0029BC7E /* testPalettes.plist in Resources */,
 				CFB043F11EC17B14009245EB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
