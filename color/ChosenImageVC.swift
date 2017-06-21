@@ -41,6 +41,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         createCustomPaletteView()
         createUndoButton()
         createSaveButton()
+        createBackButton()
         
         saveButton.isEnabled = false
         saveButton.setTitleColor(UIColor.lightGray, for: .normal)
@@ -48,6 +49,17 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
         undoButton.isEnabled = false
         undoButton.setTitleColor(UIColor.lightGray, for: .normal)
                 
+    }
+    
+    //MARK: Back Button
+    func createBackButton(){
+        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(popView(sender:)))
+        self.navigationItem.leftBarButtonItem = backButton
+    }
+    
+    
+    func popView(sender: UIBarButtonItem){
+        self.navigationController?.popViewController(animated: true)
     }
     
     
@@ -251,9 +263,11 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
             (arrayFromPlist[0] as AnyObject).add(dict)
             // Save to plist
             arrayFromPlist.write(toFile: pathForThePlistFile, atomically: true)
-        }catch{
+            
+        }catch {
             print("An error occurred while writing to plist")
         }
+        
         YourPalettesTVC().tableView.reloadData()
         let yourPalettesTVC = YourPalettesTVC()
         yourPalettesTVC.scrollToBottom = true

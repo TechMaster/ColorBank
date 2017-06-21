@@ -17,7 +17,6 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
     var searchController = UISearchController()
     var arrayPalettesFromPlist = NSMutableArray()
     var pathPlist: String = ""
-    var id: [String] = []
     var deletePalettetIndexPath: IndexPath? = nil
     var scrollToBottom = false
     
@@ -58,10 +57,10 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
         
     }
     
+    //MARK: Back Button
     func createBackButton(){
         
         //Create back button of type custom
-        
         let myBackButton:UIButton = UIButton.init(type: .custom)
         myBackButton.addTarget(self, action: #selector(popToRootView(sender:)), for: .touchUpInside)
         myBackButton.setTitle("Back", for: .normal)
@@ -69,7 +68,6 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
         myBackButton.sizeToFit()
         
         //Add back button to navigationBar as left Button
-        
         let myCustomBackButtonItem:UIBarButtonItem = UIBarButtonItem(customView: myBackButton)
         self.navigationItem.leftBarButtonItem = myCustomBackButtonItem
         
@@ -80,6 +78,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
         self.navigationController?.popToRootViewController(animated: true)
     }
     
+    //MARK: Add Button
     func createAddNewPaletteButton(){
         //Create back button of type custom
         
@@ -164,17 +163,17 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
     
     //MARK: Lấy dữ liệu từ file plist truyền vào mảng itemArray
     func loadDataFromPlist(){
-        __dispatch_async(DispatchQueue.global(), {
+        DispatchQueue.global(qos: .background).async {
             
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             self.pathPlist = appDelegate.plistPathYourPalettes
             
             let data: Data = FileManager.default.contents(atPath: self.pathPlist)!
+            
             do {
                 self.arrayPalettesFromPlist = try PropertyListSerialization.propertyList(from: data, options: PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves, format: nil) as! NSMutableArray
             }
-            catch
-            {
+            catch {
                 print("reading error")
             }
             
@@ -189,20 +188,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
                 self.palettesArray.append(ColorPalette(colorName: name, colorArray: item as! [String]))
                 
             }
-            
-            for i in arrData {
-                print(i)
-            }
-            
-            print("-----------------")
-            
-            for i in self.palettesArray {
-                print(i)
-            }
-            
-            print("------------------")
-            print("arrData: \(arrData.count) - palettesArray: \(self.palettesArray.count)")})
-        
+        }
     }
     
     //MARK: Lọc mã màu

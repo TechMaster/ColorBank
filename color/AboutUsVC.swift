@@ -32,6 +32,7 @@ class AboutUsVC: UIViewController {
         
         createImageView(appIconName: "icon")
         createInfoView()
+        createBackButton()
         
         //Add Advertisement
         bannerView = GADBannerView(frame: CGRect(x: screenWidth/8, y: self.view.bounds.size.height*7/8 + 10 , width: screenWidth*3/4, height: screenHeight/8 - 20))
@@ -40,10 +41,20 @@ class AboutUsVC: UIViewController {
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
         
-        print(infoView.frame.maxY)
-        print(bannerView.frame.minY)
     }
     
+    //MARK: Back Button
+    func createBackButton(){
+        
+        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(popView(sender:)))
+        self.navigationItem.leftBarButtonItem = backButton
+    }
+    
+    
+    func popView(sender: UIBarButtonItem){
+        self.navigationController?.popViewController(animated: true)
+    }
+
     
     func createImageView(appIconName: String){
         let screenWidth = self.view.bounds.size.width

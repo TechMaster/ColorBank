@@ -51,10 +51,10 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
              NSFontAttributeName: UIFont(name: "American Typewriter", size: 20)!]
         self.navigationItem.title = "Palettes"
         
-        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         loadingIndicator()
-        gidaydi()
+        
+        createBackButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,97 +73,23 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    //MARK: Loading Indicator
+    //MARK: Back Button
+    func createBackButton(){
+        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(popView(sender:)))
+        self.navigationItem.leftBarButtonItem = backButton
+    }
     
+    
+    func popView(sender: UIBarButtonItem){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: Loading Indicator
     func loadingIndicator(){
         indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         indicator.activityIndicatorViewStyle = .gray
         indicator.center = self.view.center
         self.view.addSubview(indicator)
-    }
-    
-    //MARK: Luu du lieu vao plist YourPalettes
-    
-    func saveDataToPlist(dict: NSDictionary, customPaletteName: String){
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let pathForThePlistFile = appDelegate.plistPathYourPalettes
-        
-        // Extract the content of the file as NSData
-        print(pathForThePlistFile)
-        let data:NSData =  FileManager.default.contents(atPath: pathForThePlistFile)! as NSData
-        // Convert the NSData to mutable array
-        do{
-            arrayFromPlist = try PropertyListSerialization.propertyList(from: data as Data, options: PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves, format: nil) as! NSMutableArray
-            (arrayFromPlist[0] as AnyObject).add(dict)
-            // Save to plist
-            arrayFromPlist.write(toFile: pathForThePlistFile, atomically: true)
-        }catch{
-            print("An error occurred while writing to plist")
-        }
-    }
-    
-    func gidaydi() {
-        
-        for index in 0..<palettesArray.count
-        {
-            let data = [palettesArray[index].colorArray[0],
-                        palettesArray[index].colorArray[1],
-                        palettesArray[index].colorArray[2],
-                        palettesArray[index].colorArray[3],
-                        palettesArray[index].colorArray[4]]
-            
-            // Save new palette to plist
-            
-            let dict = ["data" : data,
-                        "name" : palettesArray[index].colorName] as [String : Any]
-            print(dict)
-            self.saveDataToPlist(dict: dict as NSDictionary, customPaletteName: palettesArray[index].colorName)
-            
-        }
-        
-    }
-    
-    
-
-    //MARK: Lấy dữ liệu từ server truyền vào mảng itemArray
-    
-    func loadDataFromServer() {
-        indicator.startAnimating()
-        indicator.backgroundColor = UIColor.white
-        DispatchQueue.global(qos: .background).async {
-            let url = URL(string: "http://colornd.com/ios/all")
-            do {
-                let allData = try Data(contentsOf: url!)
-                let allColor = try JSONSerialization.jsonObject(with: allData, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject]
-                if let arrJSON = allColor["data"] as? NSArray {
-                    for index in 0..<arrJSON.count
-                    {
-                        let aObject = arrJSON[index] as! [String: AnyObject]
-                        
-                        var item = [String]()
-                        item.append(aObject["color1"]! as! String)
-                        item.append(aObject["color2"]! as! String)
-                        item.append(aObject["color3"]! as! String)
-                        item.append(aObject["color4"]! as! String)
-                        item.append(aObject["color5"]! as! String)
-                        self.palettesArray.append(ColorPalette(colorName: aObject["name"]! as! String, colorArray: item ))
-                        
-                        if index == (arrJSON.count-1){
-                            self.indicator.stopAnimating()
-                            self.indicator.hidesWhenStopped = true
-                        }
-                    }
-                }
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-            catch
-            {
-                self.createAlertView()
-            }
-            
-        }
     }
     
     //MARK: Connection fail alert
@@ -193,9 +119,56 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         
         self.present(alertController, animated: true, completion: nil)
     }
+
+    //MARK: Lấy dữ liệu từ server truyền vào mảng itemArray
+    func loadDataFromServer() {
+        
+        if palettesArray.count > 0 {
+            return
+        }
+        
+        indicator.startAnimating()
+        indicator.backgroundColor = UIColor.white
+        DispatchQueue.global(qos: .background).async {
+            let url = URL(string: "http://colornd.com/ios/all")
+            do {
+                let allData = try Data(contentsOf: url!)
+                let allColor = try JSONSerialization.jsonObject(with: allData, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject]
+                if let arrJSON = allColor["data"] as? NSArray {
+                    for index in 0..<arrJSON.count
+                    {
+                        let aObject = arrJSON[index] as! [String: AnyObject]
+                        
+                        var item = [String]()
+                        item.append(aObject["color1"]! as! String)
+                        item.append(aObject["color2"]! as! String)
+                        item.append(aObject["color3"]! as! String)
+                        item.append(aObject["color4"]! as! String)
+                        item.append(aObject["color5"]! as! String)
+                        self.palettesArray.append(ColorPalette(colorName: aObject["name"]! as! String, colorArray: item ))
+                        
+                        
+                    }
+                }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.indicator.stopAnimating()
+                    self.indicator.hidesWhenStopped = true
+                }
+            }
+            catch {
+                self.createAlertView()
+            }
+            
+        }
+    }
     
     //MARK: Lấy dữ liệu từ file plist truyền vào mảng itemArray
     func loadDataFromPlist(){
+        
+        if palettesArray.count > 0 {
+            return
+        }
         
         var arrayPalettesFromPlist = NSMutableArray()
         var pathPlist: String = ""
@@ -206,7 +179,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         let data: Data = FileManager.default.contents(atPath: pathPlist)!
         do {
             arrayPalettesFromPlist = try PropertyListSerialization.propertyList(from: data, options: PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves, format: nil) as! NSMutableArray
-        }catch{
+        }catch {
             print("reading error")
         }
         

@@ -53,17 +53,79 @@ class DetailColorVC: UIViewController {
             creatBtn(index: i).addTarget(self, action: #selector(animate), for: .touchUpInside)
         }
         
-        let shareButton = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(share))
-        self.navigationItem.rightBarButtonItem = shareButton
-        
         createAnimateView()
+        createBackButton()
+        createShareButton()
+
+    }
+    
+    //MARK: Back Button
+    func createBackButton(){
         
+        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(popView(sender:)))
+        self.navigationItem.leftBarButtonItem = backButton
+    }
+    
+    
+    func popView(sender: UIBarButtonItem){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: Share Button
+    func createShareButton(){
+        let shareButton = UIBarButtonItem(image: #imageLiteral(resourceName: "share"), style: .plain, target: self, action: #selector(share))
+        
+        self.navigationItem.rightBarButtonItem = shareButton
+    }
+    
+    func share(){
+        createShareView()
+        
+        let activityVC = UIActivityViewController(activityItems: [shareImg], applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = self.view
+        
+        self.present(activityVC, animated: true, completion: nil)
+    }
+    
+    func createShareView(){
+        let shareView = UIView()
+        shareView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.width)
+        
+        let nameLabel = TextLabel()
+        nameLabel.frame = CGRect(x: 0, y: 0, width: shareView.bounds.size.width, height: shareView.bounds.size.width/6)
+        nameLabel.text = colorArr[indexSection].colorName
+        shareView.addSubview(nameLabel)
+        
+        for i in 0..<5
+        {
+            let colorLabel = UILabel()
+            colorLabel.frame = CGRect(x:CGFloat(i)*(shareView.bounds.size.width/5),
+                                      y: nameLabel.frame.maxY,
+                                      width: shareView.bounds.size.width/5,
+                                      height: shareView.bounds.size.width*2/3)
+            colorLabel.backgroundColor = UIColor(hexString: arr[i])
+            colorLabel.layer.borderWidth = 1
+            colorLabel.layer.borderColor = UIColor.white.cgColor
+            colorLabel.layer.masksToBounds = true
+            
+            let hexLabel = TextLabel()
+            hexLabel.frame = CGRect(x:CGFloat(i)*(shareView.bounds.size.width/5),
+                                    y: shareView.bounds.size.width*5/6,
+                                    width: shareView.bounds.size.width/5,
+                                    height: shareView.bounds.size.width/6)
+            hexLabel.text = arr[i]
+            
+            shareView.addSubview(colorLabel)
+            shareView.addSubview(hexLabel)
+        }
+        
+        shareImg = UIImage(view: shareView)
         
     }
     
+    //MARK: Flipping Notes Animation
     func createAnimateView() {
-        if bannerView != nil
-        {
+        if bannerView != nil {
             bannerView.removeFromSuperview()
         }
         container.frame = CGRect(x: 0, y: self.view.bounds.size.height/2, width: self.view.bounds.size.width, height: self.view.bounds.size.height/2)
@@ -175,51 +237,6 @@ class DetailColorVC: UIViewController {
         {
             v.removeFromSuperview()
         }
-    }
-    
-    func createShareView(){
-        let shareView = UIView()
-        shareView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.width)
-        
-        let nameLabel = TextLabel()
-        nameLabel.frame = CGRect(x: 0, y: 0, width: shareView.bounds.size.width, height: shareView.bounds.size.width/6)
-        nameLabel.text = colorArr[indexSection].colorName
-        shareView.addSubview(nameLabel)
-        
-        for i in 0..<5
-        {
-            let colorLabel = UILabel()
-            colorLabel.frame = CGRect(x:CGFloat(i)*(shareView.bounds.size.width/5),
-                                      y: nameLabel.frame.maxY,
-                                      width: shareView.bounds.size.width/5,
-                                      height: shareView.bounds.size.width*2/3)
-            colorLabel.backgroundColor = UIColor(hexString: arr[i])
-            colorLabel.layer.borderWidth = 1
-            colorLabel.layer.borderColor = UIColor.white.cgColor
-            colorLabel.layer.masksToBounds = true
-            
-            let hexLabel = TextLabel()
-            hexLabel.frame = CGRect(x:CGFloat(i)*(shareView.bounds.size.width/5),
-                                    y: shareView.bounds.size.width*5/6,
-                                    width: shareView.bounds.size.width/5,
-                                    height: shareView.bounds.size.width/6)
-            hexLabel.text = arr[i]
-            
-            shareView.addSubview(colorLabel)
-            shareView.addSubview(hexLabel)
-        }
-        
-        shareImg = UIImage(view: shareView)
-        
-    }
-    
-    func share(){
-        createShareView()
-        
-        let activityVC = UIActivityViewController(activityItems: [shareImg], applicationActivities: nil)
-        activityVC.popoverPresentationController?.sourceView = self.view
-        
-        self.present(activityVC, animated: true, completion: nil)
     }
     
     func rgbColor(color: String)->String{
