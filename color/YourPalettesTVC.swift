@@ -59,18 +59,8 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
     
     //MARK: Back Button
     func createBackButton(){
-        
-        //Create back button of type custom
-        let myBackButton:UIButton = UIButton.init(type: .custom)
-        myBackButton.addTarget(self, action: #selector(popToRootView(sender:)), for: .touchUpInside)
-        myBackButton.setTitle("Back", for: .normal)
-        myBackButton.setTitleColor(UIColor(hexString: "#F38181"), for: .normal)
-        myBackButton.sizeToFit()
-        
-        //Add back button to navigationBar as left Button
-        let myCustomBackButtonItem:UIBarButtonItem = UIBarButtonItem(customView: myBackButton)
-        self.navigationItem.leftBarButtonItem = myCustomBackButtonItem
-        
+        let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(popToRootView(sender:)))
+        self.navigationItem.leftBarButtonItem = backButton
     }
     
     
@@ -82,17 +72,20 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
     func createAddNewPaletteButton(){
         //Create back button of type custom
         
-        let myAddButton:UIButton = UIButton.init(type: .custom)
-        myAddButton.addTarget(self, action: #selector(pushToMediaView(sender:)), for: .touchUpInside)
-        myAddButton.setTitle("\u{002B}", for: .normal)
-        myAddButton.setTitleColor(UIColor(hexString: "#F38181"), for: .normal)
-        myAddButton.titleLabel?.font = UIFont(name: "American Typewriter", size: 40)
-        myAddButton.sizeToFit()
+//        let myAddButton:UIButton = UIButton.init(type: .custom)
+//        myAddButton.addTarget(self, action: #selector(pushToMediaView(sender:)), for: .touchUpInside)
+//        myAddButton.setTitle("\u{002B}", for: .normal)
+//        myAddButton.setTitleColor(UIColor(hexString: "#F38181"), for: .normal)
+//        myAddButton.titleLabel?.font = UIFont(name: "American Typewriter", size: 40)
+//        myAddButton.sizeToFit()
+//        
+//        //Add + button to navigationBar as right Button
+//        
+//        let myCustomBackButtonItem:UIBarButtonItem = UIBarButtonItem(customView: myAddButton)
+//        self.navigationItem.rightBarButtonItem = myCustomBackButtonItem
+        let addButton = UIBarButtonItem(image: #imageLiteral(resourceName: "add"), style: .plain, target: self, action: #selector(pushToMediaView(sender:)))
         
-        //Add + button to navigationBar as right Button
-        
-        let myCustomBackButtonItem:UIBarButtonItem = UIBarButtonItem(customView: myAddButton)
-        self.navigationItem.rightBarButtonItem = myCustomBackButtonItem
+        self.navigationItem.rightBarButtonItem = addButton
     }
     
     

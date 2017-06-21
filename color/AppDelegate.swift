@@ -18,10 +18,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let rootPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, .userDomainMask, true)[0]
         
         plistPathInDocument = rootPath+"/colorData.plist"
+        print(plistPathInDocument)
         if !FileManager.default.fileExists(atPath: plistPathInDocument){
             let plistPathInBundle = Bundle.main.path(forResource: "colorData", ofType: "plist") as String!
             do {
                 try FileManager.default.copyItem(atPath: plistPathInBundle!, toPath: plistPathInDocument)
+            }catch{
+                print("Error occurred while copying file to document \(error)")
+            }
+        }
+    }
+    
+    var colorData270PlistPath:String = String()
+    
+    func prepareSubPlistForUse(){
+        let rootPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, .userDomainMask, true)[0]
+        
+        colorData270PlistPath = rootPath+"/colorData270.plist"
+        if !FileManager.default.fileExists(atPath: colorData270PlistPath){
+            let plistPathInBundle = Bundle.main.path(forResource: "colorData270", ofType: "plist") as String!
+            do {
+                try FileManager.default.copyItem(atPath: plistPathInBundle!, toPath: colorData270PlistPath)
             }catch{
                 print("Error occurred while copying file to document \(error)")
             }
@@ -55,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Prepare pList file for write and read
         self.preparePlistForUse()
         self.preparePlistYourPalettesForUse()
-        
+        self.prepareSubPlistForUse()
         // Initialize the Google Mobile Ads SDK.
         // Sample AdMob app ID: ca-app-pub-1059572031766108~6237642472
         GADMobileAds.configure(withApplicationID: "ca-app-pub-1059572031766108~6237642472")
@@ -85,6 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         self.preparePlistForUse()
         self.preparePlistYourPalettesForUse()
+        self.prepareSubPlistForUse()
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

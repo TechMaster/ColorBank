@@ -18,7 +18,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var mediaButton = UIButton()
     var yourPaletteButton = UIButton()
     var expanding: Bool = false
-    
+    var mergePlist = MergePlist()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +44,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         infoButton = createButton(posY: screenHeight*3/4, hexString: "#A7DBD8", title: "About Us", titleColor: titleColor)
         infoButton.addTarget(self, action: #selector(pushToInfoView), for: .touchUpInside)
         
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        self.mergePlist.loadDataFromPlist(plistPath: appDelegate.plistPathInDocument, palettesArray: self.mergePlist.mainPlistPalettesArray)
+        self.mergePlist.loadDataFromPlist(plistPath: appDelegate.colorData270PlistPath, palettesArray: self.mergePlist.subPlistPalettesArray)
+        print(self.mergePlist.subPlistPalettesArray.count)
+        self.mergePlist.filterColorPalettes(mainPlistPath: appDelegate.plistPathInDocument, mainPlistFile: self.mergePlist.mainPlistPalettesArray, subPlistFile: self.mergePlist.subPlistPalettesArray)
+        
+        print(self.mergePlist.mainPlistPalettesArray.count)
         
     }
     

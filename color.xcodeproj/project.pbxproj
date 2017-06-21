@@ -18,6 +18,8 @@
 		CF7A87241EEFCE30003ED855 /* AllPalettesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7A87231EEFCE30003ED855 /* AllPalettesTVC.swift */; };
 		CF7A87271EEFCE51003ED855 /* AboutUsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7A87261EEFCE51003ED855 /* AboutUsVC.swift */; };
 		CF7A87291EEFCE73003ED855 /* YourPalettesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7A87281EEFCE73003ED855 /* YourPalettesTVC.swift */; };
+		CFAB97841EFA1D6D00345D33 /* colorData270.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFAB97831EFA1D6D00345D33 /* colorData270.plist */; };
+		CFAB97861EFA1DCA00345D33 /* MergePlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB97851EFA1DCA00345D33 /* MergePlist.swift */; };
 		CFB043E41EC17AC6009245EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFB043E31EC17AC6009245EB /* Assets.xcassets */; };
 		CFB043E61EC17AD2009245EB /* ColorBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB043E51EC17AD2009245EB /* ColorBar.swift */; };
 		CFB043EA1EC17ADE009245EB /* ColorListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB043E91EC17ADE009245EB /* ColorListCell.swift */; };
@@ -48,6 +50,8 @@
 		CF7A87231EEFCE30003ED855 /* AllPalettesTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllPalettesTVC.swift; sourceTree = "<group>"; };
 		CF7A87261EEFCE51003ED855 /* AboutUsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsVC.swift; sourceTree = "<group>"; };
 		CF7A87281EEFCE73003ED855 /* YourPalettesTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourPalettesTVC.swift; sourceTree = "<group>"; };
+		CFAB97831EFA1D6D00345D33 /* colorData270.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = colorData270.plist; sourceTree = "<group>"; };
+		CFAB97851EFA1DCA00345D33 /* MergePlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MergePlist.swift; sourceTree = "<group>"; };
 		CFB043E31EC17AC6009245EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CFB043E51EC17AD2009245EB /* ColorBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorBar.swift; sourceTree = "<group>"; };
 		CFB043E91EC17ADE009245EB /* ColorListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorListCell.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 				CFB043E91EC17ADE009245EB /* ColorListCell.swift */,
 				CFB043E51EC17AD2009245EB /* ColorBar.swift */,
 				19E808C91EB1937E00EFEE50 /* DetailColorVC.swift */,
+				CFAB97851EFA1DCA00345D33 /* MergePlist.swift */,
 			);
 			name = ColorListView;
 			sourceTree = "<group>";
@@ -165,6 +170,7 @@
 			children = (
 				19E808BD1EB18EE700EFEE50 /* Info.plist */,
 				CF057FE31EF8E1260029BC7E /* colorData.plist */,
+				CFAB97831EFA1D6D00345D33 /* colorData270.plist */,
 				CFEAB5271EEA5D6500F96B95 /* yourPalettes.plist */,
 				CFB043EB1EC17AF6009245EB /* color.xcdatamodeld */,
 			);
@@ -206,7 +212,6 @@
 				TargetAttributes = {
 					19E808AA1EB18EE700EFEE50 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 4J9S8PE2GW;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -239,6 +244,7 @@
 				CFEAB5281EEA5D6500F96B95 /* yourPalettes.plist in Resources */,
 				CFB043EF1EC17B11009245EB /* LaunchScreen.storyboard in Resources */,
 				CFB043E41EC17AC6009245EB /* Assets.xcassets in Resources */,
+				CFAB97841EFA1D6D00345D33 /* colorData270.plist in Resources */,
 				CFB043F11EC17B14009245EB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -311,6 +317,7 @@
 				CF7A87291EEFCE73003ED855 /* YourPalettesTVC.swift in Sources */,
 				19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */,
 				CFFEF15D1EE690E000071D67 /* Extensions.swift in Sources */,
+				CFAB97861EFA1DCA00345D33 /* MergePlist.swift in Sources */,
 				19E808CA1EB1937E00EFEE50 /* DetailColorVC.swift in Sources */,
 				1981987B1EE3BAA5009A7286 /* ShotButton.swift in Sources */,
 				CFC888D61ECD49C8007972A7 /* YPMagnifyingGlass.swift in Sources */,
@@ -424,7 +431,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 4J9S8PE2GW;
+				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = color/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
@@ -451,7 +458,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 4J9S8PE2GW;
+				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = color/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
