@@ -43,6 +43,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    var testPath:String = String()
+    func prepareTest(){
+        let rootPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, .userDomainMask, true)[0]
+        print("DAY NEEE \(rootPath)")
+        testPath = rootPath+"/testPalettes.plist"
+        if !FileManager.default.fileExists(atPath: testPath){
+            let plistPathInBundle = Bundle.main.path(forResource: "testPalettes", ofType: "plist") as String!
+            do {
+                try FileManager.default.copyItem(atPath: plistPathInBundle!, toPath: testPath)
+            }catch{
+                print("Error occurred while copying file to document \(error)")
+            }
+        }
+    }
+    
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -56,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Prepare pList file for write and read
         self.preparePlistForUse()
         self.preparePlistYourPalettesForUse()
-        
+        self.prepareTest()
         // Initialize the Google Mobile Ads SDK.
         // Sample AdMob app ID: ca-app-pub-1059572031766108~6237642472
         GADMobileAds.configure(withApplicationID: "ca-app-pub-1059572031766108~6237642472")
@@ -86,7 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         self.preparePlistForUse()
         self.preparePlistYourPalettesForUse()
-        
+        self.prepareTest()
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

@@ -22,6 +22,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
     var searchController = UISearchController()
     var id: [String] = []
     var indicator = UIActivityIndicatorView()
+    var notesArray = NSMutableArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +55,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         activityIndicator()
+        gidaydi()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,12 +84,55 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         self.view.addSubview(indicator)
     }
     
+    //MARK: Luu du lieu vao plist
+    
+    func saveDataToPlist(dict: NSDictionary, customPaletteName: String){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let pathForThePlistFile = appDelegate.plistPathYourPalettes
+        
+        // Extract the content of the file as NSData
+        print(pathForThePlistFile)
+        let data:NSData =  FileManager.default.contents(atPath: pathForThePlistFile)! as NSData
+        // Convert the NSData to mutable array
+        do{
+            notesArray = try PropertyListSerialization.propertyList(from: data as Data, options: PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves, format: nil) as! NSMutableArray
+            (notesArray[0] as AnyObject).add(dict)
+            // Save to plist
+            notesArray.write(toFile: pathForThePlistFile, atomically: true)
+        }catch{
+            print("An error occurred while writing to plist")
+        }
+    }
+    
+    func gidaydi() {
+        
+        for index in 0..<palettesArray.count
+        {
+            let data = [palettesArray[index].colorArray[0],
+                        palettesArray[index].colorArray[1],
+                        palettesArray[index].colorArray[2],
+                        palettesArray[index].colorArray[3],
+                        palettesArray[index].colorArray[4]]
+            
+            // Save new palette to plist
+            
+            let dict = ["data" : data,
+                        "name" : palettesArray[index].colorName] as [String : Any]
+            print(dict)
+            self.saveDataToPlist(dict: dict as NSDictionary, customPaletteName: palettesArray[index].colorName)
+            
+        }
+        
+    }
+    
+    
+
     //MARK: Lấy dữ liệu từ server truyền vào mảng itemArray
     
     func loadDataFromServer() {
         indicator.startAnimating()
         indicator.backgroundColor = UIColor.white
-        __dispatch_async(DispatchQueue.global(), {
+        DispatchQueue.global(qos: .background).async {
             let url = URL(string: "http://colornd.com/ios/all")
             do {
                 let allData = try Data(contentsOf: url!)
@@ -96,45 +141,31 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
                     for index in 0..<arrJSON.count
                     {
                         let aObject = arrJSON[index] as! [String: AnyObject]
-                        self.id.append(aObject["id"] as! String)
-                    }
-                }
-                for i in 0..<self.id.count
-                {
-                    let url = URL(string: "http://colornd.com/ios/detailios/\(self.id[i])")
-                    do {
-                        let colorData = try Data(contentsOf: url!)
-                        let allColor = try JSONSerialization.jsonObject(with: colorData, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject]
-                        if let arrJSON = allColor["data"] as? NSArray {
-                            for index in 0..<arrJSON.count
-                            {
-                                let aObject = arrJSON[index] as! [String: AnyObject]
-                                var item = [String]()
-                                item.append(aObject["color1"]! as! String)
-                                item.append(aObject["color2"]! as! String)
-                                item.append(aObject["color3"]! as! String)
-                                item.append(aObject["color4"]! as! String)
-                                item.append(aObject["color5"]! as! String)
-                                self.palettesArray.append(ColorPalette(colorName: aObject["name"]! as! String, colorArray: item ))
-                                __dispatch_async(DispatchQueue.main, {
-                                    self.tableView.reloadData()
-                                    if index == (arrJSON.count-1){
-                                        self.indicator.stopAnimating()
-                                        self.indicator.hidesWhenStopped = true
-                                    }
-                                })
-                                
-                            }
+                        
+                        var item = [String]()
+                        item.append(aObject["color1"]! as! String)
+                        item.append(aObject["color2"]! as! String)
+                        item.append(aObject["color3"]! as! String)
+                        item.append(aObject["color4"]! as! String)
+                        item.append(aObject["color5"]! as! String)
+                        self.palettesArray.append(ColorPalette(colorName: aObject["name"]! as! String, colorArray: item ))
+                        
+                        if index == (arrJSON.count-1){
+                            self.indicator.stopAnimating()
+                            self.indicator.hidesWhenStopped = true
                         }
                     }
                 }
-                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
             catch
             {
                 self.createAlertView()
             }
-        })
+            
+        }
     }
     
     //MARK: Connection fail alert
@@ -338,7 +369,6 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         {
             detailColorVC.colorArr = palettesArray
             detailColorVC.indexSection = indexPath.section
-            
         }
         self.navigationController?.pushViewController(detailColorVC, animated: true)}
     

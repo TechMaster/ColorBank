@@ -266,7 +266,7 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     
     func createNewPaletteRequest(name: String, color1: String, color2: String, color3: String, color4: String, color5: String){
         
-        let baseURL : String! = "http://192.168.1.103:3001/addnewpalette"
+        let baseURL : String! = "http://colornd.com/ios/addnewpalette"
         
         let param : [String:AnyObject] = ["name" : name as AnyObject, "color1" : color1 as AnyObject, "color2" : color2 as AnyObject, "color3" : color3 as AnyObject, "color4" : color4 as AnyObject, "color5" : color5 as AnyObject]
         
