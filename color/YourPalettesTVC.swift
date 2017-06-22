@@ -70,21 +70,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
     
     //MARK: Add Button
     func createAddNewPaletteButton(){
-        //Create back button of type custom
-        
-//        let myAddButton:UIButton = UIButton.init(type: .custom)
-//        myAddButton.addTarget(self, action: #selector(pushToMediaView(sender:)), for: .touchUpInside)
-//        myAddButton.setTitle("\u{002B}", for: .normal)
-//        myAddButton.setTitleColor(UIColor(hexString: "#F38181"), for: .normal)
-//        myAddButton.titleLabel?.font = UIFont(name: "American Typewriter", size: 40)
-//        myAddButton.sizeToFit()
-//        
-//        //Add + button to navigationBar as right Button
-//        
-//        let myCustomBackButtonItem:UIBarButtonItem = UIBarButtonItem(customView: myAddButton)
-//        self.navigationItem.rightBarButtonItem = myCustomBackButtonItem
         let addButton = UIBarButtonItem(image: #imageLiteral(resourceName: "add"), style: .plain, target: self, action: #selector(pushToMediaView(sender:)))
-        
         self.navigationItem.rightBarButtonItem = addButton
     }
     

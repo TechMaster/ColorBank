@@ -18,7 +18,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var mediaButton = UIButton()
     var yourPaletteButton = UIButton()
     var expanding: Bool = false
-    var mergePlist = MergePlist()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,25 +33,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         paletteButton = createButton(posY: 0, hexString: "#FA6900", title: "Color Palettes", titleColor: titleColor)
         paletteButton.addTarget(self, action: #selector(pushToColorListView), for: .touchUpInside)
         
-        yourPaletteButton = createButton(posY: screenHeight/4, hexString: "#F38630", title: "Your Palettes", titleColor: titleColor)
+        yourPaletteButton = createButton(posY: paletteButton.frame.maxY, hexString: "#F38630", title: "Your Palettes", titleColor: titleColor)
         yourPaletteButton.addTarget(self, action: #selector(pushToYourPalettesView), for: .touchUpInside)
         
         
-        mediaButton = createButton(posY: screenHeight/2, hexString: "#69D2E7", title: "Camera Roll", titleColor: titleColor)
+        mediaButton = createButton(posY: yourPaletteButton.frame.maxY, hexString: "#69D2E7", title: "Camera Roll", titleColor: titleColor)
         mediaButton.addTarget(self, action: #selector(pushToMediaView), for: .touchUpInside)
         
-        infoButton = createButton(posY: screenHeight*3/4, hexString: "#A7DBD8", title: "About Us", titleColor: titleColor)
+        infoButton = createButton(posY: mediaButton.frame.maxY, hexString: "#A7DBD8", title: "About Us", titleColor: titleColor)
         infoButton.addTarget(self, action: #selector(pushToInfoView), for: .touchUpInside)
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        self.mergePlist.loadDataFromPlist(plistPath: appDelegate.plistPathInDocument, palettesArray: self.mergePlist.mainPlistPalettesArray)
-        self.mergePlist.loadDataFromPlist(plistPath: appDelegate.colorData270PlistPath, palettesArray: self.mergePlist.subPlistPalettesArray)
-        print(self.mergePlist.subPlistPalettesArray.count)
-        self.mergePlist.filterColorPalettes(mainPlistPath: appDelegate.plistPathInDocument, mainPlistFile: self.mergePlist.mainPlistPalettesArray, subPlistFile: self.mergePlist.subPlistPalettesArray)
-        
-        print(self.mergePlist.mainPlistPalettesArray.count)
-        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
