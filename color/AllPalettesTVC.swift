@@ -59,18 +59,18 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         //MARK: Check internet connection
-        let status = Reach().connectionStatus()
-        switch status {
-        case .unknown, .offline:
-            print("Not connected")
-            loadDataFromPlist()
-        case .online(.wwan):
-            print("Connected via WWAN")
-            loadDataFromServer()
-        case .online(.wiFi):
-            print("Connected via WiFi")
-            loadDataFromServer()
-        }
+//        let status = Reach().connectionStatus()
+//        switch status {
+//        case .unknown, .offline:
+//            print("Not connected")
+//            loadDataFromPlist()
+//        case .online(.wwan):
+//            print("Connected via WWAN")
+//            loadDataFromServer()
+//        case .online(.wiFi):
+//            print("Connected via WiFi")
+//            loadDataFromServer()
+//        }
     }
     
     //MARK: Back Button

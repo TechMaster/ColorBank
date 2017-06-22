@@ -46,12 +46,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        self.mergePlist.loadDataFromPlist(plistPath: appDelegate.plistPathInDocument, palettesArray: self.mergePlist.mainPlistPalettesArray)
-        self.mergePlist.loadDataFromPlist(plistPath: appDelegate.colorData270PlistPath, palettesArray: self.mergePlist.subPlistPalettesArray)
+        self.mergePlist.loadDataFromPlist(plistPath: appDelegate.plistPathInDocument, palettesArray: &self.mergePlist.mainPlistPalettesArray)
+        print(self.mergePlist.mainPlistPalettesArray.count)
+        self.mergePlist.loadDataFromPlist(plistPath: appDelegate.colorData270PlistPath, palettesArray: &self.mergePlist.subPlistPalettesArray)
         print(self.mergePlist.subPlistPalettesArray.count)
+        self.mergePlist.filterMainPlist()
         self.mergePlist.filterColorPalettes(mainPlistPath: appDelegate.plistPathInDocument, mainPlistFile: self.mergePlist.mainPlistPalettesArray, subPlistFile: self.mergePlist.subPlistPalettesArray)
         
-        print(self.mergePlist.mainPlistPalettesArray.count)
         
     }
     

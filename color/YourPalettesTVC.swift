@@ -24,7 +24,7 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.loadDataFromPlist()
+//        self.loadDataFromPlist()
         self.tableView.reloadData()
         
         tableView.delegate = self

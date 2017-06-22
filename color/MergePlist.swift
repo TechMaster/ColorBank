@@ -14,8 +14,7 @@ class MergePlist {
     var arrayFromPlist = NSMutableArray()
     
     //MARK: Lấy dữ liệu từ file plist truyền vào mảng palettesArray
-    func loadDataFromPlist(plistPath: String, palettesArray: [ColorPalette]){
-        var palettesArray = palettesArray
+    func loadDataFromPlist(plistPath: String, palettesArray: inout [ColorPalette]){
         var arrayPalettesFromPlist = NSMutableArray()
         
         let data: Data = FileManager.default.contents(atPath: plistPath)!
@@ -27,15 +26,11 @@ class MergePlist {
         
         let arrData = arrayPalettesFromPlist[0] as! NSArray
         for index in 0..<arrData.count{
-            print(index)
             let itemDict = arrData[index] as! NSDictionary
-            
             let item = itemDict["data"] as! NSArray
             let name = itemDict["name"] as! String
-            
             palettesArray.append(ColorPalette(colorName: name, colorArray: item as! [String]))
         }
-        print(palettesArray.count)
 
     }
     
@@ -72,8 +67,6 @@ class MergePlist {
     
     //MARK: Lọc những palettes trùng tên
     func filterColorPalettes(mainPlistPath: String, mainPlistFile: [ColorPalette], subPlistFile: [ColorPalette]){
-        print(mainPlistFile.count)
-        print(subPlistFile.count)
         //Vào trong file colorData.plist
         for i in 0..<mainPlistFile.count{
             
@@ -87,10 +80,26 @@ class MergePlist {
                     
                     //Nếu không thì lưu vào mainPlistFile
                 else {
+                    print("ko trung")
                     self.saveUnmatchPalettesToMainPlist(plistPath: mainPlistPath, ummatchPalette: subPlistFile[j])
                 }
             }
         }
+    }
+    
+    func filterMainPlist() {
+        for i in 0..<mainPlistPalettesArray.count
+        {
+            for k in 0..<mainPlistPalettesArray.count{
+                if k+1 < mainPlistPalettesArray.count{
+                    if mainPlistPalettesArray[i].colorName == mainPlistPalettesArray[k+1].colorName {
+                        mainPlistPalettesArray.remove(at: i)
+                        return
+                    }
+                }
+            }
+        }
+        print("So dai mau trong plist la \(mainPlistPalettesArray.count)")
     }
 }
 
