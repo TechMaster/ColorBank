@@ -29,16 +29,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    var colorData270PlistPath:String = String()
-    
-    func prepareSubPlistForUse(){
+    var plistPathInDocument270:String = String()
+    func preparePlistForUse270(){
         let rootPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, .userDomainMask, true)[0]
         
-        colorData270PlistPath = rootPath+"/colorData270.plist"
-        if !FileManager.default.fileExists(atPath: colorData270PlistPath){
+        plistPathInDocument270 = rootPath+"/colorData270.plist"
+        print(plistPathInDocument270)
+        if !FileManager.default.fileExists(atPath: plistPathInDocument270){
             let plistPathInBundle = Bundle.main.path(forResource: "colorData270", ofType: "plist") as String!
             do {
-                try FileManager.default.copyItem(atPath: plistPathInBundle!, toPath: colorData270PlistPath)
+                try FileManager.default.copyItem(atPath: plistPathInBundle!, toPath: plistPathInDocument270)
             }catch{
                 print("Error occurred while copying file to document \(error)")
             }
@@ -72,14 +72,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Prepare pList file for write and read
         self.preparePlistForUse()
         self.preparePlistYourPalettesForUse()
-        self.prepareSubPlistForUse()
+        
         // Initialize the Google Mobile Ads SDK.
         // Sample AdMob app ID: ca-app-pub-1059572031766108~6237642472
         GADMobileAds.configure(withApplicationID: "ca-app-pub-1059572031766108~6237642472")
-        //Hide backIndicatorImage for NavigationBar in all ViewController
-        UINavigationBar.appearance().backIndicatorImage = UIImage()
-        UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage()
-        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffsetMake(-10, 0), for: UIBarMetrics.default)
         
         return true
     }
@@ -102,7 +98,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         self.preparePlistForUse()
         self.preparePlistYourPalettesForUse()
-        self.prepareSubPlistForUse()
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

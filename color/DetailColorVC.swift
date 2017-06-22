@@ -65,8 +65,7 @@ class DetailColorVC: UIViewController {
         let backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(popView(sender:)))
         self.navigationItem.leftBarButtonItem = backButton
     }
-    
-    
+
     func popView(sender: UIBarButtonItem){
         self.navigationController?.popViewController(animated: true)
     }

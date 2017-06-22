@@ -59,18 +59,18 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         //MARK: Check internet connection
-//        let status = Reach().connectionStatus()
-//        switch status {
-//        case .unknown, .offline:
-//            print("Not connected")
-//            loadDataFromPlist()
-//        case .online(.wwan):
-//            print("Connected via WWAN")
-//            loadDataFromServer()
-//        case .online(.wiFi):
-//            print("Connected via WiFi")
-//            loadDataFromServer()
-//        }
+        let status = Reach().connectionStatus()
+        switch status {
+        case .unknown, .offline:
+            print("Not connected")
+            loadDataFromPlist()
+        case .online(.wwan):
+            print("Connected via WWAN")
+            loadDataFromServer()
+        case .online(.wiFi):
+            print("Connected via WiFi")
+            loadDataFromServer()
+        }
     }
     
     //MARK: Back Button
@@ -119,7 +119,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         
         self.present(alertController, animated: true, completion: nil)
     }
-
+    
     //MARK: Lấy dữ liệu từ server truyền vào mảng itemArray
     func loadDataFromServer() {
         
@@ -161,6 +161,8 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
             }
             
         }
+        
+        print(palettesArray.count)
     }
     
     //MARK: Lấy dữ liệu từ file plist truyền vào mảng itemArray
@@ -194,6 +196,8 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
             palettesArray.append(ColorPalette(colorName: name, colorArray: item as! [String]))
             
         }
+        print(palettesArray.count)
+        
     }
     
     //MARK: Lọc mã màu

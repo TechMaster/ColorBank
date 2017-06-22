@@ -15,6 +15,7 @@ class AboutUsVC: UIViewController {
     let tungView = UIView()
     var bannerView: GADBannerView!
     let appIconView = UIImageView()
+    let appNameLabel = UILabel()
     let infoView = UIView()
 
     
@@ -31,7 +32,7 @@ class AboutUsVC: UIViewController {
              NSFontAttributeName: UIFont(name: "American Typewriter", size: 20)!]
         
         createImageView(appIconName: "icon")
-        createInfoView()
+        createNameAndEmail()
         createBackButton()
         
         //Add Advertisement
@@ -69,41 +70,35 @@ class AboutUsVC: UIViewController {
         appIconView.layer.masksToBounds = true
         appIconView.image = UIImage(named: appIconName)
         self.view.addSubview(appIconView)
+        print(appIconView.frame.maxY)
+        
+        appNameLabel.frame = CGRect(x: appIconView.frame.minX, y: appIconView.frame.maxY, width: appIconView.frame.size.width, height: appIconView.frame.size.height/4)
+        appNameLabel.text = "MyPalettes v.1.0"
+        appNameLabel.textAlignment = .center
+        appNameLabel.adjustsFontSizeToFitWidth = true
+        appNameLabel.textColor = UIColor(hexString: "#F38181")
+        appNameLabel.font = UIFont(name: "American Typewriter", size: 20)
+        self.view.addSubview(appNameLabel)
+        print(appNameLabel.frame.minY)
     }
 
-    func createInfoView(){
+    
+    func createNameAndEmail(){
         let screenWidth = self.view.bounds.size.width
         let screenHeight = self.view.bounds.size.height
-        let navAndStatusHeight = UIApplication.shared.statusBarFrame.size.height + (self.navigationController?.navigationBar.frame.size.height)!
-        infoView.frame = CGRect(x: 0, y: appIconView.frame.maxY + screenWidth/12, width: screenWidth, height: screenHeight-appIconView.frame.maxY)
-        
-        createNameAndEmail(frame: CGRect(x: 0, y: 0,
-                                         width: infoView.frame.size.width, height: screenWidth/6),
-                           name: "Hoang Nhat Minh",
-                           email: "nhatminh291297@gmail.com")
-        createNameAndEmail(frame: CGRect(x: 0, y: screenWidth/6 + 20,
-                                         width: infoView.frame.size.width, height: screenWidth/6),
-                           name: "Tran Thien Loc",
-                           email: "tomtran43@gmail.com")
-        createNameAndEmail(frame: CGRect(x: 0, y: screenWidth*2/6 + 40 ,
-                                         width: infoView.frame.size.width, height: screenWidth/6),
-                           name: "Nguyen Thanh Tung",
-                           email: "ttungb2410@gmail.com")
-        self.view.addSubview(infoView)
-    }
-    
-    func createNameAndEmail(frame: CGRect, name: String, email: String) {
+
         let infoLabel = UILabel()
-        infoLabel.frame = frame
-        infoLabel.text = "\(name)\n\(email)"
-        infoLabel.numberOfLines = 2
+
+        infoLabel.frame = CGRect(x: 0, y: appNameLabel.frame.maxY, width: screenWidth, height: screenHeight-appNameLabel.frame.maxY)
+        infoLabel.text = "\nDev Team:\n\nHoang Nhat Minh\nnhatminh291297@gmail.com\n\nTran Thien Loc\ntomtran43@gmail.com\n\nNguyen Thanh Tung\nttungb2410@gmail.com"
+        infoLabel.numberOfLines = 11
         infoLabel.textColor = UIColor(hexString: "#F38181")
         infoLabel.font = UIFont(name: "American Typewriter", size: 20)
-        infoLabel.textAlignment = .center
         infoLabel.adjustsFontSizeToFitWidth = true
-        infoView.addSubview(infoLabel)
+        infoLabel.textAlignment = .center
+        infoLabel.sizeToFit()
+        infoLabel.center.x = self.view.center.x
+        self.view.addSubview(infoLabel)
     }
-    
-    
     
 }
