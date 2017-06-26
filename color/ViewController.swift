@@ -36,7 +36,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         yourPaletteButton = createButton(posY: paletteButton.frame.maxY, hexString: "#F38630", title: "Your Palettes", titleColor: titleColor)
         yourPaletteButton.addTarget(self, action: #selector(pushToYourPalettesView), for: .touchUpInside)
         
-        
         mediaButton = createButton(posY: yourPaletteButton.frame.maxY, hexString: "#69D2E7", title: "Camera Roll", titleColor: titleColor)
         mediaButton.addTarget(self, action: #selector(pushToMediaView), for: .touchUpInside)
         

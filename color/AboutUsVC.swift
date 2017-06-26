@@ -73,7 +73,7 @@ class AboutUsVC: UIViewController {
         print(appIconView.frame.maxY)
         
         appNameLabel.frame = CGRect(x: appIconView.frame.minX, y: appIconView.frame.maxY, width: appIconView.frame.size.width, height: appIconView.frame.size.height/4)
-        appNameLabel.text = "MyPalettes v.1.0"
+        appNameLabel.text = "MyPalettes v.1.0.0"
         appNameLabel.textAlignment = .center
         appNameLabel.adjustsFontSizeToFitWidth = true
         appNameLabel.textColor = UIColor(hexString: "#F38181")
@@ -90,7 +90,7 @@ class AboutUsVC: UIViewController {
         let infoLabel = UILabel()
 
         infoLabel.frame = CGRect(x: 0, y: appNameLabel.frame.maxY, width: screenWidth, height: screenHeight-appNameLabel.frame.maxY)
-        infoLabel.text = "\nDev Team:\n\nHoang Nhat Minh\nnhatminh291297@gmail.com\n\nTran Thien Loc\ntomtran43@gmail.com\n\nNguyen Thanh Tung\nttungb2410@gmail.com"
+        infoLabel.text = "\nDev. Team:\n\nHoang Nhat Minh\nnhatminh291297@gmail.com\n\nTran Thien Loc\ntomtran43@gmail.com\n\nNguyen Thanh Tung\nttungb2410@gmail.com"
         infoLabel.numberOfLines = 11
         infoLabel.textColor = UIColor(hexString: "#F38181")
         infoLabel.font = UIFont(name: "American Typewriter", size: 20)
