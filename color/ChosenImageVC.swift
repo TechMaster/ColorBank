@@ -8,8 +8,6 @@
 
 import Foundation
 import UIKit
-import Fusuma
-
 
 class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     
@@ -29,10 +27,11 @@ class ChosenImageVC: UIViewController, PassingDetectColorDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = fusumaBackgroundColor
-        self.navigationController?.navigationBar.barTintColor = fusumaBackgroundColor
-        self.navigationController?.navigationBar.tintColor = fusumaTintColor
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: fusumaTintColor]
+        self.view.backgroundColor = UIColor.white
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = UIColor(hexString: "#F38181")
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(hexString: "#F38181")]
         
         magView.delegate = self
         

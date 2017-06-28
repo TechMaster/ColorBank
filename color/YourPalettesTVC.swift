@@ -30,6 +30,25 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
         tableView.delegate = self
         tableView.dataSource = self
         
+        setupNavigationBar()
+        setupSearchController()
+        createBackButton()
+        createAddNewPaletteButton()
+        
+    }
+    
+    //MARK: NavigationBar
+    func setupNavigationBar(){
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = UIColor(hexString: "#F38181")
+        self.navigationController?.navigationBar.titleTextAttributes =
+            [NSForegroundColorAttributeName: UIColor(hexString: "#F38181"),
+             NSFontAttributeName: UIFont(name: "American Typewriter", size: 20)!]
+        self.navigationItem.title = "Your Palettes"
+    }
+    
+    //MARK: Search Controller
+    func setupSearchController(){
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
@@ -38,23 +57,9 @@ class YourPalettesTVC: UITableViewController, UISearchBarDelegate, FusumaDelegat
         
         let cancelButtonAttributes: NSDictionary = [NSForegroundColorAttributeName:UIColor(hexString: "#F38181")]
         UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes as? [String : AnyObject], for: UIControlState.normal)
-        
         self.searchController.searchBar.placeholder = "E.g. #FFFFFF or Giant Goldfish"
         self.searchController.searchBar.setTextColor(color: UIColor(hexString: "#F38181"))
         self.searchController.searchBar.setPlaceholderTextColor(color: UIColor(hexString: "#F38181"))
-        
-        self.view.backgroundColor = UIColor.white
-        
-        self.navigationController?.navigationBar.barTintColor = UIColor.white
-        self.navigationController?.navigationBar.tintColor = UIColor(hexString: "#F38181")
-        self.navigationController?.navigationBar.titleTextAttributes =
-            [NSForegroundColorAttributeName: UIColor(hexString: "#F38181"),
-             NSFontAttributeName: UIFont(name: "American Typewriter", size: 20)!]
-        self.navigationItem.title = "Your Palettes"
-        
-        createBackButton()
-        createAddNewPaletteButton()
-        
     }
     
     //MARK: Back Button

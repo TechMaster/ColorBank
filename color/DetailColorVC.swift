@@ -36,26 +36,29 @@ class DetailColorVC: UIViewController {
         self.view.backgroundColor = UIColor.white
         
         arr = colorArr[indexSection].colorArray
-        self.navigationItem.title = colorArr[indexSection].colorName
-        
-        self.navigationController?.navigationBar.barTintColor = UIColor.white
-        self.navigationController?.navigationBar.tintColor = UIColor(hexString: "#F38181")
-        self.navigationController?.navigationBar.titleTextAttributes =
-            [NSForegroundColorAttributeName: UIColor(hexString: "#F38181"),
-             NSFontAttributeName: UIFont(name: "American Typewriter", size: 20)!]
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        
         navAndStatusHeight = (self.navigationController?.navigationBar.bounds.size.height)! + UIApplication.shared.statusBarFrame.size.height
-        
         
         for i in 0..<5
         {
             creatBtn(index: i).addTarget(self, action: #selector(animate), for: .touchUpInside)
         }
         
+        setupNavigationBar()
         createAnimateView()
         createBackButton()
         createShareButton()
+
+    }
+    
+    //MARK: NavigationBar
+    func setupNavigationBar(){
+        self.navigationItem.title = colorArr[indexSection].colorName
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = UIColor(hexString: "#F38181")
+        self.navigationController?.navigationBar.titleTextAttributes =
+            [NSForegroundColorAttributeName: UIColor(hexString: "#F38181"),
+             NSFontAttributeName: UIFont(name: "American Typewriter", size: 20)!]
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
 
     }
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1962846D1F02B7CF00FE7163 /* SettingTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1962846C1F02B7CF00FE7163 /* SettingTVC.swift */; };
 		1981987B1EE3BAA5009A7286 /* ShotButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1981987A1EE3BAA5009A7286 /* ShotButton.swift */; };
 		19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */; };
 		19E808B11EB18EE700EFEE50 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808B01EB18EE700EFEE50 /* ViewController.swift */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		09709D13FA795FE3CC57B389 /* Pods_color.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_color.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1962846C1F02B7CF00FE7163 /* SettingTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTVC.swift; sourceTree = "<group>"; };
 		1981987A1EE3BAA5009A7286 /* ShotButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShotButton.swift; sourceTree = "<group>"; };
 		19E808AB1EB18EE700EFEE50 /* color.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = color.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				CF7A87231EEFCE30003ED855 /* AllPalettesTVC.swift */,
+				1962846C1F02B7CF00FE7163 /* SettingTVC.swift */,
 				CF7A87281EEFCE73003ED855 /* YourPalettesTVC.swift */,
 				19F7CEB91EE66551008E5E3B /* Reach.swift */,
 				CFB043E91EC17ADE009245EB /* ColorListCell.swift */,
@@ -310,6 +313,7 @@
 				CFC2BEA31EB2F7BA00F22496 /* ChosenImageVC.swift in Sources */,
 				CF7A87291EEFCE73003ED855 /* YourPalettesTVC.swift in Sources */,
 				19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */,
+				1962846D1F02B7CF00FE7163 /* SettingTVC.swift in Sources */,
 				CFFEF15D1EE690E000071D67 /* Extensions.swift in Sources */,
 				19E808CA1EB1937E00EFEE50 /* DetailColorVC.swift in Sources */,
 				1981987B1EE3BAA5009A7286 /* ShotButton.swift in Sources */,
@@ -427,7 +431,7 @@
 				DEVELOPMENT_TEAM = 4J9S8PE2GW;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = color/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -454,7 +458,7 @@
 				DEVELOPMENT_TEAM = 4J9S8PE2GW;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = color/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

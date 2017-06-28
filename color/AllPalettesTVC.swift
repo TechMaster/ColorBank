@@ -8,27 +8,71 @@
 
 import UIKit
 import Foundation
-import Fusuma
 
 struct ColorPalette {
     var colorName: String
     var colorArray: [String]
 }
 
-class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
-    var filterItemArray = [ColorPalette]()
+class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPresentationControllerDelegate {
+
     var palettesArray = [ColorPalette]()
-    var filterColorName = [String]()
-    var searchController = UISearchController()
-    var indicator = UIActivityIndicatorView()
     var arrayFromPlist = NSMutableArray()
+
+    var filterColorName = [String]()
+    var filterItemArray = [ColorPalette]()
+    var searchController = UISearchController()
+    
+    var indicator = UIActivityIndicatorView()
+    
+    let settingView = SettingTVC()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        self.view.backgroundColor = UIColor.white
         
+        setupSearchController()
+        setupNavigationBar()
+        
+        loadingIndicator()
+        createSettingButton()
+        createBackButton()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        //MARK: Check internet connection
+//        let status = Reach().connectionStatus()
+//        switch status {
+//        case .unknown, .offline:
+//            print("Not connected")
+            loadDataFromPlist()
+//        case .online(.wwan):
+//            print("Connected via WWAN")
+//            loadDataFromServer()
+//        case .online(.wiFi):
+//            print("Connected via WiFi")
+//            loadDataFromServer()
+//        }
+    }
+    
+    //MARK: NavigationBar
+    func setupNavigationBar(){
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = UIColor(hexString: "#F38181")
+        self.navigationController?.navigationBar.titleTextAttributes =
+            [NSForegroundColorAttributeName: UIColor(hexString: "#F38181"),
+             NSFontAttributeName: UIFont(name: "American Typewriter", size: 20)!]
+        self.navigationItem.title = "Palettes"
+    }
+    
+    //MARK: Search Controller
+    func setupSearchController(){
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
@@ -37,40 +81,9 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         
         let cancelButtonAttributes: NSDictionary = [NSForegroundColorAttributeName:UIColor(hexString: "#F38181")]
         UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes as? [String : AnyObject], for: UIControlState.normal)
-        
         self.searchController.searchBar.placeholder = "E.g. #FFFFFF or Giant Goldfish"
         self.searchController.searchBar.setTextColor(color: UIColor(hexString: "#F38181"))
         self.searchController.searchBar.setPlaceholderTextColor(color: UIColor(hexString: "#F38181"))
-        
-        self.view.backgroundColor = UIColor.white
-        
-        self.navigationController?.navigationBar.barTintColor = UIColor.white
-        self.navigationController?.navigationBar.tintColor = UIColor(hexString: "#F38181")
-        self.navigationController?.navigationBar.titleTextAttributes =
-            [NSForegroundColorAttributeName: UIColor(hexString: "#F38181"),
-             NSFontAttributeName: UIFont(name: "American Typewriter", size: 20)!]
-        self.navigationItem.title = "Palettes"
-        
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        loadingIndicator()
-        
-        createBackButton()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        //MARK: Check internet connection
-        let status = Reach().connectionStatus()
-        switch status {
-        case .unknown, .offline:
-            print("Not connected")
-            loadDataFromPlist()
-        case .online(.wwan):
-            print("Connected via WWAN")
-            loadDataFromServer()
-        case .online(.wiFi):
-            print("Connected via WiFi")
-            loadDataFromServer()
-        }
     }
     
     //MARK: Back Button
@@ -79,9 +92,31 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate {
         self.navigationItem.leftBarButtonItem = backButton
     }
     
-    
     func popView(sender: UIBarButtonItem){
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: Setting Button
+    func createSettingButton(){
+        let settingButton = UIBarButtonItem(image: #imageLiteral(resourceName: "setting"), style: .plain, target: self, action: #selector(settingAction))
+        self.navigationItem.rightBarButtonItem = settingButton
+        
+        settingView.modalPresentationStyle = .popover
+        settingView.tableView.delegate = self
+    }
+    
+    func settingAction(){
+        let settingPresentationController = settingView.presentationController as! UIPopoverPresentationController
+        settingPresentationController.barButtonItem = navigationItem.rightBarButtonItem
+        settingPresentationController.backgroundColor = UIColor.white
+        settingPresentationController.delegate = self
+        
+        present(settingView, animated: true, completion: nil)
+        
+    }
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
     
     //MARK: Loading Indicator
