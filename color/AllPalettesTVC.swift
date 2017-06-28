@@ -14,19 +14,19 @@ struct ColorPalette {
     var colorArray: [String]
 }
 
-class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPresentationControllerDelegate {
-
+class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, ChooseDelegate {
+    
     var palettesArray = [ColorPalette]()
     var arrayFromPlist = NSMutableArray()
-
+    
     var filterColorName = [String]()
     var filterItemArray = [ColorPalette]()
     var searchController = UISearchController()
     
     var indicator = UIActivityIndicatorView()
     
-    let settingView = SettingTVC()
-
+    let dropMenu = DropdownMenu()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,22 +43,18 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPrese
         createSettingButton()
         createBackButton()
         
+        dropMenu.frame = CGRect(x: self.view.frame.width*2/3, y: (self.tableView.tableHeaderView?.frame.minY)!, width: self.view.bounds.size.width/3, height: self.view.bounds.size.width/5)
+        dropMenu.delegate = self
+        dropMenu.layer.zPosition = 100
+        self.view.addSubview(dropMenu)
+        dropMenu.addTableView()
+        dropMenu.isHidden = true
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         //MARK: Check internet connection
-//        let status = Reach().connectionStatus()
-//        switch status {
-//        case .unknown, .offline:
-//            print("Not connected")
-            loadDataFromPlist()
-//        case .online(.wwan):
-//            print("Connected via WWAN")
-//            loadDataFromServer()
-//        case .online(.wiFi):
-//            print("Connected via WiFi")
-//            loadDataFromServer()
-//        }
+        loadDataFromPlist()
     }
     
     //MARK: NavigationBar
@@ -101,22 +97,44 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPrese
         let settingButton = UIBarButtonItem(image: #imageLiteral(resourceName: "setting"), style: .plain, target: self, action: #selector(settingAction))
         self.navigationItem.rightBarButtonItem = settingButton
         
-        settingView.modalPresentationStyle = .popover
-        settingView.tableView.delegate = self
     }
     
     func settingAction(){
-        let settingPresentationController = settingView.presentationController as! UIPopoverPresentationController
-        settingPresentationController.barButtonItem = navigationItem.rightBarButtonItem
-        settingPresentationController.backgroundColor = UIColor.white
-        settingPresentationController.delegate = self
         
-        present(settingView, animated: true, completion: nil)
+        if dropMenu.isSettingButtonSelected == false{
+            dropMenu.isHidden = false
+            dropMenu.isSettingButtonSelected = true
+        }else{
+            dropMenu.isHidden = true
+            dropMenu.isSettingButtonSelected = false
+        }
         
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
+    func chooseSettings(index: Int) {
+        if index == 0{
+            palettesArray.removeAll()
+            loadDataFromPlist()
+            tableView.reloadData()
+        }else{
+            palettesArray.removeAll()
+            
+            let status = Reach().connectionStatus()
+            switch status {
+            case .unknown, .offline:
+                print("Not connected")
+                
+                createAlertView(title: "No internet connection")
+            case .online(.wwan):
+                print("Connected via WWAN")
+                loadDataFromServer()
+            case .online(.wiFi):
+                print("Connected via WiFi")
+                loadDataFromServer()
+            }
+            
+            tableView.reloadData()
+        }
     }
     
     //MARK: Loading Indicator
@@ -128,8 +146,8 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPrese
     }
     
     //MARK: Connection fail alert
-    func createAlertView() {
-        let alertController = UIAlertController(title: "Cannot connect to server", message: "Press OK to use offline palettes.", preferredStyle: .alert)
+    func createAlertView(title: String) {
+        let alertController = UIAlertController(title: title, message: "Press Ok to use offline palettes.", preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "Ok", style: .default, handler: {
             (action : UIAlertAction!) -> Void in
@@ -192,7 +210,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPrese
                 }
             }
             catch {
-                self.createAlertView()
+                self.createAlertView(title: "Cannot connect to server")
             }
             
         }
@@ -231,7 +249,6 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPrese
             palettesArray.append(ColorPalette(colorName: name, colorArray: item as! [String]))
             
         }
-        print(palettesArray.count)
         
     }
     

@@ -70,16 +70,14 @@ class AboutUsVC: UIViewController {
         appIconView.layer.masksToBounds = true
         appIconView.image = UIImage(named: appIconName)
         self.view.addSubview(appIconView)
-        print(appIconView.frame.maxY)
         
         appNameLabel.frame = CGRect(x: appIconView.frame.minX, y: appIconView.frame.maxY, width: appIconView.frame.size.width, height: appIconView.frame.size.height/4)
-        appNameLabel.text = "MyPalettes v.1.0.0"
+        appNameLabel.text = "MyPalettes v.1.0.1"
         appNameLabel.textAlignment = .center
         appNameLabel.adjustsFontSizeToFitWidth = true
         appNameLabel.textColor = UIColor(hexString: "#F38181")
         appNameLabel.font = UIFont(name: "American Typewriter", size: 20)
         self.view.addSubview(appNameLabel)
-        print(appNameLabel.frame.minY)
     }
 
     

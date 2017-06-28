@@ -69,6 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.rootViewController = navi
         self.window?.makeKeyAndVisible()
         
+        
         //Prepare pList file for write and read
         self.preparePlistForUse()
         self.preparePlistYourPalettesForUse()
