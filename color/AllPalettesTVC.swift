@@ -14,7 +14,7 @@ struct ColorPalette {
     var colorArray: [String]
 }
 
-class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, ChooseDelegate {
+class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, DropDownDelegate {
     
     var palettesArray = [ColorPalette]()
     var arrayFromPlist = NSMutableArray()
@@ -26,7 +26,8 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPrese
     var indicator = UIActivityIndicatorView()
     
     let dropMenu = DropdownMenu()
-    
+    var dropDownIsShowing: Bool!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,12 +44,10 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPrese
         createSettingButton()
         createBackButton()
         
-        dropMenu.frame = CGRect(x: self.view.frame.width*2/3, y: (self.tableView.tableHeaderView?.frame.minY)!, width: self.view.bounds.size.width/3, height: self.view.bounds.size.width/5)
-        dropMenu.delegate = self
-        dropMenu.layer.zPosition = 100
-        self.view.addSubview(dropMenu)
-        dropMenu.addTableView()
+        dropDownIsShowing = false
+        createDropDownMenu()
         dropMenu.isHidden = true
+        
         
     }
     
@@ -101,29 +100,42 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPrese
     
     func settingAction(){
         
-        if dropMenu.isSettingButtonSelected == false{
+        if dropDownIsShowing == false{
             dropMenu.isHidden = false
-            dropMenu.isSettingButtonSelected = true
+            tableView.tableHeaderView?.isUserInteractionEnabled = false
+            dropDownIsShowing = true
         }else{
             dropMenu.isHidden = true
-            dropMenu.isSettingButtonSelected = false
+            tableView.tableHeaderView?.isUserInteractionEnabled = true
+            dropDownIsShowing = false
         }
-        
+
     }
     
-    func chooseSettings(index: Int) {
+    func createDropDownMenu(){
+        
+        dropMenu.frame = CGRect(x: self.view.frame.width*2/3, y: (self.tableView.tableHeaderView?.frame.minY)!, width: self.view.bounds.size.width/3, height: self.view.bounds.size.width/5)
+        dropMenu.delegate = self
+        dropMenu.addTableView()
+        dropMenu.layer.zPosition = CGFloat.greatestFiniteMagnitude
+        self.view.addSubview(dropMenu)
+
+    }
+    
+    func dropDownSelection(index: Int) {
+        
+        dropMenu.isHidden = true
+        dropDownIsShowing = false
+        tableView.tableHeaderView?.isUserInteractionEnabled = true
+        palettesArray.removeAll()
+
         if index == 0{
-            palettesArray.removeAll()
             loadDataFromPlist()
-            tableView.reloadData()
         }else{
-            palettesArray.removeAll()
-            
             let status = Reach().connectionStatus()
             switch status {
             case .unknown, .offline:
                 print("Not connected")
-                
                 createAlertView(title: "No internet connection")
             case .online(.wwan):
                 print("Connected via WWAN")
@@ -132,9 +144,10 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPrese
                 print("Connected via WiFi")
                 loadDataFromServer()
             }
-            
-            tableView.reloadData()
         }
+        
+        tableView.reloadData()
+
     }
     
     //MARK: Loading Indicator
@@ -224,6 +237,9 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPrese
         if palettesArray.count > 0 {
             return
         }
+        
+        self.indicator.stopAnimating()
+        self.indicator.hidesWhenStopped = true
         
         var arrayPalettesFromPlist = NSMutableArray()
         var pathPlist: String = ""
@@ -357,6 +373,7 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPrese
         header.textLabel?.font = UIFont(name: "American Typewriter", size: 25)
         header.textLabel?.textColor = UIColor(hexString: "#F38181")
         header.textLabel?.textAlignment = .center
+        header.isUserInteractionEnabled = false
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if searchController.isActive == true && searchController.searchBar.text != "" {

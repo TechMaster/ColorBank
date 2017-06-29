@@ -24,7 +24,6 @@ class AboutUsVC: UIViewController {
         self.view.backgroundColor = UIColor.white
         let screenWidth = UIScreen.main.bounds.size.width
         let screenHeight = UIScreen.main.bounds.size.height
-        let navAndStatusHeight: CGFloat = (self.navigationController?.navigationBar.bounds.size.height)! + UIApplication.shared.statusBarFrame.size.height
         
         self.navigationController?.navigationBar.tintColor = UIColor(hexString: "#F38181")
         self.navigationController?.navigationBar.titleTextAttributes =
@@ -59,7 +58,6 @@ class AboutUsVC: UIViewController {
     
     func createImageView(appIconName: String){
         let screenWidth = self.view.bounds.size.width
-        let screenHeight = self.view.bounds.size.height
         let navAndStatusHeight = UIApplication.shared.statusBarFrame.size.height + (self.navigationController?.navigationBar.frame.size.height)!
         
         

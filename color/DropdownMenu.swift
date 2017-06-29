@@ -9,16 +9,15 @@
 import Foundation
 import UIKit
 
-protocol ChooseDelegate {
-    func chooseSettings(index: Int)
+protocol DropDownDelegate {
+    func dropDownSelection(index: Int)
 }
 
 class DropdownMenu: UIView, UITableViewDelegate, UITableViewDataSource {
     
     var tableView: UITableView!
     var action: [String] = ["Offline Palettes", "Online Palettes"]
-    var isSettingButtonSelected: Bool = false
-    var delegate: ChooseDelegate!
+    var delegate: DropDownDelegate!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,6 +25,7 @@ class DropdownMenu: UIView, UITableViewDelegate, UITableViewDataSource {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.layer.backgroundColor = UIColor.black.cgColor
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -64,9 +64,7 @@ class DropdownMenu: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.isHidden = true
-        self.isSettingButtonSelected = false
-        self.delegate.chooseSettings(index: indexPath.row)
+        self.delegate.dropDownSelection(index: indexPath.row)
     
     }
 

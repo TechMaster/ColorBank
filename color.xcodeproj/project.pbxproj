@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1962846F1F03A71C00FE7163 /* DropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1962846E1F03A71C00FE7163 /* DropDown.swift */; };
+		1962846F1F03A71C00FE7163 /* DropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1962846E1F03A71C00FE7163 /* DropdownMenu.swift */; };
 		1981987B1EE3BAA5009A7286 /* ShotButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1981987A1EE3BAA5009A7286 /* ShotButton.swift */; };
 		19E808AF1EB18EE700EFEE50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */; };
 		19E808B11EB18EE700EFEE50 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E808B01EB18EE700EFEE50 /* ViewController.swift */; };
@@ -35,7 +35,7 @@
 
 /* Begin PBXFileReference section */
 		09709D13FA795FE3CC57B389 /* Pods_color.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_color.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1962846E1F03A71C00FE7163 /* DropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDown.swift; sourceTree = "<group>"; };
+		1962846E1F03A71C00FE7163 /* DropdownMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownMenu.swift; sourceTree = "<group>"; };
 		1981987A1EE3BAA5009A7286 /* ShotButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShotButton.swift; sourceTree = "<group>"; };
 		19E808AB1EB18EE700EFEE50 /* color.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = color.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19E808AE1EB18EE700EFEE50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -141,7 +141,7 @@
 			children = (
 				CF7A87231EEFCE30003ED855 /* AllPalettesTVC.swift */,
 				CF7A87281EEFCE73003ED855 /* YourPalettesTVC.swift */,
-				1962846E1F03A71C00FE7163 /* DropDown.swift */,
+				1962846E1F03A71C00FE7163 /* DropdownMenu.swift */,
 				19F7CEB91EE66551008E5E3B /* Reach.swift */,
 				CFB043E91EC17ADE009245EB /* ColorListCell.swift */,
 				CFB043E51EC17AD2009245EB /* ColorBar.swift */,
@@ -309,7 +309,7 @@
 				CFC888D71ECD49C8007972A7 /* YPMagnifyingView.swift in Sources */,
 				CFB043EA1EC17ADE009245EB /* ColorListCell.swift in Sources */,
 				19F7CEBA1EE66551008E5E3B /* Reach.swift in Sources */,
-				1962846F1F03A71C00FE7163 /* DropDown.swift in Sources */,
+				1962846F1F03A71C00FE7163 /* DropdownMenu.swift in Sources */,
 				CF7A87241EEFCE30003ED855 /* AllPalettesTVC.swift in Sources */,
 				CFC2BEA31EB2F7BA00F22496 /* ChosenImageVC.swift in Sources */,
 				CF7A87291EEFCE73003ED855 /* YourPalettesTVC.swift in Sources */,

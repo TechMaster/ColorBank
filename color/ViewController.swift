@@ -22,11 +22,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = fusumaBackgroundColor
-        self.navigationController?.navigationBar.barTintColor = fusumaBackgroundColor
-        
-        let screenHeight = self.view.bounds.size.height
-        
+        self.view.backgroundColor = UIColor.white
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
         let titleColor = UIColor(hexString: "#E0E4CC")
         
         
