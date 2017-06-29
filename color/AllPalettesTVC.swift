@@ -48,7 +48,6 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPrese
         createDropDownMenu()
         dropMenu.isHidden = true
         
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -160,9 +159,9 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPrese
     
     //MARK: Connection fail alert
     func createAlertView(title: String) {
-        let alertController = UIAlertController(title: title, message: "Press Ok to use offline palettes.", preferredStyle: .alert)
+        let alertController = UIAlertController(title: title, message: "Press OK to use offline palettes.", preferredStyle: .alert)
         
-        let okAction = UIAlertAction(title: "Ok", style: .default, handler: {
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: {
             (action : UIAlertAction!) -> Void in
             
             self.palettesArray.removeAll()
