@@ -14,7 +14,7 @@ struct ColorPalette {
     var colorArray: [String]
 }
 
-class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPresentationControllerDelegate, DropDownDelegate {
+class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPresentationControllerDelegate { //Add DropDownDelegate if want to use downdown menu
     
     var palettesArray = [ColorPalette]()
     var arrayFromPlist = NSMutableArray()
@@ -25,8 +25,8 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPrese
     
     var indicator = UIActivityIndicatorView()
     
-    let dropMenu = DropdownMenu()
-    var dropDownIsShowing: Bool!
+//    let dropMenu = DropdownMenu()
+//    var dropDownIsShowing: Bool!
 
     
     override func viewDidLoad() {
@@ -39,14 +39,14 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPrese
         
         setupSearchController()
         setupNavigationBar()
-        
-        loadingIndicator()
-        createSettingButton()
         createBackButton()
         
-        dropDownIsShowing = false
-        createDropDownMenu()
-        dropMenu.isHidden = true
+        
+//        loadingIndicator()
+//        createSettingButton()
+//        dropDownIsShowing = false
+//        createDropDownMenu()
+//        dropMenu.isHidden = true
         
     }
     
@@ -91,154 +91,154 @@ class AllPalettesTVC: UITableViewController, UISearchBarDelegate, UIPopoverPrese
     }
     
     //MARK: Setting Button
-    func createSettingButton(){
-        let settingButton = UIBarButtonItem(image: #imageLiteral(resourceName: "setting"), style: .plain, target: self, action: #selector(settingAction))
-        self.navigationItem.rightBarButtonItem = settingButton
-        
-    }
+//    func createSettingButton(){
+//        let settingButton = UIBarButtonItem(image: #imageLiteral(resourceName: "setting"), style: .plain, target: self, action: #selector(settingAction))
+//        self.navigationItem.rightBarButtonItem = settingButton
+//        
+//    }
     
-    func settingAction(){
-        
-        if dropDownIsShowing == false{
-            dropMenu.isHidden = false
-            tableView.tableHeaderView?.isUserInteractionEnabled = false
-            dropDownIsShowing = true
-        }else{
-            dropMenu.isHidden = true
-            tableView.tableHeaderView?.isUserInteractionEnabled = true
-            dropDownIsShowing = false
-        }
-
-    }
+//    func settingAction(){
+//        
+//        if dropDownIsShowing == false{
+//            dropMenu.isHidden = false
+//            tableView.tableHeaderView?.isUserInteractionEnabled = false
+//            dropDownIsShowing = true
+//        }else{
+//            dropMenu.isHidden = true
+//            tableView.tableHeaderView?.isUserInteractionEnabled = true
+//            dropDownIsShowing = false
+//        }
+//
+//    }
     
-    func createDropDownMenu(){
-        
-        dropMenu.frame = CGRect(x: self.view.frame.width*2/3, y: (self.tableView.tableHeaderView?.frame.minY)!, width: self.view.bounds.size.width/3, height: self.view.bounds.size.width/5)
-        dropMenu.delegate = self
-        dropMenu.addTableView()
-        dropMenu.layer.zPosition = CGFloat.greatestFiniteMagnitude
-        self.view.addSubview(dropMenu)
-
-    }
+//    func createDropDownMenu(){
+//        
+//        dropMenu.frame = CGRect(x: self.view.frame.width*2/3, y: (self.tableView.tableHeaderView?.frame.minY)!, width: self.view.bounds.size.width/3, height: self.view.bounds.size.width/5)
+//        dropMenu.delegate = self
+//        dropMenu.addTableView()
+//        dropMenu.layer.zPosition = CGFloat.greatestFiniteMagnitude
+//        self.view.addSubview(dropMenu)
+//
+//    }
     
-    func dropDownSelection(index: Int) {
-        
-        dropMenu.isHidden = true
-        dropDownIsShowing = false
-        tableView.tableHeaderView?.isUserInteractionEnabled = true
-        palettesArray.removeAll()
-
-        if index == 0{
-            loadDataFromPlist()
-        }else{
-            let status = Reach().connectionStatus()
-            switch status {
-            case .unknown, .offline:
-                print("Not connected")
-                createAlertView(title: "No internet connection")
-            case .online(.wwan):
-                print("Connected via WWAN")
-                loadDataFromServer()
-            case .online(.wiFi):
-                print("Connected via WiFi")
-                loadDataFromServer()
-            }
-        }
-        
-        tableView.reloadData()
-
-    }
+//    func dropDownSelection(index: Int) {
+//        
+//        dropMenu.isHidden = true
+//        dropDownIsShowing = false
+//        tableView.tableHeaderView?.isUserInteractionEnabled = true
+//        palettesArray.removeAll()
+//
+//        if index == 0{
+//            loadDataFromPlist()
+//        }else{
+//            let status = Reach().connectionStatus()
+//            switch status {
+//            case .unknown, .offline:
+//                print("Not connected")
+//                createAlertView(title: "No internet connection")
+//            case .online(.wwan):
+//                print("Connected via WWAN")
+//                loadDataFromServer()
+//            case .online(.wiFi):
+//                print("Connected via WiFi")
+//                loadDataFromServer()
+//            }
+//        }
+//        
+//        tableView.reloadData()
+//
+//    }
     
     //MARK: Loading Indicator
-    func loadingIndicator(){
-        indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        indicator.activityIndicatorViewStyle = .gray
-        indicator.center = self.view.center
-        self.view.addSubview(indicator)
-    }
+//    func loadingIndicator(){
+//        indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+//        indicator.activityIndicatorViewStyle = .gray
+//        indicator.center = self.view.center
+//        self.view.addSubview(indicator)
+//    }
     
     //MARK: Connection fail alert
-    func createAlertView(title: String) {
-        let alertController = UIAlertController(title: title, message: "Press OK to use offline palettes.", preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: {
-            (action : UIAlertAction!) -> Void in
-            
-            self.palettesArray.removeAll()
-            self.loadDataFromPlist()
-            self.tableView.reloadData()
-            self.indicator.stopAnimating()
-            self.indicator.hidesWhenStopped = true
-            
-        })
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
-            (action : UIAlertAction!) -> Void in
-            
-            self.navigationController?.popToRootViewController(animated: true)
-            
-        })
-        
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
+//    func createAlertView(title: String) {
+//        let alertController = UIAlertController(title: title, message: "Press OK to use offline palettes.", preferredStyle: .alert)
+//        
+//        let okAction = UIAlertAction(title: "OK", style: .default, handler: {
+//            (action : UIAlertAction!) -> Void in
+//            
+//            self.palettesArray.removeAll()
+//            self.loadDataFromPlist()
+//            self.tableView.reloadData()
+//            self.indicator.stopAnimating()
+//            self.indicator.hidesWhenStopped = true
+//            
+//        })
+//        
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+//            (action : UIAlertAction!) -> Void in
+//            
+//            self.navigationController?.popToRootViewController(animated: true)
+//            
+//        })
+//        
+//        alertController.addAction(okAction)
+//        alertController.addAction(cancelAction)
+//        
+//        self.present(alertController, animated: true, completion: nil)
+//    }
     
     //MARK: Lấy dữ liệu từ server truyền vào mảng itemArray
-    func loadDataFromServer() {
-        
-        if palettesArray.count > 0 {
-            return
-        }
-        
-        indicator.startAnimating()
-        indicator.backgroundColor = UIColor.white
-        DispatchQueue.global(qos: .background).async {
-            let url = URL(string: "http://colornd.com/ios/all")
-            do {
-                let allData = try Data(contentsOf: url!)
-                let allColor = try JSONSerialization.jsonObject(with: allData, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject]
-                if let arrJSON = allColor["data"] as? NSArray {
-                    for index in 0..<arrJSON.count
-                    {
-                        let aObject = arrJSON[index] as! [String: AnyObject]
-                        
-                        var item = [String]()
-                        item.append(aObject["color1"]! as! String)
-                        item.append(aObject["color2"]! as! String)
-                        item.append(aObject["color3"]! as! String)
-                        item.append(aObject["color4"]! as! String)
-                        item.append(aObject["color5"]! as! String)
-                        self.palettesArray.append(ColorPalette(colorName: aObject["name"]! as! String, colorArray: item ))
-                        
-                        
-                    }
-                }
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.indicator.stopAnimating()
-                    self.indicator.hidesWhenStopped = true
-                }
-            }
-            catch {
-                self.createAlertView(title: "Cannot connect to server")
-            }
-            
-        }
-        
-        print(palettesArray.count)
-    }
+//    func loadDataFromServer() {
+//        
+//        if palettesArray.count > 0 {
+//            return
+//        }
+//        
+//        indicator.startAnimating()
+//        indicator.backgroundColor = UIColor.white
+//        DispatchQueue.global(qos: .background).async {
+//            let url = URL(string: "http://colornd.com/ios/all")
+//            do {
+//                let allData = try Data(contentsOf: url!)
+//                let allColor = try JSONSerialization.jsonObject(with: allData, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject]
+//                if let arrJSON = allColor["data"] as? NSArray {
+//                    for index in 0..<arrJSON.count
+//                    {
+//                        let aObject = arrJSON[index] as! [String: AnyObject]
+//                        
+//                        var item = [String]()
+//                        item.append(aObject["color1"]! as! String)
+//                        item.append(aObject["color2"]! as! String)
+//                        item.append(aObject["color3"]! as! String)
+//                        item.append(aObject["color4"]! as! String)
+//                        item.append(aObject["color5"]! as! String)
+//                        self.palettesArray.append(ColorPalette(colorName: aObject["name"]! as! String, colorArray: item ))
+//                        
+//                        
+//                    }
+//                }
+//                DispatchQueue.main.async {
+//                    self.tableView.reloadData()
+//                    self.indicator.stopAnimating()
+//                    self.indicator.hidesWhenStopped = true
+//                }
+//            }
+//            catch {
+//                self.createAlertView(title: "Cannot connect to server")
+//            }
+//            
+//        }
+//        
+//        print(palettesArray.count)
+//    }
     
     //MARK: Lấy dữ liệu từ file plist truyền vào mảng itemArray
     func loadDataFromPlist(){
         
-        if palettesArray.count > 0 {
-            return
-        }
+//        if palettesArray.count > 0 {
+//            return
+//        }
         
-        self.indicator.stopAnimating()
-        self.indicator.hidesWhenStopped = true
+//        self.indicator.stopAnimating()
+//        self.indicator.hidesWhenStopped = true
         
         var arrayPalettesFromPlist = NSMutableArray()
         var pathPlist: String = ""

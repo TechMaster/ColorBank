@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -33,9 +33,9 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string></string>
+	<string>Press OK to allow access</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string></string>
+	<string>Press OK to allow access</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
